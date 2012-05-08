@@ -1,0 +1,10 @@
+author: tomjw64
+name: HungerBarGames
+description: Yet another Hunger Games plugin
+version: 1.0
+main: me.tomjw64.HungerBarGames.HungerBarGames
+commands:
+    hbg:
+        usage: /<command> <args>
+        description: HBG commands
+
