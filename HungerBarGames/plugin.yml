@@ -1,4 +1,4 @@
-author: tomjw64
+authors: [tomjw64, HaydenCappldona]
 name: HungerBarGames
 description: Yet another Hunger Games plugin
 version: 1.0
@@ -7,4 +7,5 @@ commands:
     hbg:
         usage: /<command> <args>
         description: HBG commands
+softdepend: [Spout]
 
