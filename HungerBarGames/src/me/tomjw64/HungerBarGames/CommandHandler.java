@@ -18,6 +18,9 @@ public class CommandHandler {
 				case "help":
 					//Show help/commands
 					break;
+				case "reload":
+					//Reload config
+					break;
 			}
 		}
 		//Two argument commands
@@ -25,7 +28,6 @@ public class CommandHandler {
 		{
 			switch(cmd)
 			{
-
 			}
 		}
 		//Three argument commands
@@ -33,7 +35,6 @@ public class CommandHandler {
 		{
 			switch(cmd)
 			{
-
 			}
 		}
 	}
