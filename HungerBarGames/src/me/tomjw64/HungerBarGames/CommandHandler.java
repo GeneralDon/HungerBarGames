@@ -8,6 +8,7 @@ public class CommandHandler {
 	 */
 	public static void handleCommand(CommandSender sender, String[] args)
 	{
-		
+		//The command sent to the plugin
+		String cmd=args[1];
 	}
 }
