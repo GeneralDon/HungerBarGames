@@ -20,6 +20,7 @@ public class BlockEditListener implements Listener{
 	public BlockEditListener(Game gm)
 	{
 		game=gm;
+		Bukkit.getServer().getPluginManager().registerEvents(this, pl);
 	}
 	//On a block break
 	@EventHandler(priority=EventPriority.NORMAL)

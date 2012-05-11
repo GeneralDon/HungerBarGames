@@ -22,6 +22,7 @@ public class PlayerActionListener implements Listener{
 	public PlayerActionListener(Game gm)
 	{
 		game=gm;
+		Bukkit.getServer().getPluginManager().registerEvents(this, pl);
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void death(PlayerDeathEvent death)
