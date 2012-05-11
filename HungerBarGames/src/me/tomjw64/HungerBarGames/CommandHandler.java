@@ -10,5 +10,31 @@ public class CommandHandler {
 	{
 		//The command sent to the plugin
 		String cmd=args[1];
+		//One argument commands
+		if(args.length==1)
+		{
+			switch(cmd)
+			{
+				case "help":
+					//Show help/commands
+					break;
+			}
+		}
+		//Two argument commands
+		else if(args.length==2)
+		{
+			switch(cmd)
+			{
+
+			}
+		}
+		//Three argument commands
+		else if(args.length==3)
+		{
+			switch(cmd)
+			{
+
+			}
+		}
 	}
 }
