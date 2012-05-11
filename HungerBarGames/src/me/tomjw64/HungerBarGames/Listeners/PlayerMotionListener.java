@@ -25,7 +25,7 @@ public class PlayerMotionListener implements Listener{
 	{
 		if(game.isTribute(move.getPlayer()))
 		{
-			
+			int b1=1;
 		}
 	}
 }
