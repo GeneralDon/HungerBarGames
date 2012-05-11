@@ -4,30 +4,25 @@ import me.tomjw64.HungerBarGames.Game;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-public class BlockEditListener implements Listener{
+public class BlockEditListener extends GameListener{
 	/*
 	 * BlockEditListener will listen for block breaking
 	 * and block placing. It will perform necessary actions
 	 * and then proceed to log the change.
 	 */
 	
-	//Game that holds the listener
-	private Game game;
-	
 	public BlockEditListener(Game gm)
 	{
-		game=gm;
-		Bukkit.getServer().getPluginManager().registerEvents(this, pl);
+		super(gm);
 	}
 	//On a block break
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void blockBreak(BlockBreakEvent broken)
 	{
 		//Check if player is in this game
-		if(game.isTribute(broken.getPlayer()))
+		if(getGame().isTribute(broken.getPlayer()))
 		{
 			
 		}
@@ -37,7 +32,7 @@ public class BlockEditListener implements Listener{
 	public void blockPlace(BlockBreakEvent placed)
 	{
 		//Check if player is in this game
-		if(game.isTribute(placed.getPlayer()))
+		if(getGame().isTribute(placed.getPlayer()))
 		{
 			
 		}

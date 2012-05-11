@@ -5,27 +5,24 @@ import me.tomjw64.HungerBarGames.Game;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class PlayerMotionListener implements Listener{
+public class PlayerMotionListener extends GameListener{
 	/*
 	 * PlayerMotionListener listens to PlayerMoveEvent only.
 	 * The listener will only be active during the countdown
 	 * to avoid using resources by always listening to player
 	 * movement.
 	 */
-	//Game that holds the listener
-	private Game game;
+	
 	public PlayerMotionListener(Game gm)
 	{
-		game=gm;
-		Bukkit.getServer().getPluginManager().registerEvents(this, pl);
+		super(gm);
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void move(PlayerMoveEvent move)
 	{
-		if(game.isTribute(move.getPlayer()))
+		if(getGame().isTribute(move.getPlayer()))
 		{
 			Location from=move.getFrom();
 			Location to=move.getTo();

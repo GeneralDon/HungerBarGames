@@ -9,14 +9,12 @@ import me.tomjw64.HungerBarGames.Listeners.PlayerMotionListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 public class Game {
 	/*
 	 * Game actually performs all game actions and checks
 	 * Each game is associated with an area.
 	 * Will also contain listeners for events that affect the game.
-	 * For a future note, to unregister events: HandlerList.unregisterAll(Listener);
 	 */
 	public static HungerBarGames pl;
 	//Players in the game
@@ -33,6 +31,9 @@ public class Game {
 		bel=new BlockEditListener(this);
 		pml=new PlayerMotionListener(this);
 		pal=new PlayerActionListener(this);
+		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
+		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
+		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
