@@ -44,7 +44,14 @@ public class HungerBarGames extends JavaPlugin{
 	{
 		if(cmd.getName().equalsIgnoreCase("hbg"))
 		{
-			CommandHandler.handleCommand(sender,args);
+			if(args.length>0)
+			{
+				CommandHandler.handleCommand(sender,args);
+			}
+			else
+			{
+				//Display plugin info
+			}
 		}
 		return true;
 	}

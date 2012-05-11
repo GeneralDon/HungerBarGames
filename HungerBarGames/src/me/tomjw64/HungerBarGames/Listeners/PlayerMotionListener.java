@@ -20,6 +20,7 @@ public class PlayerMotionListener implements Listener{
 	public PlayerMotionListener(Game gm)
 	{
 		game=gm;
+		Bukkit.getServer().getPluginManager().registerEvents(this, pl);
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void move(PlayerMoveEvent move)

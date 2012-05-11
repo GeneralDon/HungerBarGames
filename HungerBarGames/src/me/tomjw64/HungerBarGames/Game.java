@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public class Game implements Listener{
+public class Game {
 	/*
 	 * Game actually performs all game actions and checks
 	 * Each game is associated with an area.
@@ -33,9 +33,6 @@ public class Game implements Listener{
 		bel=new BlockEditListener(this);
 		pml=new PlayerMotionListener(this);
 		pal=new PlayerActionListener(this);
-		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
-		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
-		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
