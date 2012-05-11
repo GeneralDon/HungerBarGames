@@ -28,8 +28,10 @@ public class PlayerMotionListener implements Listener{
 		{
 			Location from=move.getFrom();
 			Location to=move.getTo();
+			//If player moves a block
 			if(Math.floor(to.getX())!=Math.floor(from.getX())||Math.floor(to.getZ())!=Math.floor(from.getZ()))
 			{
+				//Make player go boom
 				move.getFrom().getWorld().createExplosion(to,0,false);
 				move.getPlayer().setHealth(0);
 			}
