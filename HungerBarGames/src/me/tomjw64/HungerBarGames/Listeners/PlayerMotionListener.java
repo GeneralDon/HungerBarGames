@@ -2,6 +2,7 @@ package me.tomjw64.HungerBarGames.Listeners;
 
 import me.tomjw64.HungerBarGames.Game;
 
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -25,7 +26,13 @@ public class PlayerMotionListener implements Listener{
 	{
 		if(game.isTribute(move.getPlayer()))
 		{
-			int b1=1;
+			Location from=move.getFrom();
+			Location to=move.getTo();
+			if(Math.floor(to.getX())!=Math.floor(from.getX())||Math.floor(to.getZ())!=Math.floor(from.getZ()))
+			{
+				move.getFrom().getWorld().createExplosion(to,0,false);
+				move.getPlayer().setHealth(0);
+			}
 		}
 	}
 }
