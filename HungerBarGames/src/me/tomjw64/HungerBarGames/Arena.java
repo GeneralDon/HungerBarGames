@@ -2,7 +2,6 @@ package me.tomjw64.HungerBarGames;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.block.Chest;
 

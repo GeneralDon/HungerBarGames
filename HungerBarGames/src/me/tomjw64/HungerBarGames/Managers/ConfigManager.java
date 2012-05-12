@@ -21,6 +21,7 @@ public class ConfigManager {
 	//Configuration Options
 	//The displayed plugin prefix
 	private static String prefix;
+	private static String onchat;
 	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
