@@ -21,7 +21,7 @@ public class ConfigManager {
 	//Configuration Options
 	//The displayed plugin prefix
 	private static String prefix;
-	private static String onchat;
+	private static int chatRadius;
 	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
@@ -59,7 +59,7 @@ public class ConfigManager {
 		}
 		
 		//Load configuration options to memory
-		prefix=ChatColor.AQUA+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.AQUA+"]"+ChatColor.WHITE;
+		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"]"+ChatColor.WHITE;
 	}
 	//Get the config
 	public static FileConfiguration getConfig()

@@ -50,11 +50,11 @@ public class HungerBarGames extends JavaPlugin{
 			else
 			{
 				ChatColor YELLOW=ChatColor.YELLOW;
-				ChatColor AQUA=ChatColor.AQUA;
+				ChatColor BLUE=ChatColor.BLUE;
 				ChatColor GREEN=ChatColor.GREEN;
-				sender.sendMessage(YELLOW+"HungerBarGames version "+AQUA+getDescription().getVersion()+YELLOW+".");
+				sender.sendMessage(YELLOW+"HungerBarGames version "+BLUE+getDescription().getVersion()+YELLOW+".");
 				sender.sendMessage(YELLOW+"Made by "+GREEN+"tomjw64"+YELLOW+" and "+GREEN+"HaydenCappadona"+YELLOW+"!");
-				sender.sendMessage(YELLOW+"Type "+AQUA+"/hbg help"+YELLOW+" for HungerBarGames commands!");
+				sender.sendMessage(YELLOW+"Type "+BLUE+"/hbg help"+YELLOW+" for HungerBarGames commands!");
 			}
 		}
 		return true;
