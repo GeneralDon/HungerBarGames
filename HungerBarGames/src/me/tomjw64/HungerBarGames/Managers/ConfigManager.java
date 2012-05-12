@@ -82,6 +82,7 @@ public class ConfigManager {
 		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"]"+ChatColor.WHITE;
 		restrictChat=config.getBoolean("RestrictChat");
 		chatRadius=config.getInt("ChatRadius");
+		onPlayerMove=config.getBoolean("ExplodeOnPlayerMove");
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
