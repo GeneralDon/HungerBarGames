@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -52,4 +54,24 @@ public class PlayerActionListener extends GameListener{
 			}
 		}
 	}
+	@EventHandler(priority=EventPriority.NORMAL)
+	public void foodChange(FoodLevelChangeEvent fc)
+	{
+		if(fc.getEntity() instanceof Player)
+		{
+			if(getGame().inLobby()&&getGame().isTribute((Player)fc.getEntity()))
+			{
+				fc.setCancelled(true);
+			}
+		}
+	}
+	@EventHandler(priority=EventPriority.NORMAL)
+	public void damageAll(EntityDamageEvent dmg)
+	{
+		if(getGame().inLobby()&&getGame().isTribute((Player)dmg.getEntity()))
+		{
+			dmg.setCancelled(true);
+		}
+	}
+
 }

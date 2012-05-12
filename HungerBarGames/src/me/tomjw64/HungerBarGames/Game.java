@@ -10,7 +10,10 @@ import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class Game {
 	/*
@@ -26,8 +29,8 @@ public class Game {
 	private Set<Player> specing=new HashSet<Player>();
 	//Listeners
 	private BlockEditListener bel;
-	private PlayerMotionListener pml;
 	private PlayerActionListener pal;
+	private PlayerMotionListener pml;
 	//Colors
 	private final ChatColor GREEN=ChatColor.GREEN;
 	private final ChatColor RED=ChatColor.RED;
@@ -36,9 +39,11 @@ public class Game {
 	//Plugin prefix
 	private String prefix=ConfigManager.getPrefix();
 	//Lobby/reaping time delay
-	long delay;
+	private long delay;
 	//Whether to repeat the game after it ends
-	boolean repeat;
+	private boolean repeat;
+	//Lobby boolean flag
+	private boolean lobby=true;
 	
 	public Game(HungerBarGames instance, Arena ar, long delaySec)
 	{
@@ -49,10 +54,9 @@ public class Game {
 		pl=instance;
 		//Load event listeners
 		bel=new BlockEditListener(this);
-		pml=new PlayerMotionListener(this);
 		pal=new PlayerActionListener(this);
+		pml=new PlayerMotionListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
-		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
 		//Initialize game variables
 		arena=ar;
@@ -63,14 +67,69 @@ public class Game {
 	//Start the game
 	public void startGame()
 	{
-		pl.getServer().broadcastMessage(prefix+YELLOW+" A game has been started in Arena "+BLUE+arena.getName()+"!");
-		pl.getServer().broadcastMessage(prefix+YELLOW+" Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
-		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
-			public void run()
+		pl.getServer().broadcastMessage(prefix+YELLOW+"A lobby has been started for Arena "+BLUE+arena.getName()+"!");
+		pl.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
+		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable()
 			{
-				
-			}
-		},delay);
+				public void run()
+				{
+					Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
+					startCountdown();
+				}
+			},delay);
+	}
+	//Start countdown
+	public void startCountdown()
+	{
+		String list=GREEN+"Tributes: "+RED;
+		for(Player p:tributes)
+		{
+			list+=p.getName()+", ";
+			int point=0;
+			p.teleport(arena.spawnAt(point));
+			point++;
+			p.getInventory().clear();
+			p.getInventory().setHelmet(new ItemStack(Material.AIR));
+			p.getInventory().setChestplate(new ItemStack(Material.AIR));
+			p.getInventory().setLeggings(new ItemStack(Material.AIR));
+			p.getInventory().setBoots(new ItemStack(Material.AIR));
+			p.setGameMode(GameMode.SURVIVAL);
+			p.setHealth(20);
+			p.setFoodLevel(20);
+			p.setFireTicks(0);
+		}
+		list=list.substring(0,list.length()-1);
+		list=prefix+" "+list;
+		for(Player p:tributes)
+		{
+			p.sendMessage(list);
+			p.sendMessage(prefix+GREEN+"The countdown has begun!");
+			p.sendMessage(prefix+GREEN+"The game begins in 30 seconds!");
+		}
+		lobby=false;
+		pl.getServer().getScheduler().scheduleAsyncRepeatingTask(pl, new Runnable()
+			{
+				int seconds=30;
+				public void run()
+				{
+					if(seconds<11&&seconds>0)
+					{
+						for(Player p:tributes)
+						{
+							p.sendMessage(prefix+GREEN+"The game begins in "+seconds+" seconds!");
+						}
+					}
+					else if(seconds==0)
+					{
+						pl.getServer().broadcastMessage(prefix+YELLOW+"A game has begun in Arena "+BLUE+arena.getName()+"!");
+						for(Player p:tributes)
+						{
+							pml.unregister();
+							p.sendMessage(prefix+GREEN+"May the odds be ever in your favor!");
+						}
+					}
+				}
+			},0L,20L);
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
@@ -101,5 +160,10 @@ public class Game {
 	public void removeSpec(Player p)
 	{
 		specing.remove(p);
+	}
+	//Check if in lobby
+	public boolean inLobby()
+	{
+		return lobby;
 	}
 }

@@ -1,6 +1,7 @@
 package me.tomjw64.HungerBarGames.Listeners;
 
 import me.tomjw64.HungerBarGames.Game;
+import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -29,9 +30,16 @@ public class PlayerMotionListener extends GameListener{
 			//If player moves a block
 			if(Math.floor(to.getX())!=Math.floor(from.getX())||Math.floor(to.getZ())!=Math.floor(from.getZ()))
 			{
-				//Make player go boom
-				move.getFrom().getWorld().createExplosion(to,0,false);
-				move.getPlayer().setHealth(0);
+				if(ConfigManager.getExplode())
+				{
+					//Make player go boom
+					move.getFrom().getWorld().createExplosion(to,0,false);
+					move.getPlayer().setHealth(0);
+				}
+				else
+				{
+					move.setCancelled(true);
+				}
 			}
 		}
 	}

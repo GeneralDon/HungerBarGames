@@ -1,7 +1,10 @@
 package me.tomjw64.HungerBarGames;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Location;
 import org.bukkit.block.Chest;
 
@@ -15,7 +18,7 @@ public class Arena {
 	//Holds player spawn points
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
-	private List<Chest> chests=new ArrayList<Chest>();
+	private Set<Chest> chests=new HashSet<Chest>();
 	//The spectator spawn
 	private Location specPoint;
 	//The lobby spawn
@@ -30,5 +33,9 @@ public class Arena {
 	public String getName()
 	{
 		return name;
+	}
+	public Location spawnAt(int index)
+	{
+		return spawns.get(index);
 	}
 }
