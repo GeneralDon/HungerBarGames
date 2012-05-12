@@ -9,7 +9,7 @@ public class CommandHandler {
 	public static void handleCommand(CommandSender sender, String[] args)
 	{
 		//The command sent to the plugin
-		String cmd=args[1];
+		String cmd=args[0];
 		//One argument commands
 		if(args.length==1)
 		{
@@ -21,6 +21,11 @@ public class CommandHandler {
 				case "reload":
 					//Reload config
 					break;
+				case "arenas":
+					//List arenas
+					break;
+				default:
+					sender.sendMessage("That command doesn't exist!");
 			}
 		}
 		//Two argument commands
@@ -28,6 +33,8 @@ public class CommandHandler {
 		{
 			switch(cmd)
 			{
+				default:
+					sender.sendMessage("That command doesn't exist!");
 			}
 		}
 		//Three argument commands
@@ -35,6 +42,8 @@ public class CommandHandler {
 		{
 			switch(cmd)
 			{
+				default:
+					sender.sendMessage("That command doesn't exist!");
 			}
 		}
 	}
