@@ -21,8 +21,8 @@ public class ConfigManager {
 	//Configuration Options
 	//The displayed plugin prefix
 	private static String prefix;
-	private static int chatradius;
-	private static Boolean restrictchat;
+	private static int chatRadius;
+	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
 	{
@@ -58,24 +58,6 @@ public class ConfigManager {
 			saveConfig();
 		}
 		
-		if(!config.contains("RestrictChat"))
-		{
-			config.createSection("RestrictChat");
-			config.set("RestrictChat", "false");
-			saveConfig();
-		}
-		
-		if(!config.contains("ChatRadius"))
-		{
-			config.createSection("ChatRadius");
-			config.set("ChatRadius", "30");
-			saveConfig();
-		}
-	
-	//Load configuration options to memory
-	prefix="["+config.getString("Prefix")+"]";
-	prefix="["+config.getString("ChatRadius")+"]";
-	prefix="["+config.getBoolean("RestrictChat")+"]";
 		//Load configuration options to memory
 		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"]"+ChatColor.WHITE;
 	}
@@ -106,8 +88,9 @@ public class ConfigManager {
 	{
 		return prefix;
 	}
-	public ConfigManager()
+	//Get chat radius restriction
+	public static int getChatRadius()
 	{
-		
+		return chatRadius;
 	}
 }
