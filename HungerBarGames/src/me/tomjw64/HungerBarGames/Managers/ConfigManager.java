@@ -17,6 +17,9 @@ public class ConfigManager {
 	 */
 	private static File configFile;
 	private static FileConfiguration config;
+	//Configuration Options
+	//The displayed plugin prefix
+	private static String prefix;
 	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
@@ -43,6 +46,18 @@ public class ConfigManager {
 		} catch (Exception wtf) {
 			wtf.printStackTrace();
 		}
+		
+		
+		//Check for missing config options and set defaults
+		if(!config.contains("Prefix"))
+		{
+			config.createSection("Prefix");
+			config.set("Prefix", "HBG");
+			saveConfig();
+		}
+		
+		//Load configuration options to memory
+		prefix="["+config.getString("Prefix")+"]";
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
@@ -57,5 +72,10 @@ public class ConfigManager {
 		} catch (IOException wtf) {
 			wtf.printStackTrace();
 		}
+	}
+	//Get the plugin's prefix
+	public static String getPrefix()
+	{
+		return prefix;
 	}
 }
