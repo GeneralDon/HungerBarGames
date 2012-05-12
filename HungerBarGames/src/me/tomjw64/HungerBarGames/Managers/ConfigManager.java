@@ -80,4 +80,9 @@ public class ConfigManager {
 	{
 		return prefix;
 	}
+	//Get chat radius restriction
+	public static int getChatRadius()
+	{
+		return chatRadius;
+	}
 }
