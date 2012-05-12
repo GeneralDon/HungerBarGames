@@ -48,19 +48,30 @@ public class ConfigManager {
 			HungerBarGames.logger.info("["+pdf.getName()+"] Loading config!");
 		} catch (Exception wtf) {
 			wtf.printStackTrace();
-		}
-		
+		}		
 		
 		//Check for missing config options and set defaults
 		if(!config.contains("Prefix"))
 		{
 			config.createSection("Prefix");
 			config.set("Prefix", "HBG");
-			saveConfig();
 		}
+		if(!config.contains("RestrictChat"))
+		{
+			config.createSection("RestrictChat");
+			config.set("RestrictChat", false);
+		}
+		if(!config.contains("ChatRadius"))
+		{
+			config.createSection("ChatRadius");
+			config.set("ChatRadius", 30);
+		}
+		saveConfig();
 		
 		//Load configuration options to memory
 		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"]"+ChatColor.WHITE;
+		restrictChat=config.getBoolean("RestrictChat");
+		chatRadius=config.getInt("ChatRadius");
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
@@ -80,7 +91,7 @@ public class ConfigManager {
 	{
 		return chatRadius;
 	}
-	public static Boolean restrictchat()
+	public static boolean restrictchat()
 	{
 		return restrictChat;
 	}
