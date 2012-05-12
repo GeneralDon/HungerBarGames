@@ -25,14 +25,7 @@ public class CommandHandler {
 					//List arenas
 					break;
 				case "select":
-					if args[2].getArenas().compareToIgnoreCase(getArenas).equals(true) 
-					{
-						
-					}
-					else
-					{
-						sendPlayerMessage(ChatColor.RED + "Sorry " + getArgs[2] + "was not found!");
-					}
+					//Select arena, and set to player in a map
 					break;
 				default:
 					sender.sendMessage("That command doesn't exist!");
