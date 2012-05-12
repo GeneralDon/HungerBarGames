@@ -23,6 +23,8 @@ public class ConfigManager {
 	private static String prefix;
 	private static int chatRadius;
 	private static boolean restrictChat;
+	private static boolean onPlayerMove;
+	
 	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
@@ -66,6 +68,10 @@ public class ConfigManager {
 			config.createSection("ChatRadius");
 			config.set("ChatRadius", 30);
 		}
+		{
+			config.createSection("ChatRadius");
+			config.set("ChatRadius", 30);
+		}
 		saveConfig();
 		
 		//Load configuration options to memory
@@ -101,5 +107,11 @@ public class ConfigManager {
 	public static int getChatRadius()
 	{
 		return chatRadius;
+	}
+	//
+	
+	public static boolean getExplode()
+	{
+		return onPlayerMove;
 	}
 }
