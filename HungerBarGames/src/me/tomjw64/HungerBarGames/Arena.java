@@ -18,6 +18,8 @@ public class Arena {
 	private List<Chest> chests=new ArrayList<Chest>();
 	//The spectator spawn
 	private Location specPoint;
+	//The lobby spawn
+	private Location lobbyPoint;
 	//The maximum players set for this arena
 	private int maxPlayers;
 	//The minimum players set for this arena

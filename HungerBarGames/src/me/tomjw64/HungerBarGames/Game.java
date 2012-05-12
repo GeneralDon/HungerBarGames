@@ -31,12 +31,20 @@ public class Game {
 	//Colors
 	private final ChatColor GREEN=ChatColor.GREEN;
 	private final ChatColor RED=ChatColor.RED;
-	private final ChatColor AQUA=ChatColor.AQUA;
+	private final ChatColor BLUE=ChatColor.BLUE;
 	private final ChatColor YELLOW=ChatColor.YELLOW;
 	//Plugin prefix
 	private String prefix=ConfigManager.getPrefix();
+	//Lobby/reaping time delay
+	long delay;
+	//Whether to repeat the game after it ends
+	boolean repeat;
 	
-	public Game(HungerBarGames instance)
+	public Game(HungerBarGames instance, Arena ar, long delaySec)
+	{
+		 this(instance,ar,delaySec,false);
+	}
+	public Game(HungerBarGames instance, Arena ar,long delaySec, boolean rpt)
 	{
 		pl=instance;
 		//Load event listeners
@@ -46,7 +54,23 @@ public class Game {
 		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
-		pl.getServer().broadcastMessage(prefix+YELLOW+" A game has been started in Arena "+ChatColor.RED+arena.getName()+RED+"!");
+		//Initialize game variables
+		arena=ar;
+		delay=delaySec*20;
+		repeat=rpt;
+		startGame();
+	}
+	//Start the game
+	public void startGame()
+	{
+		pl.getServer().broadcastMessage(prefix+YELLOW+" A game has been started in Arena "+BLUE+arena.getName()+"!");
+		pl.getServer().broadcastMessage(prefix+YELLOW+" Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
+		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
+			public void run()
+			{
+				
+			}
+		},delay);
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
