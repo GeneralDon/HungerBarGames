@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerActionListener extends GameListener{
@@ -52,9 +51,5 @@ public class PlayerActionListener extends GameListener{
 				dmg.setCancelled(true);
 			}
 		}
-	}
-	@EventHandler(priority=EventPriority.NORMAL)
-	public void onPlayerChat(PlayerChatEvent event) {
-		
 	}
 }
