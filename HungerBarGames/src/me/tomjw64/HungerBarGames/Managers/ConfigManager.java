@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -22,7 +23,6 @@ public class ConfigManager {
 	private static String prefix;
 	private static int chatradius;
 	private static Boolean restrictchat;
-	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
 	{
@@ -76,8 +76,9 @@ public class ConfigManager {
 	prefix="["+config.getString("Prefix")+"]";
 	prefix="["+config.getString("ChatRadius")+"]";
 	prefix="["+config.getBoolean("RestrictChat")+"]";
+		//Load configuration options to memory
+		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"]"+ChatColor.WHITE;
 	}
-	
 	//Get the config
 	public static FileConfiguration getConfig()
 	{
@@ -92,26 +93,19 @@ public class ConfigManager {
 			wtf.printStackTrace();
 		}
 	}
-	
-	
 	public static int chatradius()
 	{
 		return chatradius;
-		
 	}
-	
 	public static Boolean restrictchat()
 	{
 		return restrictchat;
-		
 	}
-	
 	//Get the plugin's prefix
 	public static String getPrefix()
 	{
 		return prefix;
 	}
-	
 	public ConfigManager()
 	{
 		
