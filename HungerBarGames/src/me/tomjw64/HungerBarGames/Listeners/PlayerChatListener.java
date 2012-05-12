@@ -5,12 +5,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerChatEvent;
 
 public class PlayerChatListener {
-	
+
 	@EventHandler(priority=EventPriority.NORMAL)
-	public void Chat(PlayerChatEvent event) {
-		
-		
+	public void Chat(PlayerChatEvent event)
+	{
 		
 	}
-	
 }

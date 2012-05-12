@@ -20,7 +20,8 @@ public class ConfigManager {
 	//Configuration Options
 	//The displayed plugin prefix
 	private static String prefix;
-	private static String onchat;
+	private static int chatradius;
+	private static Boolean restrictchat;
 	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
@@ -57,9 +58,26 @@ public class ConfigManager {
 			saveConfig();
 		}
 		
-		//Load configuration options to memory
-		prefix="["+config.getString("Prefix")+"]";
+		if(!config.contains("RestrictChat"))
+		{
+			config.createSection("RestrictChat");
+			config.set("RestrictChat", "false");
+			saveConfig();
+		}
+		
+		if(!config.contains("ChatRadius"))
+		{
+			config.createSection("ChatRadius");
+			config.set("ChatRadius", "30");
+			saveConfig();
+		}
+	
+	//Load configuration options to memory
+	prefix="["+config.getString("Prefix")+"]";
+	prefix="["+config.getString("ChatRadius")+"]";
+	prefix="["+config.getBoolean("RestrictChat")+"]";
 	}
+	
 	//Get the config
 	public static FileConfiguration getConfig()
 	{
@@ -74,9 +92,28 @@ public class ConfigManager {
 			wtf.printStackTrace();
 		}
 	}
+	
+	
+	public static int chatradius()
+	{
+		return chatradius;
+		
+	}
+	
+	public static Boolean restrictchat()
+	{
+		return restrictchat;
+		
+	}
+	
 	//Get the plugin's prefix
 	public static String getPrefix()
 	{
 		return prefix;
+	}
+	
+	public ConfigManager()
+	{
+		
 	}
 }
