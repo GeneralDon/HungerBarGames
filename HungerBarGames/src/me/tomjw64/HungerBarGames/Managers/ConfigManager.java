@@ -21,8 +21,11 @@ public class ConfigManager {
 	//Configuration Options
 	//The displayed plugin prefix
 	private static String prefix;
-	private static int chatRadius;
+	//Whether to restrict chat
 	private static boolean restrictChat;
+	//Restricted chat radius
+	private static int chatRadius;
+	//Whether or not for people to explode when moving during countdown
 	private static boolean onPlayerMove;
 	
 	
@@ -109,8 +112,7 @@ public class ConfigManager {
 	{
 		return chatRadius;
 	}
-	//
-	
+	//Gets onPlayerMove action
 	public static boolean getExplode()
 	{
 		return onPlayerMove;
