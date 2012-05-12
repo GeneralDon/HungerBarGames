@@ -68,9 +68,10 @@ public class ConfigManager {
 			config.createSection("ChatRadius");
 			config.set("ChatRadius", 30);
 		}
+		if(!config.contains("ExplodeOnPlayerMove"))
 		{
-			config.createSection("ChatRadius");
-			config.set("ChatRadius", 30);
+			config.createSection("ExplodeOnPlayerMove");
+			config.set("ExplodeOnPlayerMove", "false");
 		}
 		saveConfig();
 		
