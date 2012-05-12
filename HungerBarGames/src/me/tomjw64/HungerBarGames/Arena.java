@@ -25,4 +25,9 @@ public class Arena {
 	private int minPlayers;
 	//Game being played in this arena
 	private Game game;
+	
+	public String getName()
+	{
+		return name;
+	}
 }

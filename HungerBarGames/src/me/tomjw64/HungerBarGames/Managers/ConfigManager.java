@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -57,7 +58,7 @@ public class ConfigManager {
 		}
 		
 		//Load configuration options to memory
-		prefix="["+config.getString("Prefix")+"]";
+		prefix=ChatColor.AQUA+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.AQUA+"]"+ChatColor.WHITE;
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
