@@ -87,18 +87,15 @@ public class ConfigManager {
 			wtf.printStackTrace();
 		}
 	}
-	public static int chatradius()
-	{
-		return chatRadius;
-	}
-	public static boolean restrictchat()
-	{
-		return restrictChat;
-	}
 	//Get the plugin's prefix
 	public static String getPrefix()
 	{
 		return prefix;
+	}
+	//Get if chat is restricted
+	public static boolean getChatRestricted()
+	{
+		return restrictChat;
 	}
 	//Get chat radius restriction
 	public static int getChatRadius()
