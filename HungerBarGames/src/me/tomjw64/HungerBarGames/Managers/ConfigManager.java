@@ -22,6 +22,7 @@ public class ConfigManager {
 	//The displayed plugin prefix
 	private static String prefix;
 	private static int chatRadius;
+	private static boolean restrictChat;
 	
 	//Call onEnable for initialization
 	public static void loadConfig(HungerBarGames pl)
@@ -77,11 +78,11 @@ public class ConfigManager {
 	}
 	public static int chatradius()
 	{
-		return chatradius;
+		return chatRadius;
 	}
 	public static Boolean restrictchat()
 	{
-		return restrictchat;
+		return restrictChat;
 	}
 	//Get the plugin's prefix
 	public static String getPrefix()
