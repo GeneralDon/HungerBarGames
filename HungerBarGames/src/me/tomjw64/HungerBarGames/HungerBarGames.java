@@ -56,3 +56,5 @@ public class HungerBarGames extends JavaPlugin{
 		return true;
 	}
 }
+
+/* TEST */
