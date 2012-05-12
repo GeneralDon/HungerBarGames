@@ -1,7 +1,7 @@
 /*
  * HungerBarGames
  * A Hunger Games plugin for bukkit
- * By tomjw64 and HaydenCappldona
+ * By tomjw64 and HaydenCappadona
  */
 
 package me.tomjw64.HungerBarGames;
@@ -53,8 +53,8 @@ public class HungerBarGames extends JavaPlugin{
 				ChatColor AQUA=ChatColor.AQUA;
 				ChatColor GREEN=ChatColor.GREEN;
 				sender.sendMessage(YELLOW+"HungerBarGames version "+AQUA+getDescription().getVersion()+YELLOW+".");
-				sender.sendMessage(YELLOW+"Made by "+GREEN+"tomjw64"+YELLOW+" and "+GREEN+"HaydenCappldona"+YELLOW+"!");
-				sender.sendMessage("Type "+AQUA+"/hbg help"+YELLOW+" for HungerBarGames commands!");
+				sender.sendMessage(YELLOW+"Made by "+GREEN+"tomjw64"+YELLOW+" and "+GREEN+"HaydenCappadona"+YELLOW+"!");
+				sender.sendMessage(YELLOW+"Type "+AQUA+"/hbg help"+YELLOW+" for HungerBarGames commands!");
 			}
 		}
 		return true;
