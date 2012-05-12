@@ -26,7 +26,6 @@ public class Game {
 	private Arena arena;
 	//Players in the game
 	private Set<Player> tributes=new HashSet<Player>();
-	private Set<Player> specing=new HashSet<Player>();
 	//Listeners
 	private BlockEditListener bel;
 	private PlayerActionListener pal;
@@ -38,18 +37,18 @@ public class Game {
 	private final ChatColor YELLOW=ChatColor.YELLOW;
 	//Plugin prefix
 	private String prefix=ConfigManager.getPrefix();
-	//Lobby/reaping time delay
+	//Time delays
 	private long delay;
+	private int countdown;
+	//Countdown task ID
+	private int taskID;
 	//Whether to repeat the game after it ends
 	private boolean repeat;
-	//Lobby boolean flag
-	private boolean lobby=true;
+	//Lobby boolean flags
+	private boolean lobby;
+	private boolean notEnoughPlayers=false;
 	
-	public Game(HungerBarGames instance, Arena ar, long delaySec)
-	{
-		 this(instance,ar,delaySec,false);
-	}
-	public Game(HungerBarGames instance, Arena ar,long delaySec, boolean rpt)
+	public Game(HungerBarGames instance, Arena ar, boolean rpt)
 	{
 		pl=instance;
 		//Load event listeners
@@ -59,8 +58,10 @@ public class Game {
 		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
 		//Initialize game variables
+		lobby=true;
 		arena=ar;
-		delay=delaySec*20;
+		delay=ConfigManager.getDelay()*20;
+		countdown=ConfigManager.getCountdown();
 		repeat=rpt;
 		startGame();
 	}
@@ -74,20 +75,33 @@ public class Game {
 				public void run()
 				{
 					Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
-					startCountdown();
+					if(getNumTributes()<arena.getMinPlayers())
+					{
+						startCountdown();
+					}
+					else
+					{
+						for(Player p:tributes)
+						{
+							p.sendMessage(prefix+RED+"There are not enough players in the game!");
+							p.sendMessage(prefix+RED+"Have "+getNumTributes()+"/"+arena.getMinPlayers()+" players needed to start!");
+							p.sendMessage(prefix+RED+"The game will start when enough players have joined!");
+							notEnoughPlayers=true;
+						}
+					}
 				}
 			},delay);
 	}
 	//Start countdown
 	public void startCountdown()
 	{
+		lobby=false;
 		String list=GREEN+"Tributes: "+RED;
 		for(Player p:tributes)
 		{
 			list+=p.getName()+", ";
 			int point=0;
 			p.teleport(arena.spawnAt(point));
-			point++;
 			p.getInventory().clear();
 			p.getInventory().setHelmet(new ItemStack(Material.AIR));
 			p.getInventory().setChestplate(new ItemStack(Material.AIR));
@@ -97,6 +111,7 @@ public class Game {
 			p.setHealth(20);
 			p.setFoodLevel(20);
 			p.setFireTicks(0);
+			point++;
 		}
 		list=list.substring(0,list.length()-1);
 		list=prefix+" "+list;
@@ -104,32 +119,43 @@ public class Game {
 		{
 			p.sendMessage(list);
 			p.sendMessage(prefix+GREEN+"The countdown has begun!");
-			p.sendMessage(prefix+GREEN+"The game begins in 30 seconds!");
+			p.sendMessage(prefix+GREEN+"The game begins in "+countdown+" seconds!");
 		}
 		lobby=false;
-		pl.getServer().getScheduler().scheduleAsyncRepeatingTask(pl, new Runnable()
+		taskID=pl.getServer().getScheduler().scheduleAsyncRepeatingTask(pl, new Runnable()
 			{
-				int seconds=30;
 				public void run()
 				{
-					if(seconds<11&&seconds>0)
+					if((countdown<11||countdown%10==0)&&countdown>0)
 					{
 						for(Player p:tributes)
 						{
-							p.sendMessage(prefix+GREEN+"The game begins in "+seconds+" seconds!");
+							p.sendMessage(prefix+GREEN+"The game begins in "+countdown+" seconds!");
 						}
 					}
-					else if(seconds==0)
+					else if(countdown==0)
 					{
 						pl.getServer().broadcastMessage(prefix+YELLOW+"A game has begun in Arena "+BLUE+arena.getName()+"!");
+						pml.unregister();
+						pml=null;
 						for(Player p:tributes)
 						{
-							pml.unregister();
 							p.sendMessage(prefix+GREEN+"May the odds be ever in your favor!");
 						}
 					}
+					countdown--;
 				}
 			},0L,20L);
+	}
+	//Ends the game
+	public void endGame()
+	{
+		pl.getServer().getScheduler().cancelTask(taskID);
+		bel.unregister();
+		bel=null;
+		pal.unregister();
+		pal=null;
+		arena.endGame(repeat);
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
@@ -139,27 +165,45 @@ public class Game {
 	//Add a player to the game
 	public void addTribute(Player p)
 	{
-		tributes.add(p);
+		if(getNumTributes()<arena.getMaxPlayers()&&lobby)
+		{
+			tributes.add(p);
+			p.sendMessage(prefix+YELLOW+"You have joined the game in Arena "+BLUE+arena.getName()+"!");
+			p.sendMessage(prefix+YELLOW+"This game has "+BLUE+getNumTributes()+"/"+arena.getMaxPlayers()+YELLOW+" players!");
+			p.getInventory().clear();
+			p.getInventory().setHelmet(new ItemStack(Material.AIR));
+			p.getInventory().setChestplate(new ItemStack(Material.AIR));
+			p.getInventory().setLeggings(new ItemStack(Material.AIR));
+			p.getInventory().setBoots(new ItemStack(Material.AIR));
+			p.setGameMode(GameMode.SURVIVAL);
+			p.setHealth(20);
+			p.setFoodLevel(20);
+			p.setFireTicks(0);
+			p.teleport(arena.getLobby());
+			if(notEnoughPlayers&&getNumTributes()>=arena.getMinPlayers())
+			{
+				notEnoughPlayers=false;
+				startCountdown();
+			}
+		}
+		else if(getNumTributes()>=arena.getMaxPlayers())
+		{
+			p.sendMessage(prefix+RED+"There is not enough room in the game!");
+		}
+		else if(!lobby)
+		{
+			p.sendMessage(prefix+RED+"The game has already been started!");
+		}
 	}
 	//Remove a player from the game
 	public void removeTribute(Player p)
 	{
 		tributes.remove(p);
 	}
-	//Check if a player is in a game
-	public boolean isSpec(Player p)
+	//Returns the current number or tributes
+	public int getNumTributes()
 	{
-		return specing.contains(p);
-	}
-	//Add a player to the game
-	public void addSpec(Player p)
-	{
-		specing.add(p);
-	}
-	//Remove a player from the game
-	public void removeSpec(Player p)
-	{
-		specing.remove(p);
+		return tributes.size();
 	}
 	//Check if in lobby
 	public boolean inLobby()

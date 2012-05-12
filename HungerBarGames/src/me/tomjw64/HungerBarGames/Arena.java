@@ -13,6 +13,7 @@ public class Arena {
 	 * Arena handles all arena specific data
 	 * such as spawn points and chests.
 	 */
+	private HungerBarGames pl;
 	//Name of arena
 	private String name;
 	//Holds player spawn points
@@ -30,9 +31,40 @@ public class Arena {
 	//Game being played in this arena
 	private Game game;
 	
+	public void startGame(boolean repeat)
+	{
+		game=new Game(pl,this,repeat);
+	}
+	public void endGame(boolean repeat)
+	{
+		if(repeat)
+		{
+			game=new Game(pl,this,repeat);
+		}
+		else
+		{
+			game=null;
+		}
+	}
 	public String getName()
 	{
 		return name;
+	}
+	public Game getGame()
+	{
+		return game;
+	}
+	public int getMaxPlayers()
+	{
+		return maxPlayers;
+	}
+	public int getMinPlayers()
+	{
+		return minPlayers;
+	}
+	public Location getLobby()
+	{
+		return lobbyPoint;
 	}
 	public Location spawnAt(int index)
 	{

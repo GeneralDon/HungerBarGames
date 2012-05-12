@@ -31,6 +31,9 @@ public class ConfigManager {
 	private static int countdown;
 	//Lobby delay between rounds
 	private static long delay;
+	//Arena defaults
+	private static int defaultMax;
+	private static int defaultMin;
 	
 	
 	//Call onEnable for initialization
@@ -90,15 +93,27 @@ public class ConfigManager {
 			config.createSection("Delay");
 			config.set("Delay", 120);
 		}
+		if(!config.contains("DefaultMax"))
+		{
+			config.createSection("DefaultMax");
+			config.set("DefaultMax", 24);
+		}
+		if(!config.contains("DefaultMin"))
+		{
+			config.createSection("DefaultMin");
+			config.set("DefaultMin", 12);
+		}
 		saveConfig();
 		
 		//Load configuration options to memory
-		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"]"+ChatColor.WHITE;
+		prefix=ChatColor.BLUE+"["+ChatColor.YELLOW+config.getString("Prefix")+ChatColor.BLUE+"] "+ChatColor.WHITE;
 		restrictChat=config.getBoolean("RestrictChat");
 		chatRadius=config.getInt("ChatRadius");
 		onPlayerMove=config.getBoolean("ExplodeOnPlayerMove");
 		countdown=config.getInt("Countdown");
 		delay=config.getLong("Delay");
+		defaultMax=config.getInt("DefaultMax");
+		defaultMin=config.getInt("DefaultMin");
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
@@ -143,5 +158,15 @@ public class ConfigManager {
 	public static long getDelay()
 	{
 		return delay;
+	}
+	//Gets defualt max players
+	public static int getMaxPlayers()
+	{
+		return defaultMax;
+	}
+	//Gets defualt min players
+	public static int getMinPlayers()
+	{
+		return defaultMin;
 	}
 }
