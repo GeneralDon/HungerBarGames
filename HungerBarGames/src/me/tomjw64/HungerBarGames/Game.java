@@ -34,6 +34,7 @@ public class Game {
 		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
+		
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
