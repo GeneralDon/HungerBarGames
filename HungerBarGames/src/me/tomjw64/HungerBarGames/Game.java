@@ -96,7 +96,7 @@ public class Game {
 	public void startCountdown()
 	{
 		lobby=false;
-		String list=GREEN+"Tributes: "+RED;
+		String list=prefix+GREEN+"Tributes: "+RED;
 		for(Player p:tributes)
 		{
 			list+=p.getName()+", ";
@@ -114,7 +114,6 @@ public class Game {
 			point++;
 		}
 		list=list.substring(0,list.length()-1);
-		list=prefix+" "+list;
 		for(Player p:tributes)
 		{
 			p.sendMessage(list);
