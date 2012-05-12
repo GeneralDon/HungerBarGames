@@ -27,6 +27,10 @@ public class ConfigManager {
 	private static int chatRadius;
 	//Whether or not for people to explode when moving during countdown
 	private static boolean onPlayerMove;
+	//Countdown time for games
+	private static int countdown;
+	//Lobby delay between rounds
+	private static long delay;
 	
 	
 	//Call onEnable for initialization
@@ -76,6 +80,16 @@ public class ConfigManager {
 			config.createSection("ExplodeOnPlayerMove");
 			config.set("ExplodeOnPlayerMove", "false");
 		}
+		if(!config.contains("Countdown"))
+		{
+			config.createSection("Countdown");
+			config.set("Countdown", 30);
+		}
+		if(!config.contains("Delay"))
+		{
+			config.createSection("Delay");
+			config.set("Delay", 120);
+		}
 		saveConfig();
 		
 		//Load configuration options to memory
@@ -83,6 +97,8 @@ public class ConfigManager {
 		restrictChat=config.getBoolean("RestrictChat");
 		chatRadius=config.getInt("ChatRadius");
 		onPlayerMove=config.getBoolean("ExplodeOnPlayerMove");
+		countdown=config.getInt("Countdown");
+		delay=config.getLong("Delay");
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
@@ -117,5 +133,15 @@ public class ConfigManager {
 	public static boolean getExplode()
 	{
 		return onPlayerMove;
+	}
+	//Gets the countdown time
+	public static int getCountdown()
+	{
+		return countdown;
+	}
+	//Gets the delay between rounds
+	public static long getDelay()
+	{
+		return delay;
 	}
 }
