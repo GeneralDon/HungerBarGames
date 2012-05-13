@@ -168,7 +168,7 @@ public class CommandHandler {
 						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
 					}
 					break;
-				case "spawn":
+				case "setspawn":
 					//Set lobby point
 					if(sender instanceof Player)
 					{
