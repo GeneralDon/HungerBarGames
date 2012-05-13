@@ -27,8 +27,10 @@ public class PlayerMotionListener extends GameListener{
 		{
 			Location from=move.getFrom();
 			Location to=move.getTo();
+			double x=Math.floor(from.getX());
+			double z=Math.floor(from.getZ());
 			//If player moves a block
-			if(Math.floor(to.getX())!=Math.floor(from.getX())||Math.floor(to.getZ())!=Math.floor(from.getZ()))
+			if(Math.floor(to.getX())!=x||Math.floor(to.getZ())!=z)
 			{
 				if(ConfigManager.getExplode())
 				{
@@ -38,7 +40,10 @@ public class PlayerMotionListener extends GameListener{
 				}
 				else
 				{
-					move.setCancelled(true);
+					//Cancel movement
+					x+=.5;
+					z+=.5;
+					move.getPlayer().teleport(new Location(from.getWorld(),x,from.getY(),z,from.getYaw(),from.getPitch()));
 				}
 			}
 		}

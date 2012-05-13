@@ -119,7 +119,6 @@ public class Game {
 		{
 			p.sendMessage(list);
 			p.sendMessage(prefix+GREEN+"The countdown has begun!");
-			p.sendMessage(prefix+GREEN+"The game begins in "+countdown+" seconds!");
 		}
 		taskID=pl.getServer().getScheduler().scheduleAsyncRepeatingTask(pl, new Runnable()
 			{
