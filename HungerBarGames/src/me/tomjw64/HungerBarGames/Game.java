@@ -69,7 +69,7 @@ public class Game {
 	//Start the game
 	public void startGame()
 	{
-		pl.getServer().broadcastMessage(prefix+YELLOW+"A lobby has been started for Arena "+BLUE+arena.getName()+"!");
+		pl.getServer().broadcastMessage(prefix+YELLOW+"A lobby has been started for arena "+BLUE+arena.getName()+"!");
 		pl.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
 		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable()
 			{
@@ -133,7 +133,7 @@ public class Game {
 					}
 					else if(countdown==0)
 					{
-						pl.getServer().broadcastMessage(prefix+YELLOW+"A game has begun in Arena "+BLUE+arena.getName()+"!");
+						pl.getServer().broadcastMessage(prefix+YELLOW+"A game has begun in arena "+BLUE+arena.getName()+"!");
 						pml.unregister();
 						pml=null;
 						for(Player p:tributes)
@@ -155,6 +155,12 @@ public class Game {
 		pal=null;
 		arena.endGame(repeat);
 	}
+	//Declares a winner, then ends game
+	public void declareWinner(Player p)
+	{
+		pl.getServer().broadcastMessage(prefix+YELLOW+"Player "+BLUE+p.getName()+YELLOW+"has won the game in arena "+BLUE+arena.getName()+"!");
+		//TODO: Give rewards
+	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
 	{
@@ -167,7 +173,7 @@ public class Game {
 		{
 			tributes.add(p);
 			GamesManager.setInGame(p,true);
-			p.sendMessage(prefix+YELLOW+"You have joined the game in Arena "+BLUE+arena.getName()+"!");
+			p.sendMessage(prefix+YELLOW+"You have joined the game in arena "+BLUE+arena.getName()+"!");
 			p.sendMessage(prefix+YELLOW+"This game has "+BLUE+getNumTributes()+"/"+arena.getMaxPlayers()+YELLOW+" players!");
 			p.getInventory().clear();
 			p.getInventory().setHelmet(new ItemStack(Material.AIR));
@@ -204,6 +210,11 @@ public class Game {
 	public int getNumTributes()
 	{
 		return tributes.size();
+	}
+	//Returns the list of tributes
+	public Set<Player> getTributes()
+	{
+		return tributes;
 	}
 	//Check if in lobby
 	public boolean inLobby()

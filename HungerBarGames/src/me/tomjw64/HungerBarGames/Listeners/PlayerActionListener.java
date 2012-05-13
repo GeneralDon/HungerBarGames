@@ -28,11 +28,15 @@ public class PlayerActionListener extends GameListener{
 		if(getGame().isTribute(death.getEntity()))
 		{
 			Player dead=death.getEntity();
-			getGame().removeTribute(dead);
 			dead.getWorld().strikeLightning(dead.getLocation().add(0, 100, 0));
 			death.setDeathMessage(null);
 			//TODO: stuff for death message
-			
+			getGame().removeTribute(dead);
+			if(getGame().getNumTributes()==1)
+			{
+				Player winner=(Player)getGame().getTributes().toArray()[0];
+				getGame().declareWinner(winner);
+			}
 		}
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
@@ -41,10 +45,15 @@ public class PlayerActionListener extends GameListener{
 		if(getGame().isTribute(quit.getPlayer()))
 		{
 			Player quitter=quit.getPlayer();
-			getGame().removeTribute(quitter);
 			quitter.getWorld().strikeLightning(quitter.getLocation().add(0, 100, 0));
 			quit.setQuitMessage(null);
 			//TODO: Do stuff with quit message
+			getGame().removeTribute(quitter);
+			if(getGame().getNumTributes()==1)
+			{
+				Player winner=(Player)getGame().getTributes().toArray()[0];
+				getGame().declareWinner(winner);
+			}
 		}
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
