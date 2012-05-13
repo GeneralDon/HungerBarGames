@@ -80,7 +80,7 @@ public class DataManager {
 				float pitch=Float.parseFloat(data[4]);
 				spawns.add(new Location(w,x,y,z,yaw,pitch));
 			}
-			GamesManager.addArena(new Arena(pl,s,w,database.getInt(path+"Min"),database.getInt("Max"),lobby,spec,spawns));
+			GamesManager.addArena(new Arena(pl,s,w,database.getInt(path+"Max"),database.getInt("Min"),lobby,spec,spawns));
 		}
 	}
 	//Get the database
