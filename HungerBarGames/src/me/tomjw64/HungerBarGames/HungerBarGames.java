@@ -45,7 +45,7 @@ public class HungerBarGames extends JavaPlugin{
 		{
 			if(args.length>0)
 			{
-				CommandHandler.handleCommand(sender,args);
+				CommandHandler.handleCommand(this,sender,args);
 			}
 			else
 			{

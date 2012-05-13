@@ -24,7 +24,7 @@ public class CommandHandler {
 	//Player, selection associations
 	private static Map<CommandSender,Arena> selection=new HashMap<CommandSender,Arena>();
 	
-	public static void handleCommand(CommandSender sender, String[] args)
+	public static void handleCommand(HungerBarGames pl,CommandSender sender, String[] args)
 	{
 		//Plugin prefix
 		String prefix=ConfigManager.getPrefix();
@@ -151,7 +151,8 @@ public class CommandHandler {
 					if(GamesManager.getArena(arg1)==null)
 					{
 						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+arg1+YELLOW+" has been created!");
-						GamesManager.addArena(new Arena(arg1));
+						Arena a=new Arena(pl,arg1);
+						GamesManager.addArena(a);
 					}
 					else
 					{
@@ -180,7 +181,7 @@ public class CommandHandler {
 							{
 								pos=Integer.parseInt(arg1);
 								a1.addSpawn(p.getLocation());
-								p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+" set for arena "+BLUE+a1.getName()+YELLOW+"!");
+								p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+YELLOW+" set for arena "+BLUE+a1.getName()+YELLOW+"!");
 							}
 							catch(Exception wtf)
 							{
@@ -221,6 +222,7 @@ public class CommandHandler {
 								}
 								catch(Exception wtf)
 								{
+									wtf.printStackTrace();
 									sender.sendMessage(prefix+RED+"Could not process command!");
 								}
 							}

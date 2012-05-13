@@ -68,9 +68,12 @@ public class PlayerActionListener extends GameListener{
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void damageAll(EntityDamageEvent dmg)
 	{
-		if(getGame().inLobby()&&getGame().isTribute((Player)dmg.getEntity()))
+		if(dmg.getEntity() instanceof Player)
 		{
-			dmg.setCancelled(true);
+			if(getGame().inLobby()&&getGame().isTribute((Player)dmg.getEntity()))
+			{
+				dmg.setCancelled(true);
+			}
 		}
 	}
 

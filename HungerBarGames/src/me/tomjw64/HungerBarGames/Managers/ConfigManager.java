@@ -81,7 +81,7 @@ public class ConfigManager {
 		if(!config.contains("ExplodeOnPlayerMove"))
 		{
 			config.createSection("ExplodeOnPlayerMove");
-			config.set("ExplodeOnPlayerMove", "false");
+			config.set("ExplodeOnPlayerMove", false);
 		}
 		if(!config.contains("Countdown"))
 		{

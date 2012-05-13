@@ -187,11 +187,11 @@ public class Game {
 				startCountdown();
 			}
 		}
-		else if(getNumTributes()>=arena.getMaxPlayers()||getNumTributes()>=arena.getMaxPlayers())
+		else if(getNumTributes()>=arena.getMaxPlayers()||getNumTributes()>=arena.getNumSpawns())
 		{
 			p.sendMessage(prefix+RED+"There is not enough room in the game!");
 		}
-		else if(!lobby)
+		else
 		{
 			p.sendMessage(prefix+RED+"The game has already been started!");
 		}

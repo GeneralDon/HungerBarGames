@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import me.tomjw64.HungerBarGames.Managers.ConfigManager;
+
 import org.bukkit.Location;
 import org.bukkit.block.Chest;
 
@@ -31,9 +33,12 @@ public class Arena {
 	//Game being played in this arena
 	private Game game;
 	
-	public Arena(String arenaName)
+	public Arena(HungerBarGames instance,String arenaName)
 	{
 		name=arenaName;
+		pl=instance;
+		maxPlayers=ConfigManager.getMaxPlayers();
+		minPlayers=ConfigManager.getMinPlayers();
 	}
 	public void startGame(boolean repeat)
 	{
