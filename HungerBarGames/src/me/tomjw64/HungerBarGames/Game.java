@@ -75,8 +75,7 @@ public class Game {
 			{
 				public void run()
 				{
-					Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
-					if(getNumTributes()<arena.getMinPlayers())
+					if(/*getNumTributes()>arena.getMinPlayers()*/true)
 					{
 						startCountdown();
 					}
@@ -97,12 +96,13 @@ public class Game {
 	public void startCountdown()
 	{
 		lobby=false;
+		int point=0;
 		String list=prefix+GREEN+"Tributes: "+RED;
 		for(Player p:tributes)
 		{
 			list+=p.getName()+", ";
-			int point=0;
 			p.teleport(arena.spawnAt(point));
+			point++;
 			p.getInventory().clear();
 			p.getInventory().setHelmet(new ItemStack(Material.AIR));
 			p.getInventory().setChestplate(new ItemStack(Material.AIR));
@@ -112,8 +112,8 @@ public class Game {
 			p.setHealth(20);
 			p.setFoodLevel(20);
 			p.setFireTicks(0);
-			point++;
 		}
+		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
 		list=list.substring(0,list.length()-1);
 		for(Player p:tributes)
 		{
@@ -121,7 +121,6 @@ public class Game {
 			p.sendMessage(prefix+GREEN+"The countdown has begun!");
 			p.sendMessage(prefix+GREEN+"The game begins in "+countdown+" seconds!");
 		}
-		lobby=false;
 		taskID=pl.getServer().getScheduler().scheduleAsyncRepeatingTask(pl, new Runnable()
 			{
 				public void run()
