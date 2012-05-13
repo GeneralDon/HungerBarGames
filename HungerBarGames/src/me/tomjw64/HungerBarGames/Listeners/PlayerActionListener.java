@@ -25,6 +25,7 @@ public class PlayerActionListener extends GameListener{
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void death(PlayerDeathEvent death)
 	{
+		death.getEntity().getServer().broadcastMessage("Event fired!");
 		if(getGame().isTribute(death.getEntity()))
 		{
 			Player dead=death.getEntity();

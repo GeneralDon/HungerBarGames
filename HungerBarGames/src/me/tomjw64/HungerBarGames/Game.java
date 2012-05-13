@@ -113,7 +113,7 @@ public class Game {
 			p.setFireTicks(0);
 		}
 		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
-		list=list.substring(0,list.length()-1);
+		list=list.substring(0,list.length()-2);
 		for(Player p:tributes)
 		{
 			p.sendMessage(list);
@@ -135,6 +135,10 @@ public class Game {
 						pl.getServer().broadcastMessage(prefix+YELLOW+"A game has begun in arena "+BLUE+arena.getName()+"!");
 						pml.unregister();
 						pml=null;
+						//
+						Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
+						Game g=pal.getGame();
+						//
 						for(Player p:tributes)
 						{
 							p.sendMessage(prefix+GREEN+"May the odds be ever in your favor!");
