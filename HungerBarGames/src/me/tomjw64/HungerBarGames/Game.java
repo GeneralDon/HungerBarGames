@@ -198,6 +198,7 @@ public class Game {
 	public void removeTribute(Player p)
 	{
 		tributes.remove(p);
+		GamesManager.setInGame(p,false);
 	}
 	//Returns the current number or tributes
 	public int getNumTributes()
