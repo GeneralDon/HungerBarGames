@@ -135,10 +135,6 @@ public class Game {
 						pl.getServer().broadcastMessage(prefix+YELLOW+"A game has begun in arena "+BLUE+arena.getName()+"!");
 						pml.unregister();
 						pml=null;
-						//
-						Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
-						Game g=pal.getGame();
-						//
 						for(Player p:tributes)
 						{
 							p.sendMessage(prefix+GREEN+"May the odds be ever in your favor!");

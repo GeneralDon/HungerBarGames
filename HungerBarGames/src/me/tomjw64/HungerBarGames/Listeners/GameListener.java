@@ -1,7 +1,6 @@
 package me.tomjw64.HungerBarGames.Listeners;
 
 import me.tomjw64.HungerBarGames.Game;
-import me.tomjw64.HungerBarGames.HungerBarGames;
 
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -26,6 +25,5 @@ public class GameListener implements Listener{
 	public void unregister()
 	{
 		HandlerList.unregisterAll(this);
-		HungerBarGames.logger.info("Listener unregistered!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	}
 }
