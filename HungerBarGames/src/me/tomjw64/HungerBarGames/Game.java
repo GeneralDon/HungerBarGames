@@ -3,7 +3,6 @@ package me.tomjw64.HungerBarGames;
 import java.util.HashSet;
 import java.util.Set;
 
-import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerActionListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerMotionListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
@@ -28,7 +27,6 @@ public class Game {
 	//Players in the game
 	private Set<Player> tributes=new HashSet<Player>();
 	//Listeners
-	private BlockEditListener bel;
 	private PlayerActionListener pal;
 	private PlayerMotionListener pml;
 	//Colors
@@ -53,10 +51,8 @@ public class Game {
 	{
 		pl=instance;
 		//Load event listeners
-		bel=new BlockEditListener(this);
 		pal=new PlayerActionListener(this);
 		pml=new PlayerMotionListener(this);
-		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
 		//Initialize game variables
 		lobby=true;
@@ -149,8 +145,6 @@ public class Game {
 	public void endGame()
 	{
 		pl.getServer().getScheduler().cancelTask(taskID);
-		bel.unregister();
-		bel=null;
 		pal.unregister();
 		pal=null;
 		arena.endGame(repeat);
