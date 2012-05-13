@@ -85,7 +85,41 @@ public class CommandHandler {
 					if(a!=null)
 					{
 						selection.put(sender,a);
-						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+" has been selected!");
+						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
+					}
+					break;
+				case "setlobby":
+					//Set lobby point
+					if(sender instanceof Player)
+					{
+						Player p=(Player)sender;
+						Arena a1=selection.get(p);
+						if(a1!=null)
+						{
+							a1.setLobby(p.getLocation());
+							p.sendMessage(prefix+YELLOW+"Lobby spawn set for arena "+BLUE+a1.getName()+YELLOW+"!");
+						}
+						else
+						{
+							p.sendMessage(prefix+RED+"You have no arena selected! Type "+BLUE+"/hbg select [arena]"+RED+" to select an arena!");
+						}
+					}
+					break;
+				case "setspec":
+					//Set spectator point
+					if(sender instanceof Player)
+					{
+						Player p=(Player)sender;
+						Arena a1=selection.get(p);
+						if(a1!=null)
+						{
+							a1.setSpec(p.getLocation());
+							p.sendMessage(prefix+YELLOW+"Spectator spawn set for arena "+BLUE+a1.getName()+YELLOW+"!");
+						}
+						else
+						{
+							p.sendMessage(prefix+RED+"You have no arena selected! Type "+BLUE+"/hbg select [arena]"+RED+" to select an arena!");
+						}
 					}
 					break;
 				default:
@@ -132,6 +166,32 @@ public class CommandHandler {
 						sender.sendMessage(prefix+RED+"Did not create arena "+BLUE+arg1+RED+"! There is already an arena with that name!");
 					}
 					break;
+				case "spawn":
+					//Set lobby point
+					if(sender instanceof Player)
+					{
+						Player p=(Player)sender;
+						Arena a1=selection.get(p);
+						if(a1!=null)
+						{
+							int pos;
+							try
+							{
+								pos=Integer.parseInt(arg1);
+								a1.addSpawn(p.getLocation());
+								p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+" set for arena "+BLUE+a1.getName()+YELLOW+"!");
+							}
+							catch(Exception wtf)
+							{
+								p.sendMessage(prefix+RED+"Could not process command!");
+							}
+						}
+						else
+						{
+							p.sendMessage(prefix+RED+"You have no arena selected! Type "+BLUE+"/hbg select [arena]"+RED+" to select an arena!");
+						}
+					}
+					break;
 				default:
 					sender.sendMessage(prefix+RED+"That command doesn't exist!");
 			}
@@ -150,15 +210,22 @@ public class CommandHandler {
 					{
 						if(a.getGame()==null)
 						{
-							boolean repeat;
-							try
+							if(a.getSpec()!=null&&a.getLobby()!=null)
 							{
-								repeat=Boolean.parseBoolean(arg2);
-								a.startGame(repeat);
+								boolean repeat;
+								try
+								{
+									repeat=Boolean.parseBoolean(arg2);
+									a.startGame(repeat);
+								}
+								catch(Exception wtf)
+								{
+									sender.sendMessage(prefix+RED+"Could not process command!");
+								}
 							}
-							catch(Exception wtf)
+							else
 							{
-								sender.sendMessage(prefix+RED+"Could not process command!");
+								sender.sendMessage(prefix+RED+"Arena has not been set up correctly!");
 							}
 						}
 						else

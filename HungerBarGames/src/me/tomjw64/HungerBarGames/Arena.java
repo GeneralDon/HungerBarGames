@@ -70,6 +70,10 @@ public class Arena {
 	{
 		return lobbyPoint;
 	}
+	public void setLobby(Location lobby)
+	{
+		lobbyPoint=lobby;
+	}
 	public int getNumSpawns()
 	{
 		return spawns.size();
@@ -77,5 +81,17 @@ public class Arena {
 	public Location spawnAt(int index)
 	{
 		return spawns.get(index);
+	}
+	public void addSpawn(Location spawn)
+	{
+		spawns.add(spawn);
+	}
+	public Location getSpec()
+	{
+		return specPoint;
+	}
+	public void setSpec(Location spec)
+	{
+		specPoint=spec;
 	}
 }
