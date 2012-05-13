@@ -36,10 +36,10 @@ public class CommandHandler {
 			switch(cmd)
 			{
 				case "help":
-					//Show help/commands
+					//TODO: Show help/commands
 					break;
 				case "reload":
-					//Reload config
+					//TODO: Reload config
 					break;
 				case "arenas":
 					//List arenas

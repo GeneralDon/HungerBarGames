@@ -31,7 +31,8 @@ public class PlayerActionListener extends GameListener{
 			getGame().removeTribute(dead);
 			dead.getWorld().strikeLightning(dead.getLocation().add(0, 100, 0));
 			death.setDeathMessage(null);
-			//Do stuff for death message
+			//TODO: stuff for death message
+			
 		}
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
@@ -43,7 +44,7 @@ public class PlayerActionListener extends GameListener{
 			getGame().removeTribute(quitter);
 			quitter.getWorld().strikeLightning(quitter.getLocation().add(0, 100, 0));
 			quit.setQuitMessage(null);
-			//Do stuff with quit message
+			//TODO: Do stuff with quit message
 		}
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
