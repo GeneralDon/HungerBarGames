@@ -69,7 +69,7 @@ public class CommandHandler {
 							}
 							list+=color+a.getName()+WHITE+", ";
 						}
-						list=list.substring(0,list.length()-1);
+						list=list.substring(0,list.length()-2);
 						sender.sendMessage(list);
 						if(sender instanceof Player)
 						{
@@ -77,15 +77,6 @@ public class CommandHandler {
 									+GREEN+"Game In Session"+WHITE+"; "
 									+BLUE+"In Lobby");
 						}
-					}
-					break;
-				case "select":
-					//Select arena, and set to player in a map
-					Arena a=GamesManager.getArena(args[1]);
-					if(a!=null)
-					{
-						selection.put(sender,a);
-						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
 					}
 					break;
 				case "setlobby":
@@ -159,11 +150,21 @@ public class CommandHandler {
 					//Create an arena
 					if(GamesManager.getArena(arg1)==null)
 					{
+						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+arg1+YELLOW+" has been created!");
 						GamesManager.addArena(new Arena(arg1));
 					}
 					else
 					{
 						sender.sendMessage(prefix+RED+"Did not create arena "+BLUE+arg1+RED+"! There is already an arena with that name!");
+					}
+					break;
+				case "select":
+					//Select arena, and set to player in a map
+					Arena a=GamesManager.getArena(arg1);
+					if(a!=null)
+					{
+						selection.put(sender,a);
+						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
 					}
 					break;
 				case "spawn":
