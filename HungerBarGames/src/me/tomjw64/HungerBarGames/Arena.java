@@ -18,6 +18,8 @@ public class Arena {
 	private HungerBarGames pl;
 	//Name of arena
 	private String name;
+	//Whether or not to load the arena to database
+	private boolean changes;
 	//Holds player spawn points
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
@@ -35,10 +37,18 @@ public class Arena {
 	
 	public Arena(HungerBarGames instance,String arenaName)
 	{
-		name=arenaName;
+		this(instance,arenaName,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>());
+	}
+	public Arena(HungerBarGames instance,String arenaName,int maxP,int minP,Location lobby,Location spec,List<Location> spwns)
+	{
 		pl=instance;
-		maxPlayers=ConfigManager.getMaxPlayers();
-		minPlayers=ConfigManager.getMinPlayers();
+		name=arenaName;
+		changes=false;
+		maxPlayers=maxP;
+		minPlayers=minP;
+		lobbyPoint=lobby;
+		specPoint=spec;
+		spawns=spwns;
 	}
 	public void startGame(boolean repeat)
 	{
@@ -78,6 +88,7 @@ public class Arena {
 	public void setLobby(Location lobby)
 	{
 		lobbyPoint=lobby;
+		changes=true;
 	}
 	public int getNumSpawns()
 	{
@@ -90,6 +101,11 @@ public class Arena {
 	public void addSpawn(Location spawn)
 	{
 		spawns.add(spawn);
+		changes=true;
+	}
+	public List<Location> getSpawns()
+	{
+		return spawns;
 	}
 	public Location getSpec()
 	{
@@ -98,5 +114,10 @@ public class Arena {
 	public void setSpec(Location spec)
 	{
 		specPoint=spec;
+		changes=true;
+	}
+	public boolean getChanged()
+	{
+		return changes;
 	}
 }

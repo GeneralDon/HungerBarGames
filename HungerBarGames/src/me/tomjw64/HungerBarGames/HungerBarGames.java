@@ -25,6 +25,7 @@ public class HungerBarGames extends JavaPlugin{
 	public void onDisable()
 	{
 		PluginDescriptionFile pdf = getDescription();
+		DataManager.saveArenas();
 		logger.info("["+pdf.getName()+"] disabled!");
 	}
 	@Override

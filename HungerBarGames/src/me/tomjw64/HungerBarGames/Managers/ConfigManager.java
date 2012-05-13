@@ -62,7 +62,7 @@ public class ConfigManager {
 			wtf.printStackTrace();
 		}		
 		
-		//Check for missing config options and set defaults
+		//Check for missing config sections and set defaults
 		if(!config.contains("Prefix"))
 		{
 			config.createSection("Prefix");
