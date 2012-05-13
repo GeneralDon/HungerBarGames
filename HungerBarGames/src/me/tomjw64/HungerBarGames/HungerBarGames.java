@@ -8,6 +8,7 @@ package me.tomjw64.HungerBarGames;
 
 import java.util.logging.Logger;
 
+import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.DataManager;
 import me.tomjw64.HungerBarGames.Managers.PlayerDataManager;
@@ -37,6 +38,9 @@ public class HungerBarGames extends JavaPlugin{
 		DataManager.loadDatabase(this);
 		ConfigManager.loadConfig(this);
 		PlayerDataManager.loadPlayerData(this);
+		
+		//Load listeners
+		new BlockEditListener(this);
 		
 		logger.info("["+pdf.getName()+"] version "+pdf.getVersion()+" is enabled!");
 	}

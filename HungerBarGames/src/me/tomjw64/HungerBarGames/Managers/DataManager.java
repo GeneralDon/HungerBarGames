@@ -80,7 +80,7 @@ public class DataManager {
 				float pitch=Float.parseFloat(data[4]);
 				spawns.add(new Location(w,x,y,z,yaw,pitch));
 			}
-			GamesManager.addArena(new Arena(pl,s,database.getInt(path+"Min"),database.getInt("Max"),lobby,spec,spawns));
+			GamesManager.addArena(new Arena(pl,s,w,database.getInt(path+"Min"),database.getInt("Max"),lobby,spec,spawns));
 		}
 	}
 	//Get the database
@@ -109,7 +109,7 @@ public class DataManager {
 				database.set(path+"Max", a.getMaxPlayers());
 				Location l=a.getLobby();
 				database.set(path+"Lobby",l.getX()+";"+l.getY()+";"+l.getZ()+";"+l.getYaw()+";"+l.getPitch());
-				database.set(path+"World",l.getWorld().getName());
+				database.set(path+"World",a.getWorld().getName());
 				Location l1=a.getSpec();
 				database.set(path+"Spec",l1.getX()+";"+l1.getY()+";"+l1.getZ()+";"+l1.getYaw()+";"+l1.getPitch());
 				List<String> spawns=new ArrayList<String>();

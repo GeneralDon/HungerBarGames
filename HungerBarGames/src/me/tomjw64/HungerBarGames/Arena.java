@@ -8,6 +8,7 @@ import java.util.Set;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Chest;
 
 public class Arena {
@@ -20,6 +21,8 @@ public class Arena {
 	private String name;
 	//Whether or not to load the arena to database
 	private boolean changes;
+	//Arena's world
+	private World world;
 	//Holds player spawn points
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
@@ -37,9 +40,9 @@ public class Arena {
 	
 	public Arena(HungerBarGames instance,String arenaName)
 	{
-		this(instance,arenaName,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>());
+		this(instance,arenaName,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>());
 	}
-	public Arena(HungerBarGames instance,String arenaName,int maxP,int minP,Location lobby,Location spec,List<Location> spwns)
+	public Arena(HungerBarGames instance,String arenaName,World w,int maxP,int minP,Location lobby,Location spec,List<Location> spwns)
 	{
 		pl=instance;
 		name=arenaName;
@@ -88,6 +91,7 @@ public class Arena {
 	public void setLobby(Location lobby)
 	{
 		lobbyPoint=lobby;
+		world=lobby.getWorld();
 		changes=true;
 	}
 	public int getNumSpawns()
@@ -119,5 +123,9 @@ public class Arena {
 	public boolean getChanged()
 	{
 		return changes;
+	}
+	public World getWorld()
+	{
+		return world;
 	}
 }

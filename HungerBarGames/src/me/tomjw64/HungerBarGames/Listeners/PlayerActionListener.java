@@ -30,7 +30,7 @@ public class PlayerActionListener extends GameListener{
 			Player dead=death.getEntity();
 			dead.getWorld().strikeLightning(dead.getLocation().add(0, 100, 0));
 			death.setDeathMessage(null);
-			//TODO: stuff for death message
+			getGame().addDead(dead.getName());
 			getGame().removeTribute(dead);
 			if(getGame().getNumTributes()==1)
 			{
@@ -47,7 +47,7 @@ public class PlayerActionListener extends GameListener{
 			Player quitter=quit.getPlayer();
 			quitter.getWorld().strikeLightning(quitter.getLocation().add(0, 100, 0));
 			quit.setQuitMessage(null);
-			//TODO: Do stuff with quit message
+			getGame().addDead(quitter.getName());
 			getGame().removeTribute(quitter);
 			if(getGame().getNumTributes()==1)
 			{

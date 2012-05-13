@@ -26,6 +26,8 @@ public class Game {
 	private Arena arena;
 	//Players in the game
 	private Set<Player> tributes=new HashSet<Player>();
+	//Deaths for the day
+	private Set<String> deaths=new HashSet<String>();
 	//Listeners
 	private PlayerActionListener pal;
 	private PlayerMotionListener pml;
@@ -39,6 +41,7 @@ public class Game {
 	//Time delays
 	private long delay;
 	private int countdown;
+	private long lastDisplay;
 	//Countdown task ID
 	private int taskID;
 	//Whether to repeat the game after it ends
@@ -137,6 +140,19 @@ public class Game {
 							p.sendMessage(prefix+GREEN+"May the odds be ever in your favor!");
 						}
 					}
+					else if(countdown%120==0&&arena.getWorld().getTime()>13000&&System.currentTimeMillis()>lastDisplay+600000)
+					{
+						for(Player p:tributes)
+						{
+							p.sendMessage(prefix+YELLOW+"Tributes killed today:");
+							for(String x:deaths)
+							{
+								p.sendMessage(GREEN+x);
+							}
+						}
+						lastDisplay=System.currentTimeMillis();
+						deaths.clear();
+					}
 					countdown--;
 				}
 			},0L,20L);
@@ -154,6 +170,7 @@ public class Game {
 	{
 		pl.getServer().broadcastMessage(prefix+YELLOW+"Player "+BLUE+p.getName()+YELLOW+"has won the game in arena "+BLUE+arena.getName()+"!");
 		//TODO: Give rewards
+		endGame();
 	}
 	//Check if a player is in a game
 	public boolean isTribute(Player p)
@@ -214,5 +231,10 @@ public class Game {
 	public boolean inLobby()
 	{
 		return lobby;
+	}
+	//Add a player to the death list
+	public void addDead(String playerName)
+	{
+		deaths.add(playerName);
 	}
 }
