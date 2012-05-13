@@ -31,6 +31,10 @@ public class Arena {
 	//Game being played in this arena
 	private Game game;
 	
+	public Arena(String arenaName)
+	{
+		name=arenaName;
+	}
 	public void startGame(boolean repeat)
 	{
 		game=new Game(pl,this,repeat);
@@ -65,6 +69,10 @@ public class Arena {
 	public Location getLobby()
 	{
 		return lobbyPoint;
+	}
+	public int getNumSpawns()
+	{
+		return spawns.size();
 	}
 	public Location spawnAt(int index)
 	{

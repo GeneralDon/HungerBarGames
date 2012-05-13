@@ -7,6 +7,7 @@ import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerActionListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerMotionListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
+import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -164,9 +165,10 @@ public class Game {
 	//Add a player to the game
 	public void addTribute(Player p)
 	{
-		if(getNumTributes()<arena.getMaxPlayers()&&lobby)
+		if(getNumTributes()<arena.getMaxPlayers()&&lobby&&getNumTributes()<arena.getNumSpawns())
 		{
 			tributes.add(p);
+			GamesManager.setInGame(p,true);
 			p.sendMessage(prefix+YELLOW+"You have joined the game in Arena "+BLUE+arena.getName()+"!");
 			p.sendMessage(prefix+YELLOW+"This game has "+BLUE+getNumTributes()+"/"+arena.getMaxPlayers()+YELLOW+" players!");
 			p.getInventory().clear();
@@ -185,7 +187,7 @@ public class Game {
 				startCountdown();
 			}
 		}
-		else if(getNumTributes()>=arena.getMaxPlayers())
+		else if(getNumTributes()>=arena.getMaxPlayers()||getNumTributes()>=arena.getMaxPlayers())
 		{
 			p.sendMessage(prefix+RED+"There is not enough room in the game!");
 		}
