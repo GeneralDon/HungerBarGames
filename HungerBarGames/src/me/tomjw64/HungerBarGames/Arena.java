@@ -129,4 +129,15 @@ public class Arena {
 	{
 		return world;
 	}
+	public void fillChests()
+	{
+		for(Map.Entry<ChestClass,Set<Chest>> entry:chests.entrySet())
+		{
+			ChestClass cc=entry.getKey();
+			for(Chest c:entry.getValue())
+			{
+				cc.fillChest(c);
+			}
+		}
+	}
 }

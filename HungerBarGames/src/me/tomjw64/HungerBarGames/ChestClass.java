@@ -15,4 +15,8 @@ public class ChestClass {
 	{
 		return name;
 	}
+	public void fillChest(Chest c)
+	{
+		//TODO: Fill chests
+	}
 }

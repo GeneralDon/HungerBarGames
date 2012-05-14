@@ -11,4 +11,5 @@ public class ChestItem {
 		chance=prob;
 		amount=num;
 	}
+	
 }
