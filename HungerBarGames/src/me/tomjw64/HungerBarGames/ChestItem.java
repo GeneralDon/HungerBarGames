@@ -1,11 +1,11 @@
 package me.tomjw64.HungerBarGames;
 
-public class ChestFillItem {
+public class ChestItem {
 	private int item;
 	private int chance;
 	private int amount;
 	
-	public ChestFillItem(int id, int prob, int num)
+	public ChestItem(int id, int prob, int num)
 	{
 		item=id;
 		chance=prob;

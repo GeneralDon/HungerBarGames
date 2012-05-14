@@ -1,8 +1,11 @@
 package me.tomjw64.HungerBarGames;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChestClass {
 	private String name;
-	private List<ChestFillItem> fillItems ArrayList<ChestFillItem>();
+	private List<ChestItem> fillItems=new ArrayList<ChestItem>();
 	
 	public ChestClass(String className)
 	{
