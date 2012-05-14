@@ -35,8 +35,8 @@ public class HungerBarGames extends JavaPlugin{
 		PluginDescriptionFile pdf = getDescription();
 		
 		//Load all YML files
-		DataManager.loadDatabase(this);
 		ConfigManager.loadConfig(this);
+		DataManager.loadDatabase(this);
 		PlayerDataManager.loadPlayerData(this);
 		
 		//Load listeners
