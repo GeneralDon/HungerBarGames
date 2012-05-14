@@ -1,8 +1,10 @@
 package me.tomjw64.HungerBarGames;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
@@ -26,7 +28,7 @@ public class Arena {
 	//Holds player spawn points
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
-	private Set<Chest> chests=new HashSet<Chest>();
+	private Map<ChestClass,Set<Chest>> chests=new HashMap<ChestClass,Set<Chest>>();
 	//The spectator spawn
 	private Location specPoint;
 	//The lobby spawn
