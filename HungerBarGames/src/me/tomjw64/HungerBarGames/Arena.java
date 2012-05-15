@@ -2,6 +2,7 @@ package me.tomjw64.HungerBarGames;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -144,5 +145,18 @@ public class Arena {
 	public Map<ChestClass,Set<Chest>> getChests()
 	{
 		return chests;
+	}
+	public void addChest(ChestClass cc, Chest c)
+	{
+		if(chests.keySet().contains(cc))
+		{
+			chests.get(cc).add(c);
+		}
+		else
+		{
+			Set<Chest> newChestSet=new HashSet<Chest>();
+			newChestSet.add(c);
+			chests.put(cc,newChestSet);
+		}
 	}
 }

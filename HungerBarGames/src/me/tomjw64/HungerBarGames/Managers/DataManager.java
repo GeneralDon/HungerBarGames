@@ -3,14 +3,22 @@ package me.tomjw64.HungerBarGames.Managers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import me.tomjw64.HungerBarGames.Arena;
+import me.tomjw64.HungerBarGames.ChestClass;
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -80,7 +88,41 @@ public class DataManager {
 				float pitch=Float.parseFloat(data[4]);
 				spawns.add(new Location(w,x,y,z,yaw,pitch));
 			}
-			GamesManager.addArena(new Arena(pl,s,w,database.getInt(path+"Max"),database.getInt("Min"),lobby,spec,spawns));
+			Map<ChestClass,Set<Chest>> chests=new HashMap<ChestClass,Set<Chest>>();
+			ConfigurationSection classes=database.getConfigurationSection(path+"Chests");
+			for(String x:classes.getKeys(false))
+			{
+				if(ConfigManager.getChestClass(x)!=null)
+				{
+					ChestClass cc=ConfigManager.getChestClass(x);
+					Set<Chest> c=new HashSet<Chest>();
+					for(String className:classes.getStringList(x))
+					{
+						String[] info=className.split(";");
+						try
+						{
+							int cx=Integer.parseInt(info[0]);
+							int cy=Integer.parseInt(info[1]);
+							int cz=Integer.parseInt(info[2]);
+							BlockState chest=w.getBlockAt(cx,cy,cz).getState();
+							if(chest instanceof Chest)
+							{
+								c.add((Chest)chest);
+							}
+						}
+						catch(Exception wtf)
+						{
+							HungerBarGames.logger.warning("Could not load a chest under class "+x+" arena "+s);
+						}
+					}
+					chests.put(cc,c);
+				}
+				else
+				{
+					HungerBarGames.logger.warning("Chest Class "+x+" not found!");
+				}
+			}
+			GamesManager.addArena(new Arena(pl,s,w,database.getInt(path+"Max"),database.getInt("Min"),lobby,spec,spawns,chests));
 		}
 	}
 	//Get the database
@@ -123,7 +165,7 @@ public class DataManager {
 					List<String> chestLoc=new ArrayList<String>();
 					for(Chest c:entry.getValue())
 					{
-						
+						chestLoc.add(c.getX()+";"+c.getY()+";"+c.getZ());
 					}
 					database.set(path+"Chests."+entry.getKey().getName(),chestLoc);
 				}

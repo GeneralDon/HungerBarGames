@@ -8,6 +8,7 @@ import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 import org.bukkit.ChatColor;
+import org.bukkit.block.Chest;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -186,6 +187,32 @@ public class CommandHandler {
 							catch(Exception wtf)
 							{
 								p.sendMessage(prefix+RED+"Could not process command!");
+							}
+						}
+						else
+						{
+							p.sendMessage(prefix+RED+"You have no arena selected! Type "+BLUE+"/hbg select [arena]"+RED+" to select an arena!");
+						}
+					}
+				case "chest":
+					//Set a chest class
+					if(sender instanceof Player)
+					{
+						Player p=(Player)sender;
+						Arena a1=selection.get(p);
+						if(a1!=null)
+						{
+							if(ConfigManager.getChestClass(arg1)!=null)
+							{
+								if(p.getTargetBlock(null, 30).getState() instanceof Chest)
+								{
+									ChestClass cc=ConfigManager.getChestClass(arg1);
+									a1.addChest(cc,(Chest)p.getTargetBlock(null, 30).getState());
+								}
+							}
+							else
+							{
+								p.sendMessage(RED+"There is no chest class by that name! Create it in the config!");
 							}
 						}
 						else

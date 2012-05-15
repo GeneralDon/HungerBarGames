@@ -52,4 +52,8 @@ public class ChestClass {
 			}
 		}
 	}
+	public void addItem(ChestItem item)
+	{
+		items.add(item);
+	}
 }

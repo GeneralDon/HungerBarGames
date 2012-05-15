@@ -2,10 +2,14 @@ package me.tomjw64.HungerBarGames.Managers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
+import me.tomjw64.HungerBarGames.ChestClass;
+import me.tomjw64.HungerBarGames.ChestItem;
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -34,6 +38,8 @@ public class ConfigManager {
 	//Arena defaults
 	private static int defaultMax;
 	private static int defaultMin;
+	//Chest Classes
+	private static Set<ChestClass> chests;
 	
 	
 	//Call onEnable for initialization
@@ -103,6 +109,10 @@ public class ConfigManager {
 			config.createSection("DefaultMin");
 			config.set("DefaultMin", 12);
 		}
+		if(!config.contains("ChestClasses"))
+		{
+			config.createSection("ChestClasses");
+		}
 		saveConfig();
 		
 		//Load configuration options to memory
@@ -114,6 +124,26 @@ public class ConfigManager {
 		delay=config.getLong("Delay");
 		defaultMax=config.getInt("DefaultMax");
 		defaultMin=config.getInt("DefaultMin");
+		ConfigurationSection classes=config.getConfigurationSection("ChestClasses");
+		for(String x:classes.getKeys(false))
+		{
+			ChestClass cc= new ChestClass(x);
+			for(String i:classes.getStringList(x))
+			{
+				String[] info=i.split(";");
+				try
+				{
+					int item=Integer.parseInt(info[0]);
+					int chance=Integer.parseInt(info[1]);
+					int amount=Integer.parseInt(info[2]);
+					cc.addItem(new ChestItem(item,chance,amount));
+				}
+				catch(Exception wtf)
+				{
+					HungerBarGames.logger.warning("Could not load a chest item under class "+x);
+				}
+			}
+		}
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
@@ -168,5 +198,16 @@ public class ConfigManager {
 	public static int getMinPlayers()
 	{
 		return defaultMin;
+	}
+	public static ChestClass getChestClass(String name)
+	{
+		for(ChestClass cc:chests)
+		{
+			if(cc.getName().equalsIgnoreCase(name))
+			{
+				return cc;
+			}
+		}
+		return null;
 	}
 }
