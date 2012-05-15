@@ -118,8 +118,17 @@ public class DataManager {
 					spawns.add(l2.getX()+";"+l2.getY()+";"+l2.getZ()+";"+l2.getYaw()+";"+l2.getPitch());
 				}
 				database.set(path+"Spawns",spawns);
+				for(Map.Entry<ChestClass,Set<Chest>> entry:a.getChests().entrySet())
+				{
+					List<String> chestLoc=new ArrayList<String>();
+					for(Chest c:entry.getValue())
+					{
+						
+					}
+					database.set(path+"Chests."+entry.getKey().getName(),chestLoc);
+				}
 			}
-			saveDatabase();
 		}
+		saveDatabase();
 	}
 }

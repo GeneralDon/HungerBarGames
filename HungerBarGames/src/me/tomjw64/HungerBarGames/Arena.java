@@ -41,9 +41,9 @@ public class Arena {
 	
 	public Arena(HungerBarGames instance,String arenaName)
 	{
-		this(instance,arenaName,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>());
+		this(instance,arenaName,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
 	}
-	public Arena(HungerBarGames instance,String arenaName,World w,int maxP,int minP,Location lobby,Location spec,List<Location> spwns)
+	public Arena(HungerBarGames instance,String arenaName,World w,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
 	{
 		pl=instance;
 		name=arenaName;
@@ -53,6 +53,7 @@ public class Arena {
 		lobbyPoint=lobby;
 		specPoint=spec;
 		spawns=spwns;
+		chests=chsts;
 	}
 	public void startGame(boolean repeat)
 	{
@@ -139,5 +140,9 @@ public class Arena {
 				cc.fillChest(c);
 			}
 		}
+	}
+	public Map<ChestClass,Set<Chest>> getChests()
+	{
+		return chests;
 	}
 }

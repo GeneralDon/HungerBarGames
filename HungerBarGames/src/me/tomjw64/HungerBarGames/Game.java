@@ -113,6 +113,7 @@ public class Game {
 			p.setFireTicks(0);
 		}
 		Bukkit.getServer().getPluginManager().registerEvents(pml, pl);
+		arena.fillChests();
 		list=list.substring(0,list.length()-2);
 		for(Player p:tributes)
 		{
