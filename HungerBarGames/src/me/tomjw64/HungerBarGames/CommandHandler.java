@@ -8,6 +8,7 @@ import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 import org.bukkit.ChatColor;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -204,15 +205,25 @@ public class CommandHandler {
 						{
 							if(ConfigManager.getChestClass(arg1)!=null)
 							{
-								if(p.getTargetBlock(null, 30).getState() instanceof Chest)
+								BlockState target=p.getTargetBlock(null,30).getState();
+								if(target instanceof Chest)
 								{
 									ChestClass cc=ConfigManager.getChestClass(arg1);
-									a1.addChest(cc,(Chest)p.getTargetBlock(null, 30).getState());
+									Chest c=(Chest)target;
+									if(!a1.isAssigned(cc,c))
+									{
+										a1.addChest(cc,(Chest)target);
+										p.sendMessage(prefix+GREEN+"Chest assigned!");
+									}
+									else
+									{
+										p.sendMessage(prefix+RED+"That chest is already assigned to that class for this arena!");
+									}
 								}
 							}
 							else
 							{
-								p.sendMessage(RED+"There is no chest class by that name! Create it in the config!");
+								p.sendMessage(prefix+RED+"There is no chest class by that name! Create it in the config!");
 							}
 						}
 						else

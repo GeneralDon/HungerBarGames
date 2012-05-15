@@ -159,4 +159,12 @@ public class Arena {
 			chests.put(cc,newChestSet);
 		}
 	}
+	public boolean isAssigned(ChestClass cc, Chest c)
+	{
+		if(chests.keySet().contains(cc))
+		{
+			return chests.get(cc).contains(c);
+		}
+		return false;
+	}
 }
