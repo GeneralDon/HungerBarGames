@@ -79,7 +79,7 @@ public class CommandHandler {
 						}
 					}
 					break;
-				case "setlobby":
+				case "lobby":
 					//Set lobby point
 					if(sender instanceof Player)
 					{
@@ -96,7 +96,7 @@ public class CommandHandler {
 						}
 					}
 					break;
-				case "setspec":
+				case "spec":
 					//Set spectator point
 					if(sender instanceof Player)
 					{
@@ -168,7 +168,7 @@ public class CommandHandler {
 						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
 					}
 					break;
-				case "setspawn":
+				case "spawn":
 					//Set lobby point
 					if(sender instanceof Player)
 					{
