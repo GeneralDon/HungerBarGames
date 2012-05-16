@@ -41,6 +41,8 @@ public class ConfigManager {
 	private static int defaultMin;
 	//Whether plugin should block pvp on the server
 	private static boolean pvp;
+	//Whether plugin should restrict block editing
+	private static boolean restrictBlock;
 	//Chest Classes
 	private static Set<ChestClass> chests=new HashSet<ChestClass>();
 	
@@ -117,6 +119,11 @@ public class ConfigManager {
 			config.createSection("HandlePvP");
 			config.set("HandlePvP", false);
 		}
+		if(!config.contains("RestrictBlocks"))
+		{
+			config.createSection("RestrictBlocks");
+			config.set("RestrictBlocks", false);
+		}
 		if(!config.contains("ChestClasses"))
 		{
 			config.createSection("ChestClasses");
@@ -133,6 +140,7 @@ public class ConfigManager {
 		defaultMax=config.getInt("DefaultMax");
 		defaultMin=config.getInt("DefaultMin");
 		pvp=config.getBoolean("HandlePvP");
+		restrictBlock=config.getBoolean("RestrictBlocks");
 		ConfigurationSection classes=config.getConfigurationSection("ChestClasses");
 		for(String x:classes.getKeys(false))
 		{
@@ -214,6 +222,10 @@ public class ConfigManager {
 	public static boolean getPvP()
 	{
 		return pvp;
+	}
+	public static boolean restrictEditing()
+	{
+		return restrictBlock;
 	}
 	public static ChestClass getChestClass(String name)
 	{

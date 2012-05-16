@@ -30,6 +30,7 @@ public class Game {
 	private Set<String> deaths=new HashSet<String>();
 	//Listeners
 	private PlayerActionListener pal;
+	private BlockEditListener bel;
 	private PlayerMotionListener pml;
 	//Colors
 	private final ChatColor GREEN=ChatColor.GREEN;
@@ -55,8 +56,10 @@ public class Game {
 		pl=instance;
 		//Load event listeners
 		pal=new PlayerActionListener(this);
+		bel=new BlockEditListener(this);
 		pml=new PlayerMotionListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
+		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
 		//Initialize game variables
 		lobby=true;
 		arena=ar;
@@ -165,6 +168,8 @@ public class Game {
 		pl.getServer().getScheduler().cancelTask(taskID);
 		pal.unregister();
 		pal=null;
+		bel.unregister();
+		bel=null;
 		arena.endGame(repeat);
 	}
 	//Declares a winner, then ends game
