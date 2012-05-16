@@ -43,6 +43,8 @@ public class ConfigManager {
 	private static boolean pvp;
 	//Whether plugin should restrict block editing
 	private static boolean restrictBlock;
+	//Holds whitelisted/blacklisted blocks
+	private Set<Integer> exempt=new HashSet<Integer>();
 	//Chest Classes
 	private static Set<ChestClass> chests=new HashSet<ChestClass>();
 	
@@ -124,6 +126,11 @@ public class ConfigManager {
 			config.createSection("RestrictBlocks");
 			config.set("RestrictBlocks", false);
 		}
+		if(!config.contains("ExemptBlocks"))
+		{
+			config.createSection("ExemptBlocks");
+			config.set("ExemptBlocks", new ArrayList<String>();
+		}
 		if(!config.contains("ChestClasses"))
 		{
 			config.createSection("ChestClasses");
@@ -141,6 +148,17 @@ public class ConfigManager {
 		defaultMin=config.getInt("DefaultMin");
 		pvp=config.getBoolean("HandlePvP");
 		restrictBlock=config.getBoolean("RestrictBlocks");
+		for(String id:config.getStringList("ExemptBlocks")
+		{
+			try
+			{
+				exempt.add(Integer.valueOf(Integer.parseInt(id)));
+			}
+			catch(Exception wtf)
+			{
+				HungerBarGames.logger.warning("Could not load block +"id+" as an exemption!");
+			}
+		}
 		ConfigurationSection classes=config.getConfigurationSection("ChestClasses");
 		for(String x:classes.getKeys(false))
 		{
@@ -226,6 +244,17 @@ public class ConfigManager {
 	public static boolean restrictEditing()
 	{
 		return restrictBlock;
+	}
+	public static boolean isListed(int id)
+	{
+		for(Integer i:exempt)
+		{
+			if(i.intValue==id)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	public static ChestClass getChestClass(String name)
 	{
