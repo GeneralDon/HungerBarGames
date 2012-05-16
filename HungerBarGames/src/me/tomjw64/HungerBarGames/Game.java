@@ -3,6 +3,7 @@ package me.tomjw64.HungerBarGames;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerActionListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerMotionListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;

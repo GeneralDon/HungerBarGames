@@ -1,6 +1,8 @@
 package me.tomjw64.HungerBarGames.Listeners;
 
+import me.tomjw64.HungerBarGames.Game;
 import me.tomjw64.HungerBarGames.HungerBarGames;
+import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -14,19 +16,18 @@ public class BlockEditListener extends GameListener{
 	 * and block placing. It will perform necessary actions
 	 * and then proceed to log the change.
 	 */
-	private Game game;
 	
 	public BlockEditListener(Game gm)
 	{
-		game=gm;
+		super(gm);
 	}
 	//On a block break
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void blockBreak(BlockBreakEvent broken)
 	{
-		if(game.isTribute(broken.getPlayer()))
+		if(getGame().isTribute(broken.getPlayer()))
 		{
-			if(ConfigManager.restrictEditing)
+			if(ConfigManager.restrictEditing())
 			{
 				if(!ConfigManager.isListed(broken.getBlock().getTypeId()))
 				{
@@ -43,7 +44,7 @@ public class BlockEditListener extends GameListener{
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void blockPlace(BlockBreakEvent placed)
 	{
-		if(game.isTribute(placed.getPlayer())
+		if(getGame().isTribute(placed.getPlayer())
 			&&ConfigManager.restrictEditing())
 		{
 			placed.setCancelled(true);

@@ -2,6 +2,7 @@ package me.tomjw64.HungerBarGames.Managers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +45,7 @@ public class ConfigManager {
 	//Whether plugin should restrict block editing
 	private static boolean restrictBlock;
 	//Holds whitelisted/blacklisted blocks
-	private Set<Integer> exempt=new HashSet<Integer>();
+	private static Set<Integer> exempt=new HashSet<Integer>();
 	//Chest Classes
 	private static Set<ChestClass> chests=new HashSet<ChestClass>();
 	
@@ -129,7 +130,7 @@ public class ConfigManager {
 		if(!config.contains("ExemptBlocks"))
 		{
 			config.createSection("ExemptBlocks");
-			config.set("ExemptBlocks", new ArrayList<String>();
+			config.set("ExemptBlocks", new ArrayList<String>());
 		}
 		if(!config.contains("ChestClasses"))
 		{
@@ -148,7 +149,7 @@ public class ConfigManager {
 		defaultMin=config.getInt("DefaultMin");
 		pvp=config.getBoolean("HandlePvP");
 		restrictBlock=config.getBoolean("RestrictBlocks");
-		for(String id:config.getStringList("ExemptBlocks")
+		for(String id:config.getStringList("ExemptBlocks"))
 		{
 			try
 			{
@@ -156,7 +157,7 @@ public class ConfigManager {
 			}
 			catch(Exception wtf)
 			{
-				HungerBarGames.logger.warning("Could not load block +"id+" as an exemption!");
+				HungerBarGames.logger.warning("Could not load block "+id+" as an exemption!");
 			}
 		}
 		ConfigurationSection classes=config.getConfigurationSection("ChestClasses");
@@ -249,7 +250,7 @@ public class ConfigManager {
 	{
 		for(Integer i:exempt)
 		{
-			if(i.intValue==id)
+			if(i.intValue()==id)
 			{
 				return true;
 			}
