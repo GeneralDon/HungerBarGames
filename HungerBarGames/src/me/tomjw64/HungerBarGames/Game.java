@@ -76,7 +76,6 @@ public class Game {
 		pl.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
 		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable()
 			{
-				@SuppressWarnings("unused")
 				public void run()
 				{
 					if(getNumTributes()>arena.getMinPlayers())

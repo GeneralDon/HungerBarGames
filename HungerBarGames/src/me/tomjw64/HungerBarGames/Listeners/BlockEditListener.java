@@ -1,13 +1,10 @@
 package me.tomjw64.HungerBarGames.Listeners;
 
 import me.tomjw64.HungerBarGames.Game;
-import me.tomjw64.HungerBarGames.HungerBarGames;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class BlockEditListener extends GameListener{
