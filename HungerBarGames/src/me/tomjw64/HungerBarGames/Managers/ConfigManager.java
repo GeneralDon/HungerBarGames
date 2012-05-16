@@ -2,6 +2,7 @@ package me.tomjw64.HungerBarGames.Managers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 import me.tomjw64.HungerBarGames.ChestClass;
@@ -38,8 +39,10 @@ public class ConfigManager {
 	//Arena defaults
 	private static int defaultMax;
 	private static int defaultMin;
+	//Whether plugin should block pvp on the server
+	private static boolean pvp;
 	//Chest Classes
-	private static Set<ChestClass> chests;
+	private static Set<ChestClass> chests=new HashSet<ChestClass>();
 	
 	
 	//Call onEnable for initialization
@@ -109,6 +112,11 @@ public class ConfigManager {
 			config.createSection("DefaultMin");
 			config.set("DefaultMin", 12);
 		}
+		if(!config.contains("HandlePvP"))
+		{
+			config.createSection("HandlePvP");
+			config.set("HandlePvP", false);
+		}
 		if(!config.contains("ChestClasses"))
 		{
 			config.createSection("ChestClasses");
@@ -124,6 +132,7 @@ public class ConfigManager {
 		delay=config.getLong("Delay");
 		defaultMax=config.getInt("DefaultMax");
 		defaultMin=config.getInt("DefaultMin");
+		pvp=config.getBoolean("HandlePvP");
 		ConfigurationSection classes=config.getConfigurationSection("ChestClasses");
 		for(String x:classes.getKeys(false))
 		{
@@ -143,7 +152,9 @@ public class ConfigManager {
 					HungerBarGames.logger.warning("Could not load a chest item under class "+x);
 				}
 			}
+			chests.add(cc);
 		}
+		
 	}
 	//Get the config
 	public static FileConfiguration getConfig()
@@ -198,6 +209,11 @@ public class ConfigManager {
 	public static int getMinPlayers()
 	{
 		return defaultMin;
+	}
+	//Gets whether the plugin should handle pvp or not
+	public static boolean getPvP()
+	{
+		return pvp;
 	}
 	public static ChestClass getChestClass(String name)
 	{

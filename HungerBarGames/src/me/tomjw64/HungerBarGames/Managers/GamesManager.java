@@ -66,4 +66,8 @@ public class GamesManager {
 			inGame.remove(p);
 		}
 	}
+	public static void delArena(Arena a)
+	{
+		arenas.remove(a);
+	}
 }

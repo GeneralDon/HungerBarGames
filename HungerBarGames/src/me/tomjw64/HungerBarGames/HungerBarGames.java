@@ -8,6 +8,7 @@ package me.tomjw64.HungerBarGames;
 
 import java.util.logging.Logger;
 
+import me.tomjw64.HungerBarGames.Listeners.AntiPvPListener;
 import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.DataManager;
@@ -41,6 +42,10 @@ public class HungerBarGames extends JavaPlugin{
 		
 		//Load listeners
 		new BlockEditListener(this);
+		if(ConfigManager.getPvP())
+		{
+			new AntiPvPListener(this);
+		}
 		
 		logger.info("["+pdf.getName()+"] version "+pdf.getVersion()+" is enabled!");
 	}

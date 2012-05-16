@@ -90,39 +90,42 @@ public class DataManager {
 			}
 			Map<ChestClass,Set<Chest>> chests=new HashMap<ChestClass,Set<Chest>>();
 			ConfigurationSection classes=database.getConfigurationSection(path+"Chests");
-			for(String x:classes.getKeys(false))
+			if(classes!=null)
 			{
-				if(ConfigManager.getChestClass(x)!=null)
+				for(String x:classes.getKeys(false))
 				{
-					ChestClass cc=ConfigManager.getChestClass(x);
-					Set<Chest> c=new HashSet<Chest>();
-					for(String className:classes.getStringList(x))
+					if(ConfigManager.getChestClass(x)!=null)
 					{
-						String[] info=className.split(";");
-						try
+						ChestClass cc=ConfigManager.getChestClass(x);
+						Set<Chest> c=new HashSet<Chest>();
+						for(String className:classes.getStringList(x))
 						{
-							int cx=Integer.parseInt(info[0]);
-							int cy=Integer.parseInt(info[1]);
-							int cz=Integer.parseInt(info[2]);
-							BlockState chest=w.getBlockAt(cx,cy,cz).getState();
-							if(chest instanceof Chest)
+							String[] info=className.split(";");
+							try
 							{
-								c.add((Chest)chest);
+								int cx=Integer.parseInt(info[0]);
+								int cy=Integer.parseInt(info[1]);
+								int cz=Integer.parseInt(info[2]);
+								BlockState chest=w.getBlockAt(cx,cy,cz).getState();
+								if(chest instanceof Chest)
+								{
+									c.add((Chest)chest);
+								}
+							}
+							catch(Exception wtf)
+							{
+								HungerBarGames.logger.warning("Could not load a chest under class "+x+" arena "+s);
 							}
 						}
-						catch(Exception wtf)
-						{
-							HungerBarGames.logger.warning("Could not load a chest under class "+x+" arena "+s);
-						}
+						chests.put(cc,c);
 					}
-					chests.put(cc,c);
-				}
-				else
-				{
-					HungerBarGames.logger.warning("Chest Class "+x+" not found!");
+					else
+					{
+						HungerBarGames.logger.warning("Chest Class "+x+" not found!");
+					}
 				}
 			}
-			GamesManager.addArena(new Arena(pl,s,w,database.getInt(path+"Max"),database.getInt("Min"),lobby,spec,spawns,chests));
+			GamesManager.addArena(new Arena(pl,s,database.getInt(path+"Max"),database.getInt("Min"),lobby,spec,spawns,chests));
 		}
 	}
 	//Get the database

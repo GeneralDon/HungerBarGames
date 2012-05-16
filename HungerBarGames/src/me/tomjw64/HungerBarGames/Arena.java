@@ -23,8 +23,6 @@ public class Arena {
 	private String name;
 	//Whether or not to load the arena to database
 	private boolean changes;
-	//Arena's world
-	private World world;
 	//Holds player spawn points
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
@@ -42,9 +40,9 @@ public class Arena {
 	
 	public Arena(HungerBarGames instance,String arenaName)
 	{
-		this(instance,arenaName,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
+		this(instance,arenaName,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
 	}
-	public Arena(HungerBarGames instance,String arenaName,World w,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
+	public Arena(HungerBarGames instance,String arenaName,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
 	{
 		pl=instance;
 		name=arenaName;
@@ -94,7 +92,6 @@ public class Arena {
 	public void setLobby(Location lobby)
 	{
 		lobbyPoint=lobby;
-		world=lobby.getWorld();
 		changes=true;
 	}
 	public int getNumSpawns()
@@ -129,7 +126,7 @@ public class Arena {
 	}
 	public World getWorld()
 	{
-		return world;
+		return specPoint.getWorld();
 	}
 	public void fillChests()
 	{
@@ -138,6 +135,7 @@ public class Arena {
 			ChestClass cc=entry.getKey();
 			for(Chest c:entry.getValue())
 			{
+				c.getInventory().clear();
 				cc.fillChest(c);
 			}
 		}
@@ -158,6 +156,7 @@ public class Arena {
 			newChestSet.add(c);
 			chests.put(cc,newChestSet);
 		}
+		changes=true;
 	}
 	public boolean isAssigned(ChestClass cc, Chest c)
 	{

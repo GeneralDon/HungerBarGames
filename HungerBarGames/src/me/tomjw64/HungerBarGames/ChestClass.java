@@ -31,7 +31,7 @@ public class ChestClass {
 				{
 					int id=ci.getID();
 					ItemStack item=new ItemStack(id);
-					if(i.contains(id)&&Math.random()<0.8)
+					if(i.contains(id)&&Math.random()<0.75)
 					{
 						i.addItem(item);
 					}
@@ -39,7 +39,7 @@ public class ChestClass {
 					{
 						int index;
 						index=(int)(Math.random()*limit);
-						if(i.getItem(index).getTypeId()!=0)
+						if(i.getItem(index)==null)
 						{
 							i.setItem(index,item);
 						}

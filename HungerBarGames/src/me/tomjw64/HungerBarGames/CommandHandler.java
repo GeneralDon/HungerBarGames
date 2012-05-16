@@ -38,7 +38,22 @@ public class CommandHandler {
 			switch(cmd)
 			{
 				case "help":
-					//TODO: Show help/commands
+					//Show help/commands
+					sender.sendMessage(prefix+BLUE+"/hbg"+WHITE+" goes before all commands!");
+					sender.sendMessage(prefix+GREEN+"HungerBarGames Commands:");
+					sender.sendMessage(BLUE+"help");
+					sender.sendMessage(BLUE+"arenas");
+					sender.sendMessage(BLUE+"join [arena]");
+					sender.sendMessage(BLUE+"create [name]");
+					sender.sendMessage(BLUE+"delete [arena]");
+					sender.sendMessage(BLUE+"select [arena]");
+					sender.sendMessage(BLUE+"lobby");
+					sender.sendMessage(BLUE+"spec");
+					sender.sendMessage(BLUE+"spawn [number]");
+					sender.sendMessage(BLUE+"chest [class]");
+					sender.sendMessage(BLUE+"start [arena]");
+					sender.sendMessage(BLUE+"startrpt [arena]");
+					sender.sendMessage(prefix+GREEN+"End of /hbg help");
 					break;
 				case "reload":
 					//TODO: Reload config
@@ -79,6 +94,19 @@ public class CommandHandler {
 									+GREEN+"Game In Session"+WHITE+"; "
 									+BLUE+"In Lobby");
 						}
+					}
+					break;
+				case "delete":
+					//Delete arena
+					Arena a=selection.get(sender);
+					if(a!=null)
+					{
+						GamesManager.delArena(a);
+						selection.remove(sender);
+					}
+					else
+					{
+						sender.sendMessage(prefix+RED+"You have no arena selected! Type "+BLUE+"/hbg select [arena]"+RED+" to select an arena!");
 					}
 					break;
 				case "lobby":
@@ -163,11 +191,14 @@ public class CommandHandler {
 					break;
 				case "select":
 					//Select arena, and set to player in a map
-					Arena a=GamesManager.getArena(arg1);
-					if(a!=null)
+					if(sender.isOp())
 					{
-						selection.put(sender,a);
-						sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
+						Arena a=GamesManager.getArena(arg1);
+						if(a!=null)
+						{
+							selection.put(sender,a);
+							sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
+						}
 					}
 					break;
 				case "spawn":
@@ -232,51 +263,62 @@ public class CommandHandler {
 						}
 					}
 					break;
-				default:
-					sender.sendMessage(prefix+RED+"That command doesn't exist!");
-			}
-		}
-		//Three argument commands
-		else if(args.length==3)
-		{
-			String arg1=args[1];
-			String arg2=args[2];
-			switch(cmd)
-			{
 				case "start":
 					//Start a game
-					Arena a=GamesManager.getArena(arg1);
-					if(a!=null)
+					if(sender.isOp())
 					{
-						if(a.getGame()==null)
+						Arena a1=GamesManager.getArena(arg1);
+						if(a1!=null)
 						{
-							if(a.getSpec()!=null&&a.getLobby()!=null)
+							if(a1.getGame()==null)
 							{
-								boolean repeat;
-								try
+								if(a1.getSpec()!=null&&a1.getLobby()!=null)
 								{
-									repeat=Boolean.parseBoolean(arg2);
-									a.startGame(repeat);
+									a1.startGame(false);
 								}
-								catch(Exception wtf)
+								else
 								{
-									wtf.printStackTrace();
-									sender.sendMessage(prefix+RED+"Could not process command!");
+									sender.sendMessage(prefix+RED+"Arena has not been set up correctly!");
 								}
 							}
 							else
 							{
-								sender.sendMessage(prefix+RED+"Arena has not been set up correctly!");
+								sender.sendMessage(prefix+RED+"A game is already running in arena"+BLUE+arg1+"!");
 							}
 						}
 						else
 						{
-							sender.sendMessage(prefix+RED+"A game is already running in arena"+BLUE+arg1+"!");
+							sender.sendMessage(prefix+RED+"There is no arena by that name!");
 						}
 					}
-					else
+					break;
+				case "startrpt":
+					//Start a game
+					if(sender.isOp())
 					{
-						sender.sendMessage(prefix+RED+"There is no arena by that name!");
+						Arena a2=GamesManager.getArena(arg1);
+						if(a2!=null)
+						{
+							if(a2.getGame()==null)
+							{
+								if(a2.getSpec()!=null&&a2.getLobby()!=null)
+								{
+									a2.startGame(true);
+								}
+								else
+								{
+									sender.sendMessage(prefix+RED+"Arena has not been set up correctly!");
+								}
+							}
+							else
+							{
+								sender.sendMessage(prefix+RED+"A game is already running in arena"+BLUE+arg1+"!");
+							}
+						}
+						else
+						{
+							sender.sendMessage(prefix+RED+"There is no arena by that name!");
+						}
 					}
 					break;
 				default:

@@ -72,6 +72,7 @@ public class Game {
 		pl.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
 		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable()
 			{
+				@SuppressWarnings("unused")
 				public void run()
 				{
 					if(/*getNumTributes()>arena.getMinPlayers()*/true)
@@ -169,7 +170,10 @@ public class Game {
 	//Declares a winner, then ends game
 	public void declareWinner(Player p)
 	{
-		pl.getServer().broadcastMessage(prefix+YELLOW+"Player "+BLUE+p.getName()+YELLOW+"has won the game in arena "+BLUE+arena.getName()+"!");
+		pl.getServer().broadcastMessage(prefix+YELLOW+"Player "+BLUE+p.getName()+YELLOW+" has won the game in arena "+BLUE+arena.getName()+"!");
+		p.setHealth(20);
+		p.setFoodLevel(20);
+		p.setFireTicks(0);
 		//TODO: Give rewards
 		endGame();
 	}
