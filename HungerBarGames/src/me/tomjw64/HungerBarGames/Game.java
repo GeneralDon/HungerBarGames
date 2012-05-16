@@ -75,7 +75,7 @@ public class Game {
 				@SuppressWarnings("unused")
 				public void run()
 				{
-					if(/*getNumTributes()>arena.getMinPlayers()*/true)
+					if(getNumTributes()>arena.getMinPlayers())
 					{
 						startCountdown();
 					}
