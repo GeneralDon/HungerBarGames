@@ -163,7 +163,14 @@ public class CommandHandler {
 							Arena a=GamesManager.getArena(arg1);
 							if(a!=null)
 							{
-								a.getGame().addTribute(p);
+								if(a.getGame()!=null)
+								{
+									a.getGame().addTribute(p);
+								}
+								else
+								{
+									p.sendMessage(prefix+RED+"There is not a game running in that arena!");
+								}
 							}
 							else
 							{
