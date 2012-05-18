@@ -233,6 +233,7 @@ public class CommandHandler {
 							p.sendMessage(prefix+RED+"You have no arena selected! Type "+BLUE+"/hbg select [arena]"+RED+" to select an arena!");
 						}
 					}
+					break;
 				case "chest":
 					//Set a chest class
 					if(sender instanceof Player)
