@@ -153,10 +153,16 @@ public class DataManager {
 				database.set(path+"Min", a.getMinPlayers());
 				database.set(path+"Max", a.getMaxPlayers());
 				Location l=a.getLobby();
-				database.set(path+"Lobby",l.getX()+";"+l.getY()+";"+l.getZ()+";"+l.getYaw()+";"+l.getPitch());
-				database.set(path+"World",a.getWorld().getName());
+				if(l!=null)
+				{
+					database.set(path+"Lobby",l.getX()+";"+l.getY()+";"+l.getZ()+";"+l.getYaw()+";"+l.getPitch());
+				}
 				Location l1=a.getSpec();
-				database.set(path+"Spec",l1.getX()+";"+l1.getY()+";"+l1.getZ()+";"+l1.getYaw()+";"+l1.getPitch());
+				if(l1!=null)
+				{
+					database.set(path+"Spec",l1.getX()+";"+l1.getY()+";"+l1.getZ()+";"+l1.getYaw()+";"+l1.getPitch());
+					database.set(path+"World",a.getWorld().getName());
+				}
 				List<String> spawns=new ArrayList<String>();
 				for(Location l2:a.getSpawns())
 				{
