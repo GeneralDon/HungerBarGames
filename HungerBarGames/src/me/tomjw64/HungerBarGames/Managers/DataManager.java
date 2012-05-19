@@ -62,70 +62,76 @@ public class DataManager {
 		for(String s:database.getKeys(false))
 		{
 			String path=s+".";
-			World w=Bukkit.getServer().getWorld(database.getString(path+"World"));
-			String[] lobbyData=database.getString(path+"Lobby").split(";");
-			double lx=Double.parseDouble(lobbyData[0]);
-			double ly=Double.parseDouble(lobbyData[1]);
-			double lz=Double.parseDouble(lobbyData[2]);
-			float lyaw=Float.parseFloat(lobbyData[3]);
-			float lpitch=Float.parseFloat(lobbyData[4]);
-			Location lobby=new Location(w,lx,ly,lz,lyaw,lpitch);
-			String[] specData=database.getString(path+"Spec").split(";");
-			double sx=Double.parseDouble(specData[0]);
-			double sy=Double.parseDouble(specData[1]);
-			double sz=Double.parseDouble(specData[2]);
-			float syaw=Float.parseFloat(specData[3]);
-			float spitch=Float.parseFloat(specData[4]);
-			Location spec=new Location(w,sx,sy,sz,syaw,spitch);
+			World w=null;
+			Location lobby=null;
+			Location spec=null;
 			List<Location> spawns=new ArrayList<Location>();
-			for(String sp:database.getStringList(path+"Spawns"))
-			{
-				String[] data=sp.split(";");
-				double x=Double.parseDouble(data[0]);
-				double y=Double.parseDouble(data[1]);
-				double z=Double.parseDouble(data[2]);
-				float yaw=Float.parseFloat(data[3]);
-				float pitch=Float.parseFloat(data[4]);
-				spawns.add(new Location(w,x,y,z,yaw,pitch));
-			}
 			Map<ChestClass,Set<Chest>> chests=new HashMap<ChestClass,Set<Chest>>();
-			ConfigurationSection classes=database.getConfigurationSection(path+"Chests");
-			if(classes!=null)
+			if(Bukkit.getServer().getWorld(database.getString(path+"World"))!=null)
 			{
-				for(String x:classes.getKeys(false))
+				w=Bukkit.getServer().getWorld(database.getString(path+"World"));
+				String[] lobbyData=database.getString(path+"Lobby").split(";");
+				double lx=Double.parseDouble(lobbyData[0]);
+				double ly=Double.parseDouble(lobbyData[1]);
+				double lz=Double.parseDouble(lobbyData[2]);
+				float lyaw=Float.parseFloat(lobbyData[3]);
+				float lpitch=Float.parseFloat(lobbyData[4]);
+				lobby=new Location(w,lx,ly,lz,lyaw,lpitch);
+				String[] specData=database.getString(path+"Spec").split(";");
+				double sx=Double.parseDouble(specData[0]);
+				double sy=Double.parseDouble(specData[1]);
+				double sz=Double.parseDouble(specData[2]);
+				float syaw=Float.parseFloat(specData[3]);
+				float spitch=Float.parseFloat(specData[4]);
+				spec=new Location(w,sx,sy,sz,syaw,spitch);
+				for(String sp:database.getStringList(path+"Spawns"))
 				{
-					if(ConfigManager.getChestClass(x)!=null)
+					String[] data=sp.split(";");
+					double x=Double.parseDouble(data[0]);
+					double y=Double.parseDouble(data[1]);
+					double z=Double.parseDouble(data[2]);
+					float yaw=Float.parseFloat(data[3]);
+					float pitch=Float.parseFloat(data[4]);
+					spawns.add(new Location(w,x,y,z,yaw,pitch));
+				}
+				ConfigurationSection classes=database.getConfigurationSection(path+"Chests");
+				if(classes!=null)
+				{
+					for(String x:classes.getKeys(false))
 					{
-						ChestClass cc=ConfigManager.getChestClass(x);
-						Set<Chest> c=new HashSet<Chest>();
-						for(String className:classes.getStringList(x))
+						if(ConfigManager.getChestClass(x)!=null)
 						{
-							String[] info=className.split(";");
-							try
+							ChestClass cc=ConfigManager.getChestClass(x);
+							Set<Chest> c=new HashSet<Chest>();
+							for(String className:classes.getStringList(x))
 							{
-								int cx=Integer.parseInt(info[0]);
-								int cy=Integer.parseInt(info[1]);
-								int cz=Integer.parseInt(info[2]);
-								BlockState chest=w.getBlockAt(cx,cy,cz).getState();
-								if(chest instanceof Chest)
+								String[] info=className.split(";");
+								try
 								{
-									c.add((Chest)chest);
+									int cx=Integer.parseInt(info[0]);
+									int cy=Integer.parseInt(info[1]);
+									int cz=Integer.parseInt(info[2]);
+									BlockState chest=w.getBlockAt(cx,cy,cz).getState();
+									if(chest instanceof Chest)
+									{
+										c.add((Chest)chest);
+									}
+								}
+								catch(Exception wtf)
+								{
+									HungerBarGames.logger.warning("Could not load a chest under class "+x+" arena "+s);
 								}
 							}
-							catch(Exception wtf)
-							{
-								HungerBarGames.logger.warning("Could not load a chest under class "+x+" arena "+s);
-							}
+							chests.put(cc,c);
 						}
-						chests.put(cc,c);
-					}
-					else
-					{
-						HungerBarGames.logger.warning("Chest Class "+x+" not found!");
+						else
+						{
+							HungerBarGames.logger.warning("Chest Class "+x+" not found!");
+						}
 					}
 				}
-			}
-			GamesManager.addArena(new Arena(pl,s,database.getInt(path+"Max"),database.getInt("Min"),lobby,spec,spawns,chests));
+			}	
+			GamesManager.addArena(new Arena(pl,s,database.getInt(path+"Max"),database.getInt(path+"Min"),lobby,spec,spawns,chests));
 		}
 	}
 	//Get the database

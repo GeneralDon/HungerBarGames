@@ -1,9 +1,11 @@
 package me.tomjw64.HungerBarGames;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
@@ -23,11 +25,13 @@ public class CommandHandler {
 	private static final ChatColor YELLOW=ChatColor.YELLOW;
 	private static final ChatColor GREEN=ChatColor.GREEN;
 	private static final ChatColor WHITE=ChatColor.WHITE;
+	//Commands
+	private static Set<HBGCommand> cmds=new HashSet<HBGCommand>();
 	//Player, selection associations
 	private static Map<CommandSender,Arena> selection=new HashMap<CommandSender,Arena>();
 	
 	public static void handleCommand(HungerBarGames pl,CommandSender sender, String[] args)
-	{
+	{ 
 		//Plugin prefix
 		String prefix=ConfigManager.getPrefix();
 		//The command sent to the plugin
@@ -39,7 +43,6 @@ public class CommandHandler {
 			{
 				case "help":
 					//Show help/commands
-					sender.sendMessage(prefix+BLUE+"/hbg"+WHITE+" goes before all commands!");
 					sender.sendMessage(prefix+GREEN+"HungerBarGames Commands:");
 					sender.sendMessage(BLUE+"help");
 					sender.sendMessage(BLUE+"arenas");
@@ -53,7 +56,7 @@ public class CommandHandler {
 					sender.sendMessage(BLUE+"chest [class]");
 					sender.sendMessage(BLUE+"start [arena]");
 					sender.sendMessage(BLUE+"startrpt [arena]");
-					sender.sendMessage(prefix+GREEN+"End of /hbg help");
+					sender.sendMessage(prefix+GREEN+"End of help.");
 					break;
 				case "reload":
 					//TODO: Reload config
