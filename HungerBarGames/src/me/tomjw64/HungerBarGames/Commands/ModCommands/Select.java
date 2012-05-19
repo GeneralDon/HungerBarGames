@@ -1,15 +1,27 @@
 package me.tomjw64.HungerBarGames.Commands.ModCommands;
 
+import me.tomjw64.HungerBarGames.Arena;
+import me.tomjw64.HungerBarGames.CommandHandler;
+import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
+import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 import org.bukkit.command.CommandSender;
 
-public class Select implements HBGCommand{
+public class Select extends ChatVariableHolder implements HBGCommand{
 
 	@Override
-	public void execute(CommandSender sender, String[] args) {
-		// TODO Auto-generated method stub
-		
+	public void execute(CommandSender sender, String[] args)
+	{
+		if(sender.isOp())
+		{
+			Arena a=GamesManager.getArena(args[0]);
+			if(a!=null)
+			{
+				CommandHandler.getSelections().put(sender,a);
+				sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+a.getName()+YELLOW+" has been selected!");
+			}
+		}
 	}
 
 	@Override

@@ -1,10 +1,11 @@
 package me.tomjw64.HungerBarGames.Commands.GenCommands;
 
+import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 
 import org.bukkit.command.CommandSender;
 
-public class Help implements HBGCommand{
+public class Help extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
