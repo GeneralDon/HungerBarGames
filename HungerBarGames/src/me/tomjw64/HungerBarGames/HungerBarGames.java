@@ -45,6 +45,9 @@ public class HungerBarGames extends JavaPlugin{
 			new AntiPvPListener(this);
 		}
 		
+		//Load commands
+		CommandHandler.loadCommands(this);
+		
 		logger.info("["+pdf.getName()+"] version "+pdf.getVersion()+" is enabled!");
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)

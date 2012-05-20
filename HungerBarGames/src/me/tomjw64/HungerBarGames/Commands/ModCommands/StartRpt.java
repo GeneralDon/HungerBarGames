@@ -42,32 +42,27 @@ public class StartRpt extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "startrpt";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd()+" [arena]";
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "starts a repeating game";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.mod.startrpt";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 1;
 	}
 
 }

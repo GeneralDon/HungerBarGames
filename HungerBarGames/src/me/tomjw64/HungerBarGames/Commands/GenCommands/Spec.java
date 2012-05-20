@@ -15,32 +15,27 @@ public class Spec extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "spec";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd()+" [arena]";
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "does nothing";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.player.spec";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 1;
 	}
 
 }

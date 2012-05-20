@@ -1,5 +1,6 @@
 package me.tomjw64.HungerBarGames.Commands.GenCommands;
 
+import me.tomjw64.HungerBarGames.CommandHandler;
 import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 
@@ -8,39 +9,39 @@ import org.bukkit.command.CommandSender;
 public class Help extends ChatVariableHolder implements HBGCommand{
 
 	@Override
-	public void execute(CommandSender sender, String[] args) {
-		// TODO Auto-generated method stub
-		
+	public void execute(CommandSender sender, String[] args)
+	{
+		sender.sendMessage(prefix+GREEN+"HungerBarGames Commands:");
+		for(HBGCommand c:CommandHandler.getCmds())
+		{
+			sender.sendMessage(BLUE+"/hbg "+c.usage()+YELLOW+" - "+c.description());
+		}
+		sender.sendMessage(prefix+GREEN+"End of help");
 	}
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "help";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd();
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "shows help";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.player.help";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 0;
 	}
 
 }

@@ -1,9 +1,9 @@
 package me.tomjw64.HungerBarGames;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 import me.tomjw64.HungerBarGames.Commands.GenCommands.*;
@@ -19,24 +19,24 @@ public class CommandHandler {
 	//Colors
 	private static final ChatColor RED=ChatColor.RED;
 	//Commands
-	private static Set<HBGCommand> cmds=new HashSet<HBGCommand>();
+	private static List<HBGCommand> cmds=new ArrayList<HBGCommand>();
 	//Player, selection associations
 	private static Map<CommandSender,Arena> selections=new HashMap<CommandSender,Arena>();
 	
-	public void loadCommands(HungerBarGames pl)
+	public static void loadCommands(HungerBarGames pl)
 	{
 		cmds.add(new Help());
-		cmds.add(new Join());
 		cmds.add(new ListArenas());
+		cmds.add(new Join());
 		cmds.add(new Spec());
 		cmds.add(new AssignChest());
 		cmds.add(new Create(pl));
 		cmds.add(new Delete());
-		cmds.add(new Reload());
+		cmds.add(new Reload(pl));
 		cmds.add(new Select());
 		cmds.add(new SetLobby());
+		cmds.add(new SetSpawn());
 		cmds.add(new SetSpec());
-		cmds.add(new Spawn());
 		cmds.add(new Start());
 		cmds.add(new StartRpt());
 	}
@@ -56,7 +56,14 @@ public class CommandHandler {
 		{
 			if(cmd.equalsIgnoreCase(c.cmd()))
 			{
-				c.execute(sender,subArgs);
+				if(subArgs.length>=c.numArgs())
+				{
+					c.execute(sender,subArgs);
+				}
+				else
+				{
+					sender.sendMessage(RED+"Incompatible arguments!");
+				}
 				return;
 			}
 		}
@@ -66,7 +73,7 @@ public class CommandHandler {
 	{
 		return selections;
 	}
-	public static Set<HBGCommand> getCmds()
+	public static List<HBGCommand> getCmds()
 	{
 		return cmds;
 	}
@@ -95,7 +102,6 @@ public class CommandHandler {
 //					sender.sendMessage(prefix+GREEN+"End of help.");
 //					break;
 //				case "reload":
-//					//TODO: Reload config
 //					break;
 //				case "arenas":
 //					//List arenas

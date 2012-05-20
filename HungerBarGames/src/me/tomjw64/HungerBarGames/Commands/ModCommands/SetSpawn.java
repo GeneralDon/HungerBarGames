@@ -8,7 +8,7 @@ import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Spawn extends ChatVariableHolder implements HBGCommand{
+public class SetSpawn extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public void execute(CommandSender sender, String[] args)
@@ -16,15 +16,15 @@ public class Spawn extends ChatVariableHolder implements HBGCommand{
 		if(sender instanceof Player)
 		{
 			Player p=(Player)sender;
-			Arena a1=CommandHandler.getSelections().get(p);
-			if(a1!=null)
+			Arena a=CommandHandler.getSelections().get(p);
+			if(a!=null)
 			{
 				int pos;
 				try
 				{
 					pos=Integer.parseInt(args[0]);
-					a1.addSpawn(p.getLocation());
-					p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+YELLOW+" set for arena "+BLUE+a1.getName()+YELLOW+"!");
+					a.addSpawn(p.getLocation());
+					p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+YELLOW+" set for arena "+BLUE+a.getName()+YELLOW+"!");
 				}
 				catch(Exception wtf)
 				{
@@ -40,32 +40,27 @@ public class Spawn extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "setspawn";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd()+" [#]";
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "sets a starting point";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.admin.setspawn";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 1;
 	}
 
 }

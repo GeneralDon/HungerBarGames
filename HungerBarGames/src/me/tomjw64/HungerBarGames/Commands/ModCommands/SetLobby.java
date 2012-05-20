@@ -1,4 +1,4 @@
-package me.tomjw64.HungerBarGames.Commands.ModCommands;
+ package me.tomjw64.HungerBarGames.Commands.ModCommands;
 
 import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.CommandHandler;
@@ -31,32 +31,27 @@ public class SetLobby extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "setlobby";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd();
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "sets the lobby spawn point";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.admin.setlobby";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 0;
 	}
 
 }

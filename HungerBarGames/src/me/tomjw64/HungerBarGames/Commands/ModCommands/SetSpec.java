@@ -16,11 +16,11 @@ public class SetSpec extends ChatVariableHolder implements HBGCommand{
 		if(sender instanceof Player)
 		{
 			Player p=(Player)sender;
-			Arena a1=CommandHandler.getSelections().get(p);
-			if(a1!=null)
+			Arena a=CommandHandler.getSelections().get(p);
+			if(a!=null)
 			{
-				a1.setSpec(p.getLocation());
-				p.sendMessage(prefix+YELLOW+"Spectator spawn set for arena "+BLUE+a1.getName()+YELLOW+"!");
+				a.setSpec(p.getLocation());
+				p.sendMessage(prefix+YELLOW+"Spectator spawn set for arena "+BLUE+a.getName()+YELLOW+"!");
 			}
 			else
 			{
@@ -31,32 +31,27 @@ public class SetSpec extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "setspec";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd();
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "sets the spectator spawn point";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.admin.setspec";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 0;
 	}
 
 }

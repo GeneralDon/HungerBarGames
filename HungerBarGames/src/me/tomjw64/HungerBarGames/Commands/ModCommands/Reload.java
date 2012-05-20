@@ -1,12 +1,19 @@
 package me.tomjw64.HungerBarGames.Commands.ModCommands;
 
+import me.tomjw64.HungerBarGames.HungerBarGames;
 import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 
 import org.bukkit.command.CommandSender;
 
 public class Reload extends ChatVariableHolder implements HBGCommand{
-
+	public static HungerBarGames pl;
+	
+	public Reload(HungerBarGames instance)
+	{
+		pl=instance;
+	}
+	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		// TODO Auto-generated method stub
@@ -15,32 +22,27 @@ public class Reload extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "reload";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd();
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "does nothing";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.mod.reload";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 0;
 	}
 
 }

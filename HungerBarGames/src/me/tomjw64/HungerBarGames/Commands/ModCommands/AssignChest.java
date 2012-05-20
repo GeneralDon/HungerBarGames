@@ -20,8 +20,8 @@ public class AssignChest extends ChatVariableHolder implements HBGCommand{
 		if(sender instanceof Player)
 		{
 			Player p=(Player)sender;
-			Arena a1=CommandHandler.getSelections().get(p);
-			if(a1!=null)
+			Arena a=CommandHandler.getSelections().get(p);
+			if(a!=null)
 			{
 				ChestClass cc=ConfigManager.getChestClass(args[0]);
 				if(cc!=null)
@@ -30,9 +30,9 @@ public class AssignChest extends ChatVariableHolder implements HBGCommand{
 					if(target instanceof Chest)
 					{
 						Chest c=(Chest)target;
-						if(!a1.isAssigned(cc,c))
+						if(!a.isAssigned(cc,c))
 						{
-							a1.addChest(cc,(Chest)target);
+							a.addChest(cc,(Chest)target);
 							p.sendMessage(prefix+GREEN+"Chest assigned!");
 						}
 						else
@@ -55,32 +55,27 @@ public class AssignChest extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String cmd() {
-		// TODO Auto-generated method stub
-		return null;
+		return "assign";
 	}
 
 	@Override
 	public String usage() {
-		// TODO Auto-generated method stub
-		return null;
+		return cmd()+" [class]";
 	}
 
 	@Override
 	public String description() {
-		// TODO Auto-generated method stub
-		return null;
+		return "assigns a chest to a class";
 	}
 
 	@Override
 	public String permission() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HBG.admin.assign";
 	}
 
 	@Override
-	public String permissionTier() {
-		// TODO Auto-generated method stub
-		return null;
+	public int numArgs() {
+		return 1;
 	}
 
 }

@@ -8,5 +8,5 @@ public interface HBGCommand {
 	public String usage();
 	public String description();
 	public String permission();
-	public String permissionTier();
+	public int numArgs();
 }

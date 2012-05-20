@@ -13,7 +13,6 @@ import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.ChestClass;
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
@@ -67,16 +66,9 @@ public class DataManager {
 			Location spec=null;
 			List<Location> spawns=new ArrayList<Location>();
 			Map<ChestClass,Set<Chest>> chests=new HashMap<ChestClass,Set<Chest>>();
-			if(Bukkit.getServer().getWorld(database.getString(path+"World"))!=null)
+			if(database.getString(path+"World")!=null&&pl.getServer().getWorld(database.getString(path+"World"))!=null)
 			{
-				w=Bukkit.getServer().getWorld(database.getString(path+"World"));
-				String[] lobbyData=database.getString(path+"Lobby").split(";");
-				double lx=Double.parseDouble(lobbyData[0]);
-				double ly=Double.parseDouble(lobbyData[1]);
-				double lz=Double.parseDouble(lobbyData[2]);
-				float lyaw=Float.parseFloat(lobbyData[3]);
-				float lpitch=Float.parseFloat(lobbyData[4]);
-				lobby=new Location(w,lx,ly,lz,lyaw,lpitch);
+				w=pl.getServer().getWorld(database.getString(path+"World"));
 				String[] specData=database.getString(path+"Spec").split(";");
 				double sx=Double.parseDouble(specData[0]);
 				double sy=Double.parseDouble(specData[1]);
@@ -84,15 +76,28 @@ public class DataManager {
 				float syaw=Float.parseFloat(specData[3]);
 				float spitch=Float.parseFloat(specData[4]);
 				spec=new Location(w,sx,sy,sz,syaw,spitch);
-				for(String sp:database.getStringList(path+"Spawns"))
+				if(database.getString(path+"Lobby")!=null)
 				{
-					String[] data=sp.split(";");
-					double x=Double.parseDouble(data[0]);
-					double y=Double.parseDouble(data[1]);
-					double z=Double.parseDouble(data[2]);
-					float yaw=Float.parseFloat(data[3]);
-					float pitch=Float.parseFloat(data[4]);
-					spawns.add(new Location(w,x,y,z,yaw,pitch));
+					String[] lobbyData=database.getString(path+"Lobby").split(";");
+					double lx=Double.parseDouble(lobbyData[0]);
+					double ly=Double.parseDouble(lobbyData[1]);
+					double lz=Double.parseDouble(lobbyData[2]);
+					float lyaw=Float.parseFloat(lobbyData[3]);
+					float lpitch=Float.parseFloat(lobbyData[4]);
+					lobby=new Location(w,lx,ly,lz,lyaw,lpitch);
+				}
+				if(database.getStringList(path+"Spawns")!=null)
+				{
+					for(String sp:database.getStringList(path+"Spawns"))
+					{
+						String[] data=sp.split(";");
+						double x=Double.parseDouble(data[0]);
+						double y=Double.parseDouble(data[1]);
+						double z=Double.parseDouble(data[2]);
+						float yaw=Float.parseFloat(data[3]);
+						float pitch=Float.parseFloat(data[4]);
+						spawns.add(new Location(w,x,y,z,yaw,pitch));
+					}
 				}
 				ConfigurationSection classes=database.getConfigurationSection(path+"Chests");
 				if(classes!=null)
