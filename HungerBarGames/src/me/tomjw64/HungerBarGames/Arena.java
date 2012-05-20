@@ -81,9 +81,19 @@ public class Arena {
 	{
 		return maxPlayers;
 	}
+	public void setMaxPlayers(int max)
+	{
+		maxPlayers=max;
+		changes=true;
+	}
 	public int getMinPlayers()
 	{
 		return minPlayers;
+	}
+	public void setMinPlayers(int min)
+	{
+		minPlayers=min;
+		changes=true;
 	}
 	public Location getLobby()
 	{

@@ -35,6 +35,8 @@ public class CommandHandler {
 		cmds.add(new Reload(pl));
 		cmds.add(new Select());
 		cmds.add(new SetLobby());
+		cmds.add(new SetMin());
+		cmds.add(new SetMax());
 		cmds.add(new SetSpawn());
 		cmds.add(new SetSpec());
 		cmds.add(new Start());
