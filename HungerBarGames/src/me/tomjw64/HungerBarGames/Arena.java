@@ -47,7 +47,17 @@ public class Arena {
 		pl=instance;
 		name=arenaName;
 		changes=false;
+		if(maxP<2)
+		{
+			maxP=2;
+			changes=true;
+		}
 		maxPlayers=maxP;
+		if(minP<2||minP>maxP)
+		{
+			minP=2;
+			changes=true;
+		}
 		minPlayers=minP;
 		lobbyPoint=lobby;
 		specPoint=spec;
@@ -92,7 +102,10 @@ public class Arena {
 	}
 	public void setMinPlayers(int min)
 	{
-		minPlayers=min;
+		if(min>=2)
+		{
+			minPlayers=min;
+		}
 		changes=true;
 	}
 	public Location getLobby()

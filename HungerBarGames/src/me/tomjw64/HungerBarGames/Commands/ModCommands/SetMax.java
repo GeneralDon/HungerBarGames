@@ -19,8 +19,15 @@ public class SetMax extends ChatVariableHolder implements HBGCommand {
 			try
 			{
 				max=Integer.parseInt(args[0]);
-				a.setMaxPlayers(max);
-				sender.sendMessage(prefix+YELLOW+"Maximum number of players set to "+BLUE+max+YELLOW+" for arena "+BLUE+a.getName()+YELLOW+"!");
+				if(max>=2&&max>=a.getMinPlayers())
+				{
+					a.setMaxPlayers(max);
+					sender.sendMessage(prefix+YELLOW+"Maximum number of players set to "+BLUE+max+YELLOW+" for arena "+BLUE+a.getName()+YELLOW+"!");
+				}
+				else
+				{
+					sender.sendMessage(prefix+RED+"Max must be greater than or equal to 2 and Min!");
+				}
 			}
 			catch(Exception wtf)
 			{

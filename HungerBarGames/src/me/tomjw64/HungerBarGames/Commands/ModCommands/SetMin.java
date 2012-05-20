@@ -19,8 +19,15 @@ public class SetMin extends ChatVariableHolder implements HBGCommand {
 			try
 			{
 				min=Integer.parseInt(args[0]);
-				a.setMinPlayers(min);
-				sender.sendMessage(prefix+YELLOW+"Miniumum number of players set to "+BLUE+min+YELLOW+" for arena "+BLUE+a.getName()+YELLOW+"!");
+				if(min>=2&&min<=a.getMaxPlayers())
+				{
+					a.setMinPlayers(min);
+					sender.sendMessage(prefix+YELLOW+"Minimum number of players set to "+BLUE+min+YELLOW+" for arena "+BLUE+a.getName()+YELLOW+"!");
+				}
+				else
+				{
+					sender.sendMessage(prefix+RED+"Min must be between 2 and Max!");
+				}
 			}
 			catch(Exception wtf)
 			{
