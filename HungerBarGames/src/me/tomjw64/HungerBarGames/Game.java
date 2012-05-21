@@ -78,7 +78,7 @@ public class Game {
 			{
 				public void run()
 				{
-					if(getNumTributes()>arena.getMinPlayers())
+					if(getNumTributes()>=arena.getMinPlayers())
 					{
 						startCountdown();
 					}

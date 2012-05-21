@@ -169,13 +169,25 @@ public class ConfigManager {
 				String[] info=i.split(";");
 				try
 				{
-					int item=Integer.parseInt(info[0]);
 					int chance=Integer.parseInt(info[1]);
 					int amount=Integer.parseInt(info[2]);
-					cc.addItem(new ChestItem(item,chance,amount));
+					int item;
+					if(info[0].contains("#"))
+					{
+						String[] itemInfo=info[0].split("#");
+						item=Integer.parseInt(itemInfo[0]);
+						short data=Short.parseShort(itemInfo[1]);
+						cc.addItem(new ChestItem(item,chance,amount,data));
+					}
+					else
+					{
+						item=Integer.parseInt(info[0]);
+						cc.addItem(new ChestItem(item,chance,amount));
+					}
 				}
 				catch(Exception wtf)
 				{
+					wtf.printStackTrace();
 					HungerBarGames.logger.warning("Could not load a chest item under class "+x);
 				}
 			}

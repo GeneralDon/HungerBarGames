@@ -30,7 +30,7 @@ public class ChestClass {
 				if(Math.random()<=ci.getChance())
 				{
 					int id=ci.getID();
-					ItemStack item=new ItemStack(id);
+					ItemStack item=new ItemStack(id,1,ci.getData());
 					if(i.contains(id)&&Math.random()<0.75)
 					{
 						i.addItem(item);
