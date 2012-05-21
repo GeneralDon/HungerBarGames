@@ -44,6 +44,8 @@ public class ConfigManager {
 	private static boolean pvp;
 	//Whether plugin should restrict block editing
 	private static boolean restrictBlock;
+	//Whether plugin should use player group permissions
+	private static boolean playerPerms;
 	//Holds whitelisted/blacklisted blocks
 	private static Set<Integer> exempt=new HashSet<Integer>();
 	//Chest Classes
@@ -122,6 +124,11 @@ public class ConfigManager {
 			config.createSection("HandlePvP");
 			config.set("HandlePvP", false);
 		}
+		if(!config.contains("PlayerPerms"))
+		{
+			config.createSection("PlayerPerms");
+			config.set("PlayerPerms", false);
+		}
 		if(!config.contains("RestrictBlocks"))
 		{
 			config.createSection("RestrictBlocks");
@@ -148,6 +155,7 @@ public class ConfigManager {
 		defaultMax=config.getInt("DefaultMax");
 		defaultMin=config.getInt("DefaultMin");
 		pvp=config.getBoolean("HandlePvP");
+		playerPerms=config.getBoolean("PlayerPerms");
 		restrictBlock=config.getBoolean("RestrictBlocks");
 		for(String id:config.getStringList("ExemptBlocks"))
 		{
@@ -279,5 +287,9 @@ public class ConfigManager {
 			}
 		}
 		return null;
+	}
+	public static boolean usingPlayerPerms()
+	{
+		return playerPerms;
 	}
 }

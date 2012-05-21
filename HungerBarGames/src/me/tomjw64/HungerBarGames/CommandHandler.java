@@ -8,6 +8,7 @@ import java.util.Map;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 import me.tomjw64.HungerBarGames.Commands.GenCommands.*;
 import me.tomjw64.HungerBarGames.Commands.ModCommands.*;
+import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -68,7 +69,10 @@ public class CommandHandler {
 						permGroup+=permSplit[x]+".";
 					}
 					permGroup+="*";
-					if(sender.isOp()||sender.hasPermission(perm)||sender.hasPermission(permGroup)||sender.hasPermission("HBG.*"))
+					if(sender.isOp()||sender.hasPermission(perm)
+							||sender.hasPermission(permGroup)
+							||sender.hasPermission("HBG.*")
+							||(!ConfigManager.usingPlayerPerms()&&permSplit[1].equalsIgnoreCase("player")))
 					{
 						c.execute(sender,subArgs);
 					}
