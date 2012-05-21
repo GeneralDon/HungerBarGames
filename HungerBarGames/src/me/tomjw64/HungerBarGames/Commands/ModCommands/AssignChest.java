@@ -70,7 +70,7 @@ public class AssignChest extends ChatVariableHolder implements HBGCommand{
 
 	@Override
 	public String permission() {
-		return "HBG.admin.assign";
+		return "HBG.admin.chestassign";
 	}
 
 	@Override
