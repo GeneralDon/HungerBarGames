@@ -56,7 +56,7 @@ public class PlayerActionListener extends GameListener{
 			}
 		}
 	}
-	@EventHandler(priority=EventPriority.NORMAL)
+	@EventHandler(priority=EventPriority.HIGHEST)
 	public void damage(EntityDamageByEntityEvent dmg)
 	{
 		//Check if both are players
@@ -69,6 +69,10 @@ public class PlayerActionListener extends GameListener{
 			{
 				//Cancel damage if one is in game and one is not
 				dmg.setCancelled(true);
+			}
+			else
+			{
+				dmg.setCancelled(false);
 			}
 		}
 	}
