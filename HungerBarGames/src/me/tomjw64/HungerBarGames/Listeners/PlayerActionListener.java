@@ -72,7 +72,11 @@ public class PlayerActionListener extends GameListener{
 			}
 			else
 			{
-				dmg.setCancelled(false);
+				//Stop other plugins from ruining all your fun
+				if(dmg.isCancelled())
+				{
+					dmg.setCancelled(false);
+				}
 			}
 		}
 	}
