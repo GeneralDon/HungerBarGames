@@ -1,7 +1,7 @@
 authors: [tomjw64, HaydenCappadona]
 name: HungerBarGames
 description: Yet another Hunger Games plugin
-version: 0.3.1
+version: 0.3.2
 main: me.tomjw64.HungerBarGames.HungerBarGames
 commands:
     hbg:
