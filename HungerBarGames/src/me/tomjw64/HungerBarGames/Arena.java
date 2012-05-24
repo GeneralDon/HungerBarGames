@@ -11,6 +11,7 @@ import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 
 public class Arena {
@@ -23,6 +24,9 @@ public class Arena {
 	private String name;
 	//Whether or not to load the arena to database
 	private boolean changes;
+	//Arena Cuboid
+	private CuboidPoint cuboid1;
+	private CuboidPoint cuboid2;
 	//Holds player spawn points
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
@@ -40,9 +44,9 @@ public class Arena {
 	
 	public Arena(HungerBarGames instance,String arenaName)
 	{
-		this(instance,arenaName,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
+		this(instance,arenaName,null,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
 	}
-	public Arena(HungerBarGames instance,String arenaName,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
+	public Arena(HungerBarGames instance,String arenaName,CuboidPoint cp1,CuboidPoint cp2,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
 	{
 		pl=instance;
 		name=arenaName;
@@ -188,5 +192,24 @@ public class Arena {
 			return chests.get(cc).contains(c);
 		}
 		return false;
+	}
+	public void setCuboid1(World w,int x, int z)
+	{
+		cuboid1=new CuboidPoint(w,x,z);
+		changes=true;
+	}
+	public void setCuboid2(World w,int x, int z)
+	{
+		cuboid2=new CuboidPoint(w,x,z);
+		changes=true;
+	}
+	public boolean isInArena(Block b)
+	{
+		int x=b.getX();
+		int z=b.getZ();
+		return (x>=cuboid1.getX()||x>=cuboid2.getX())
+				&&(x<=cuboid1.getX()||x<=cuboid2.getX())
+				&&(z>=cuboid1.getZ()||z>=cuboid2.getZ())
+				&&(z<=cuboid1.getZ()||z<=cuboid2.getZ());
 	}
 }
