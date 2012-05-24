@@ -79,6 +79,10 @@ public class ConfigManager {
 		}		
 		
 		//Check for missing config sections and set defaults
+		if(config.options().header()==null)
+		{
+			config.options().header("HungerBarGames Config File.\nGo to http://dev.bukkit.org/server-mods/hungerbargames/pages/configuration-tutorial/ for a tutorial.");
+		}
 		if(!config.contains("Prefix"))
 		{
 			config.createSection("Prefix");
