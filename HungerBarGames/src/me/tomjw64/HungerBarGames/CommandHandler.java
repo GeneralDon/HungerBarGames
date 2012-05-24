@@ -62,7 +62,7 @@ public class CommandHandler {
 				if(subArgs.length>=c.numArgs())
 				{
 					String perm=c.permission();
-					String[] permSplit=perm.split(".");
+					String[] permSplit=perm.split("\\.");
 					String permGroup="";
 					for(int x=0;x<permSplit.length-1;x++)
 					{
