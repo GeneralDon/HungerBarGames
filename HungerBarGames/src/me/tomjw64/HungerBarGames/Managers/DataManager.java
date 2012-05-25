@@ -62,6 +62,8 @@ public class DataManager {
 		{
 			String path=s+".";
 			World w=null;
+			CuboidPoint cp1;
+			CuboidPoint cp2;
 			Location lobby=null;
 			Location spec=null;
 			List<Location> spawns=new ArrayList<Location>();
@@ -136,7 +138,7 @@ public class DataManager {
 					}
 				}
 			}	
-			GamesManager.addArena(new Arena(pl,s,database.getInt(path+"Max"),database.getInt(path+"Min"),lobby,spec,spawns,chests));
+			GamesManager.addArena(new Arena(pl,s,cp1,cp2,database.getInt(path+"Max"),database.getInt(path+"Min"),lobby,spec,spawns,chests));
 		}
 	}
 	//Get the database
