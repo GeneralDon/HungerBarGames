@@ -11,6 +11,7 @@ import java.util.Set;
 
 import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.ChestClass;
+import me.tomjw64.HungerBarGames.CuboidPoint;
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
 import org.bukkit.Location;
