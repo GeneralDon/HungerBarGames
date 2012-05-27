@@ -175,6 +175,7 @@ public class Game {
 	//Declares a winner, then ends game
 	public void declareWinner(Player p)
 	{
+		GamesManager.setInGame(p,false);
 		pl.getServer().broadcastMessage(prefix+YELLOW+"Player "+BLUE+p.getName()+YELLOW+" has won the game in arena "+BLUE+arena.getName()+"!");
 		p.setHealth(20);
 		p.setFoodLevel(20);
