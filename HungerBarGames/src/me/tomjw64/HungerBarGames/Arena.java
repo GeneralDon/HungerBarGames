@@ -32,6 +32,8 @@ public class Arena {
 	private List<Location> spawns=new ArrayList<Location>();
 	//Holds chests associated with the arena
 	private Map<ChestClass,Set<Chest>> chests=new HashMap<ChestClass,Set<Chest>>();
+	//Holds blocks to be rolled back
+	private Map<Block,RollbackInfo> rollbacks=new HashMap<Block,RollbackInfo>();
 	//The spectator spawn
 	private Location specPoint;
 	//The lobby spawn
@@ -52,6 +54,8 @@ public class Arena {
 		pl=instance;
 		name=arenaName;
 		changes=false;
+		cuboid1=cp1;
+		cuboid2=cp2;
 		if(maxP<2)
 		{
 			maxP=2;
@@ -75,6 +79,7 @@ public class Arena {
 	}
 	public void endGame(boolean repeat)
 	{
+		rollback();
 		if(repeat)
 		{
 			game=new Game(pl,this,repeat);
@@ -243,5 +248,23 @@ public class Arena {
 	public boolean isCuboidSet()
 	{
 		return (cuboid1!=null&&cuboid2!=null);
+	}
+	public void addRollback(Block b,RollbackInfo ri)
+	{
+		if(!rollbacks.containsKey(b))
+		{
+			rollbacks.put(b,ri);
+		}
+	}
+	public void rollback()
+	{
+		for(Map.Entry<Block,RollbackInfo> entry:rollbacks.entrySet())
+		{
+			Block b=entry.getKey();
+			b.setTypeId(entry.getValue().getID());
+			b.setData(entry.getValue().getData());
+			HungerBarGames.logger.info("Rolled back to a "+b.getTypeId());
+		}
+		HungerBarGames.logger.info("Arena "+name+" rolled back!");
 	}
 }

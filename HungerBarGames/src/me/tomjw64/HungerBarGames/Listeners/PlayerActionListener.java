@@ -59,7 +59,7 @@ public class PlayerActionListener extends GameListener{
 			}
 		}
 	}
-	@EventHandler(priority=EventPriority.HIGHEST)
+	@EventHandler(priority=EventPriority.HIGH)
 	public void damage(EntityDamageByEntityEvent dmg)
 	{
 		//Check if both are players
@@ -94,7 +94,7 @@ public class PlayerActionListener extends GameListener{
 			}
 		}
 	}
-	@EventHandler(priority=EventPriority.NORMAL)
+	@EventHandler(priority=EventPriority.HIGHEST)
 	public void damageAll(EntityDamageEvent dmg)
 	{
 		if(dmg.getEntity() instanceof Player)
@@ -108,7 +108,7 @@ public class PlayerActionListener extends GameListener{
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void move(PlayerMoveEvent move)
 	{
-		if(getGame().isTribute(move.getPlayer())&&!getGame().getArena().isInArena(move.getPlayer()))
+		if(getGame().isTribute(move.getPlayer())&&!getGame().getArena().isInArena(move.getTo())&&!getGame().inLobby())
 		{
 			Location from=move.getFrom();
 			double x=Math.floor(from.getX()+.5);

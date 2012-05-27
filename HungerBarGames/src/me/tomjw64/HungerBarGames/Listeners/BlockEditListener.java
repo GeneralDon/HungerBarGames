@@ -6,6 +6,7 @@ import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockEditListener extends GameListener{
 	/*
@@ -39,7 +40,7 @@ public class BlockEditListener extends GameListener{
 	}
 	//On a block place
 	@EventHandler(priority=EventPriority.NORMAL)
-	public void blockPlace(BlockBreakEvent placed)
+	public void blockPlace(BlockPlaceEvent placed)
 	{
 		if(getGame().isTribute(placed.getPlayer()))
 		{

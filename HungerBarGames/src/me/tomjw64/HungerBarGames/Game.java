@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
+import me.tomjw64.HungerBarGames.Listeners.BlockLogger;
 import me.tomjw64.HungerBarGames.Listeners.PlayerActionListener;
 import me.tomjw64.HungerBarGames.Listeners.PlayerMotionListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
@@ -32,6 +33,7 @@ public class Game {
 	//Listeners
 	private PlayerActionListener pal;
 	private BlockEditListener bel;
+	private BlockLogger bl;
 	private PlayerMotionListener pml;
 	//Colors
 	private final ChatColor GREEN=ChatColor.GREEN;
@@ -58,9 +60,11 @@ public class Game {
 		//Load event listeners
 		pal=new PlayerActionListener(this);
 		bel=new BlockEditListener(this);
+		bl=new BlockLogger(this);
 		pml=new PlayerMotionListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(pal, pl);
 		Bukkit.getServer().getPluginManager().registerEvents(bel, pl);
+		Bukkit.getServer().getPluginManager().registerEvents(bl, pl);
 		//Initialize game variables
 		lobby=true;
 		arena=ar;
@@ -170,6 +174,8 @@ public class Game {
 		pal=null;
 		bel.unregister();
 		bel=null;
+		bl.unregister();
+		bl=null;
 		arena.endGame(repeat);
 	}
 	//Declares a winner, then ends game
