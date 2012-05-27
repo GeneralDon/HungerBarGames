@@ -63,8 +63,8 @@ public class DataManager {
 		{
 			String path=s+".";
 			World w=null;
-			CuboidPoint cp1;
-			CuboidPoint cp2;
+			CuboidPoint cp1=null;
+			CuboidPoint cp2=null;
 			Location lobby=null;
 			Location spec=null;
 			List<Location> spawns=new ArrayList<Location>();
@@ -72,22 +72,19 @@ public class DataManager {
 			if(database.getString(path+"World")!=null&&pl.getServer().getWorld(database.getString(path+"World"))!=null)
 			{
 				w=pl.getServer().getWorld(database.getString(path+"World"));
-				String[] specData=database.getString(path+"Spec").split(";");
-				double sx=Double.parseDouble(specData[0]);
-				double sy=Double.parseDouble(specData[1]);
-				double sz=Double.parseDouble(specData[2]);
-				float syaw=Float.parseFloat(specData[3]);
-				float spitch=Float.parseFloat(specData[4]);
-				spec=new Location(w,sx,sy,sz,syaw,spitch);
-				if(database.getString(path+"Lobby")!=null)
+				if(database.getString(path+"CP1")!=null)
 				{
-					String[] lobbyData=database.getString(path+"Lobby").split(";");
-					double lx=Double.parseDouble(lobbyData[0]);
-					double ly=Double.parseDouble(lobbyData[1]);
-					double lz=Double.parseDouble(lobbyData[2]);
-					float lyaw=Float.parseFloat(lobbyData[3]);
-					float lpitch=Float.parseFloat(lobbyData[4]);
-					lobby=new Location(w,lx,ly,lz,lyaw,lpitch);
+					String[] cuboid1=database.getString(path+"CP1").split(";");
+					int c1x=Integer.parseInt(cuboid1[0]);
+					int c1z=Integer.parseInt(cuboid1[1]);
+					cp1=new CuboidPoint(w,c1x,c1z);
+				}
+				if(database.getString(path+"CP2")!=null)
+				{
+					String[] cuboid1=database.getString(path+"CP2").split(";");
+					int c2x=Integer.parseInt(cuboid1[0]);
+					int c2z=Integer.parseInt(cuboid1[1]);
+					cp2=new CuboidPoint(w,c2x,c2z);
 				}
 				if(database.getStringList(path+"Spawns")!=null)
 				{
@@ -138,7 +135,29 @@ public class DataManager {
 						}
 					}
 				}
-			}	
+			}
+			if(database.getString(path+"Spec")!=null)
+			{
+				String[] specData=database.getString(path+"Spec").split(";");
+				World sw=pl.getServer().getWorld(specData[0]);
+				double sx=Double.parseDouble(specData[1]);
+				double sy=Double.parseDouble(specData[2]);
+				double sz=Double.parseDouble(specData[3]);
+				float syaw=Float.parseFloat(specData[4]);
+				float spitch=Float.parseFloat(specData[5]);
+				spec=new Location(sw,sx,sy,sz,syaw,spitch);
+			}
+			if(database.getString(path+"Lobby")!=null)
+			{
+				String[] lobbyData=database.getString(path+"Lobby").split(";");
+				World lw=pl.getServer().getWorld(lobbyData[0]);
+				double lx=Double.parseDouble(lobbyData[1]);
+				double ly=Double.parseDouble(lobbyData[2]);
+				double lz=Double.parseDouble(lobbyData[3]);
+				float lyaw=Float.parseFloat(lobbyData[4]);
+				float lpitch=Float.parseFloat(lobbyData[5]);
+				lobby=new Location(lw,lx,ly,lz,lyaw,lpitch);
+			}
 			GamesManager.addArena(new Arena(pl,s,cp1,cp2,database.getInt(path+"Max"),database.getInt(path+"Min"),lobby,spec,spawns,chests));
 		}
 	}
@@ -166,16 +185,29 @@ public class DataManager {
 				String path=a.getName()+".";
 				database.set(path+"Min", a.getMinPlayers());
 				database.set(path+"Max", a.getMaxPlayers());
+				if(a.getWorld()!=null)
+				{
+					database.set(path+"World",a.getWorld().getName());
+				}
+				CuboidPoint cp1=a.getCuboid1();
+				if(cp1!=null)
+				{
+					database.set(path+"CP1",cp1.getX()+";"+cp1.getZ());
+				}
+				CuboidPoint cp2=a.getCuboid2();
+				if(cp2!=null)
+				{
+					database.set(path+"CP2",cp2.getX()+";"+cp2.getZ());
+				}
 				Location l=a.getLobby();
 				if(l!=null)
 				{
-					database.set(path+"Lobby",l.getX()+";"+l.getY()+";"+l.getZ()+";"+l.getYaw()+";"+l.getPitch());
+					database.set(path+"Lobby",l.getWorld().getName()+";"+l.getX()+";"+l.getY()+";"+l.getZ()+";"+l.getYaw()+";"+l.getPitch());
 				}
 				Location l1=a.getSpec();
 				if(l1!=null)
 				{
-					database.set(path+"Spec",l1.getX()+";"+l1.getY()+";"+l1.getZ()+";"+l1.getYaw()+";"+l1.getPitch());
-					database.set(path+"World",a.getWorld().getName());
+					database.set(path+"Spec",l1.getWorld().getName()+";"+l1.getX()+";"+l1.getY()+";"+l1.getZ()+";"+l1.getYaw()+";"+l1.getPitch());
 				}
 				List<String> spawns=new ArrayList<String>();
 				for(Location l2:a.getSpawns())

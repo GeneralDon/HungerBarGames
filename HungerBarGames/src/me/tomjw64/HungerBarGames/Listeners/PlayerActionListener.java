@@ -2,6 +2,8 @@ package me.tomjw64.HungerBarGames.Listeners;
 
 import me.tomjw64.HungerBarGames.Game;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerActionListener extends GameListener{
@@ -100,6 +103,18 @@ public class PlayerActionListener extends GameListener{
 			{
 				dmg.setCancelled(true);
 			}
+		}
+	}
+	@EventHandler(priority=EventPriority.NORMAL)
+	public void move(PlayerMoveEvent move)
+	{
+		if(getGame().isTribute(move.getPlayer())&&!getGame().getArena().isInArena(move.getPlayer()))
+		{
+			Location from=move.getFrom();
+			double x=Math.floor(from.getX()+.5);
+			double z=Math.floor(from.getZ()+.5);
+			move.getPlayer().teleport(new Location(from.getWorld(),x,from.getY(),z,from.getYaw(),from.getPitch()));
+			move.getPlayer().sendMessage(ChatColor.RED+"You cannot go outside the arena!");
 		}
 	}
 }

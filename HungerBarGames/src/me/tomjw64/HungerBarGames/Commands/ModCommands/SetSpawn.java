@@ -19,16 +19,30 @@ public class SetSpawn extends ChatVariableHolder implements HBGCommand{
 			Arena a=CommandHandler.getSelections().get(p);
 			if(a!=null)
 			{
-				int pos;
-				try
+				if(a.isCuboidSet())
 				{
-					pos=Integer.parseInt(args[0]);
-					a.addSpawn(p.getLocation());
-					p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+YELLOW+" set for arena "+BLUE+a.getName()+YELLOW+"!");
+					if(a.isInArena(p))
+					{
+						int pos;
+						try
+						{
+							pos=Integer.parseInt(args[0]);
+							a.addSpawn(p.getLocation());
+							p.sendMessage(prefix+YELLOW+"Spawn point "+BLUE+pos+YELLOW+" set for arena "+BLUE+a.getName()+YELLOW+"!");
+						}
+						catch(Exception wtf)
+						{
+							p.sendMessage(prefix+RED+"Could not process command!");
+						}
+					}
+					else
+					{
+						p.sendMessage(prefix+RED+"You should set your spawns within your arena!");
+					}
 				}
-				catch(Exception wtf)
+				else
 				{
-					p.sendMessage(prefix+RED+"Could not process command!");
+					p.sendMessage(prefix+RED+"You need to set up your arena cuboid first!");
 				}
 			}
 			else

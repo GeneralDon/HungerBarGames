@@ -17,7 +17,7 @@ public class Start extends ChatVariableHolder implements HBGCommand{
 		{
 			if(a.getGame()==null)
 			{
-				if(a.getSpec()!=null&&a.getLobby()!=null)
+				if(a.getSpec()!=null&&a.getLobby()!=null&&a.getCuboid1()!=null&a.getCuboid2()!=null)
 				{
 					a.startGame(false);
 				}

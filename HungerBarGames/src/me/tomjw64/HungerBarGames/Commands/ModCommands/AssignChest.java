@@ -23,27 +23,41 @@ public class AssignChest extends ChatVariableHolder implements HBGCommand{
 			Arena a=CommandHandler.getSelections().get(p);
 			if(a!=null)
 			{
-				ChestClass cc=ConfigManager.getChestClass(args[0]);
-				if(cc!=null)
+				if(a.isCuboidSet())
 				{
-					BlockState target=p.getTargetBlock(null,30).getState();
-					if(target instanceof Chest)
+					ChestClass cc=ConfigManager.getChestClass(args[0]);
+					if(cc!=null)
 					{
-						Chest c=(Chest)target;
-						if(!a.isAssigned(cc,c))
+						BlockState target=p.getTargetBlock(null,30).getState();
+						if(a.isInArena(target.getBlock()))
 						{
-							a.addChest(cc,(Chest)target);
-							p.sendMessage(prefix+GREEN+"Chest assigned!");
+							if(target instanceof Chest)
+							{
+								Chest c=(Chest)target;
+								if(!a.isAssigned(cc,c))
+								{
+									a.addChest(cc,(Chest)target);
+									p.sendMessage(prefix+GREEN+"Chest assigned!");
+								}
+								else
+								{
+									p.sendMessage(prefix+RED+"That chest is already assigned to that class for this arena!");
+								}
+							}
 						}
 						else
 						{
-							p.sendMessage(prefix+RED+"That chest is already assigned to that class for this arena!");
+							p.sendMessage(prefix+RED+"You should set your chests within your arena!");
 						}
+					}
+					else
+					{
+						p.sendMessage(prefix+RED+"There is no chest class by that name! Create it in the config!");
 					}
 				}
 				else
 				{
-					p.sendMessage(prefix+RED+"There is no chest class by that name! Create it in the config!");
+					p.sendMessage(prefix+RED+"You need to set up your arena cuboid first!");
 				}
 			}
 			else

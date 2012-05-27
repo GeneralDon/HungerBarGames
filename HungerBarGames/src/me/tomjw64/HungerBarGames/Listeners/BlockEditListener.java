@@ -41,10 +41,19 @@ public class BlockEditListener extends GameListener{
 	@EventHandler(priority=EventPriority.NORMAL)
 	public void blockPlace(BlockBreakEvent placed)
 	{
-		if(getGame().isTribute(placed.getPlayer())
-			&&ConfigManager.restrictEditing())
+		if(getGame().isTribute(placed.getPlayer()))
 		{
-			placed.setCancelled(true);
+			if(ConfigManager.restrictEditing())
+			{
+				if(!ConfigManager.isListed(placed.getBlock().getTypeId()))
+				{
+					placed.setCancelled(true);
+				}
+			}
+			else if(ConfigManager.isListed(placed.getBlock().getTypeId()))
+			{
+				placed.setCancelled(true);
+			}
 		}
 	}
 }

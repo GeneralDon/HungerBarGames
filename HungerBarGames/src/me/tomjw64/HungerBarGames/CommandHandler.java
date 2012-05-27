@@ -35,6 +35,7 @@ public class CommandHandler {
 		cmds.add(new Delete());
 		cmds.add(new Reload(pl));
 		cmds.add(new Select());
+		cmds.add(new SetCuboid());
 		cmds.add(new SetLobby());
 		cmds.add(new SetMin());
 		cmds.add(new SetMax());

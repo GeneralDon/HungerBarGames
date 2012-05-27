@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.Entity;
 
 public class Arena {
 	/*
@@ -153,7 +154,18 @@ public class Arena {
 	}
 	public World getWorld()
 	{
-		return specPoint.getWorld();
+		if(cuboid1!=null)
+		{
+			return cuboid1.getWorld();
+		}
+		else if(cuboid2!=null)
+		{
+			return cuboid2.getWorld();
+		}
+		else
+		{
+			return null;
+		}
 	}
 	public void fillChests()
 	{
@@ -198,10 +210,18 @@ public class Arena {
 		cuboid1=new CuboidPoint(w,x,z);
 		changes=true;
 	}
+	public CuboidPoint getCuboid1()
+	{
+		return cuboid1;
+	}
 	public void setCuboid2(World w,int x, int z)
 	{
 		cuboid2=new CuboidPoint(w,x,z);
 		changes=true;
+	}
+	public CuboidPoint getCuboid2()
+	{
+		return cuboid2;
 	}
 	public boolean isInArena(Block b)
 	{
@@ -211,5 +231,17 @@ public class Arena {
 				&&(x<=cuboid1.getX()||x<=cuboid2.getX())
 				&&(z>=cuboid1.getZ()||z>=cuboid2.getZ())
 				&&(z<=cuboid1.getZ()||z<=cuboid2.getZ());
+	}
+	public boolean isInArena(Entity e)
+	{
+		return isInArena(e.getWorld().getBlockAt(e.getLocation()));
+	}
+	public boolean isInArena(Location l)
+	{
+		return isInArena(l.getWorld().getBlockAt(l));
+	}
+	public boolean isCuboidSet()
+	{
+		return (cuboid1!=null&&cuboid2!=null);
 	}
 }

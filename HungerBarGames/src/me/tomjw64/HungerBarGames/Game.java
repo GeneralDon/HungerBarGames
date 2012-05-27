@@ -248,4 +248,8 @@ public class Game {
 	{
 		deaths.add(playerName);
 	}
+	public Arena getArena()
+	{
+		return arena;
+	}
 }
