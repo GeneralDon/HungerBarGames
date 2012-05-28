@@ -28,7 +28,7 @@ public class Start extends ChatVariableHolder implements HBGCommand{
 			}
 			else
 			{
-				sender.sendMessage(prefix+RED+"A game is already running in arena"+BLUE+args[0]+"!");
+				sender.sendMessage(prefix+RED+"A game is already running in arena "+BLUE+args[0]+"!");
 			}
 		}
 		else
