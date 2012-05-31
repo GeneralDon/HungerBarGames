@@ -1,6 +1,7 @@
-package me.tomjw64.HungerBarGames.Listeners;
+package me.tomjw64.HungerBarGames.Listeners.Game;
 
 import me.tomjw64.HungerBarGames.Game;
+import me.tomjw64.HungerBarGames.Listeners.GameListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.event.EventHandler;

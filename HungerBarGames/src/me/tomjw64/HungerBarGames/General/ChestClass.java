@@ -1,7 +1,8 @@
-package me.tomjw64.HungerBarGames;
+package me.tomjw64.HungerBarGames.General;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;

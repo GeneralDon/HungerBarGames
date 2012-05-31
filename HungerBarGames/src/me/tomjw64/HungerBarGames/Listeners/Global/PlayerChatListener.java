@@ -1,4 +1,4 @@
-package me.tomjw64.HungerBarGames.Listeners;
+package me.tomjw64.HungerBarGames.Listeners.Global;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

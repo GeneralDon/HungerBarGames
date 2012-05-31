@@ -2,8 +2,8 @@ package me.tomjw64.HungerBarGames.Commands.ModCommands;
 
 import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.CommandHandler;
-import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
+import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

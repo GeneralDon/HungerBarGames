@@ -1,4 +1,4 @@
-package me.tomjw64.HungerBarGames.Listeners;
+package me.tomjw64.HungerBarGames.Listeners.Global;
 
 import me.tomjw64.HungerBarGames.HungerBarGames;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;

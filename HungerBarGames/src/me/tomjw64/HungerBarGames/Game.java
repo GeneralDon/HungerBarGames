@@ -3,10 +3,10 @@ package me.tomjw64.HungerBarGames;
 import java.util.HashSet;
 import java.util.Set;
 
-import me.tomjw64.HungerBarGames.Listeners.BlockEditListener;
-import me.tomjw64.HungerBarGames.Listeners.BlockLogger;
-import me.tomjw64.HungerBarGames.Listeners.PlayerActionListener;
-import me.tomjw64.HungerBarGames.Listeners.PlayerMotionListener;
+import me.tomjw64.HungerBarGames.Listeners.Countdown.PlayerMotionListener;
+import me.tomjw64.HungerBarGames.Listeners.Game.BlockEditListener;
+import me.tomjw64.HungerBarGames.Listeners.Game.BlockLogger;
+import me.tomjw64.HungerBarGames.Listeners.Lobby.PlayerActionListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
@@ -17,7 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Game {
+public class Game{
 	/*
 	 * Game actually performs all game actions and checks
 	 * Each game is associated with an area.

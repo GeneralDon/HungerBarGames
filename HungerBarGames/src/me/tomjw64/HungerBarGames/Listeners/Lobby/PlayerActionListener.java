@@ -1,6 +1,7 @@
-package me.tomjw64.HungerBarGames.Listeners;
+package me.tomjw64.HungerBarGames.Listeners.Lobby;
 
 import me.tomjw64.HungerBarGames.Game;
+import me.tomjw64.HungerBarGames.Listeners.GameListener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -59,7 +60,7 @@ public class PlayerActionListener extends GameListener{
 			}
 		}
 	}
-	@EventHandler(priority=EventPriority.HIGH)
+	@EventHandler(priority=EventPriority.NORMAL)
 	public void damage(EntityDamageByEntityEvent dmg)
 	{
 		//Check if both are players
@@ -72,14 +73,6 @@ public class PlayerActionListener extends GameListener{
 			{
 				//Cancel damage if one is in game and one is not
 				dmg.setCancelled(true);
-			}
-			else
-			{
-				//Stop other plugins from ruining all your fun
-				if(dmg.isCancelled())
-				{
-					dmg.setCancelled(false);
-				}
 			}
 		}
 	}
@@ -94,7 +87,7 @@ public class PlayerActionListener extends GameListener{
 			}
 		}
 	}
-	@EventHandler(priority=EventPriority.HIGHEST)
+	@EventHandler(priority=EventPriority.HIGH)
 	public void damageAll(EntityDamageEvent dmg)
 	{
 		if(dmg.getEntity() instanceof Player)

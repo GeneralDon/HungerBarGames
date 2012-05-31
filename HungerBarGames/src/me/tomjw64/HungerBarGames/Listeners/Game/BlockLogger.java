@@ -1,4 +1,4 @@
-package me.tomjw64.HungerBarGames.Listeners;
+package me.tomjw64.HungerBarGames.Listeners.Game;
 
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -8,7 +8,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import me.tomjw64.HungerBarGames.Game;
 import me.tomjw64.HungerBarGames.HungerBarGames;
-import me.tomjw64.HungerBarGames.RollbackInfo;
+import me.tomjw64.HungerBarGames.General.RollbackInfo;
+import me.tomjw64.HungerBarGames.Listeners.GameListener;
 
 public class BlockLogger extends GameListener{
 

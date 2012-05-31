@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 
 import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.CommandHandler;
-import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
+import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
 
 public class SetCuboid extends ChatVariableHolder implements HBGCommand{
 

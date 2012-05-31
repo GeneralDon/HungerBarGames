@@ -4,8 +4,8 @@ import java.util.Set;
 
 import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.Game;
-import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
+import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 import org.bukkit.ChatColor;

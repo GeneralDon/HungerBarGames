@@ -1,10 +1,10 @@
 package me.tomjw64.HungerBarGames.Commands.ModCommands;
 
 import me.tomjw64.HungerBarGames.Arena;
-import me.tomjw64.HungerBarGames.ChestClass;
 import me.tomjw64.HungerBarGames.CommandHandler;
-import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
+import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
+import me.tomjw64.HungerBarGames.General.ChestClass;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.block.BlockState;

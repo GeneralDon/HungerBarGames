@@ -8,7 +8,7 @@ package me.tomjw64.HungerBarGames;
 
 import java.util.logging.Logger;
 
-import me.tomjw64.HungerBarGames.Listeners.AntiPvPListener;
+import me.tomjw64.HungerBarGames.Listeners.Global.AntiPvPListener;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.DataManager;
 import me.tomjw64.HungerBarGames.Managers.PlayerDataManager;
@@ -31,7 +31,7 @@ public class HungerBarGames extends JavaPlugin{
 	}
 	@Override
 	public void onEnable()
-	{
+	{	
 		PluginDescriptionFile pdf = getDescription();
 		
 		//Load all YML files

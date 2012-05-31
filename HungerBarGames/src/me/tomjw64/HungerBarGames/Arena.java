@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import me.tomjw64.HungerBarGames.General.ChestClass;
+import me.tomjw64.HungerBarGames.General.CuboidPoint;
+import me.tomjw64.HungerBarGames.General.RollbackInfo;
 import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 
 import org.bukkit.Location;

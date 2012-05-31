@@ -1,4 +1,4 @@
-package me.tomjw64.HungerBarGames;
+package me.tomjw64.HungerBarGames.General;
 
 import org.bukkit.World;
 

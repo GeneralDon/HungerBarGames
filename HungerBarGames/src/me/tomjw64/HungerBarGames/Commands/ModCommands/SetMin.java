@@ -4,8 +4,8 @@ import org.bukkit.command.CommandSender;
 
 import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.CommandHandler;
-import me.tomjw64.HungerBarGames.Commands.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
+import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
 
 public class SetMin extends ChatVariableHolder implements HBGCommand {
 

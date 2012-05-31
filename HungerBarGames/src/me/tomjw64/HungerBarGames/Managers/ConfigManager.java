@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import me.tomjw64.HungerBarGames.ChestClass;
-import me.tomjw64.HungerBarGames.ChestItem;
 import me.tomjw64.HungerBarGames.HungerBarGames;
+import me.tomjw64.HungerBarGames.General.ChestClass;
+import me.tomjw64.HungerBarGames.General.ChestItem;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
