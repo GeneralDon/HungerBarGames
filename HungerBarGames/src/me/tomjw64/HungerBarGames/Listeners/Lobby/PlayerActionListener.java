@@ -32,15 +32,8 @@ public class PlayerActionListener extends GameListener{
 		if(getGame().isTribute(death.getEntity()))
 		{
 			Player dead=death.getEntity();
-			dead.getWorld().strikeLightning(dead.getLocation().add(0, 100, 0));
 			death.setDeathMessage(null);
-			getGame().addDead(dead.getName());
-			getGame().removeTribute(dead);
-			if(getGame().getNumTributes()==1)
-			{
-				Player winner=(Player)getGame().getTributes().toArray()[0];
-				getGame().declareWinner(winner);
-			}
+			eliminatePlayer(dead);
 		}
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
@@ -49,15 +42,8 @@ public class PlayerActionListener extends GameListener{
 		if(getGame().isTribute(quit.getPlayer()))
 		{
 			Player quitter=quit.getPlayer();
-			quitter.getWorld().strikeLightning(quitter.getLocation().add(0, 100, 0));
 			quit.setQuitMessage(null);
-			getGame().addDead(quitter.getName());
-			getGame().removeTribute(quitter);
-			if(getGame().getNumTributes()==1)
-			{
-				Player winner=(Player)getGame().getTributes().toArray()[0];
-				getGame().declareWinner(winner);
-			}
+			eliminatePlayer(quitter);
 		}
 	}
 	@EventHandler(priority=EventPriority.NORMAL)
@@ -108,6 +94,16 @@ public class PlayerActionListener extends GameListener{
 			double z=Math.floor(from.getZ()+.5);
 			move.getPlayer().teleport(new Location(from.getWorld(),x,from.getY(),z,from.getYaw(),from.getPitch()));
 			move.getPlayer().sendMessage(ChatColor.RED+"You cannot go outside the arena!");
+		}
+	}
+	public void eliminatePlayer(Player p)
+	{
+		p.getWorld().strikeLightning(p.getLocation().add(0, 100, 0));
+		getGame().addDeath(p.getName());
+		getGame().removeTribute(p);
+		if(getGame().getNumTributes()==1)
+		{
+			getGame().declareWinner();
 		}
 	}
 }

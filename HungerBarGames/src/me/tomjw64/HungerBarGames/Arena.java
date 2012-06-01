@@ -78,14 +78,14 @@ public class Arena {
 	}
 	public void startGame(boolean repeat)
 	{
-		game=new Game(pl,this,repeat);
+		game=new Game(this,repeat);
 	}
 	public void endGame(boolean repeat)
 	{
 		rollback();
 		if(repeat)
 		{
-			game=new Game(pl,this,repeat);
+			game=new Game(this,repeat);
 		}
 		else
 		{
