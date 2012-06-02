@@ -158,7 +158,7 @@ public class DataManager {
 				float lpitch=Float.parseFloat(lobbyData[5]);
 				lobby=new Location(lw,lx,ly,lz,lyaw,lpitch);
 			}
-			GamesManager.addArena(new Arena(pl,s,cp1,cp2,database.getInt(path+"Max"),database.getInt(path+"Min"),lobby,spec,spawns,chests));
+			GamesManager.addArena(new Arena(s,cp1,cp2,database.getInt(path+"Max"),database.getInt(path+"Min"),lobby,spec,spawns,chests));
 		}
 	}
 	//Get the database

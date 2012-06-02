@@ -9,10 +9,6 @@ import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.HungerBarGames;
 
 public class GamesManager {
-	/*
-	 * GamesManager handles arena and game associations
-	 * Methods and fields in this class should be static.
-	 */
 	//All arenas
 	private static Set<Arena> arenas=new HashSet<Arena>();
 	//Players in a game
@@ -29,10 +25,12 @@ public class GamesManager {
 			HungerBarGames.logger.warning("Did not load arena "+ar.getName()+"! There is already an arena with that name!");
 		}
 	}
+	
 	public static Set<Arena> getArenas()
 	{
 		return arenas;
 	}
+	
 	public static Arena getArena(String name)
 	{
 		for(Arena a:arenas)
@@ -44,6 +42,7 @@ public class GamesManager {
 		}
 		return null;
 	}
+	
 	public static boolean isInGame(Player pl)
 	{
 		for(Player p:inGame)
@@ -55,6 +54,7 @@ public class GamesManager {
 		}
 		return false;
 	}
+	
 	public static void setInGame(Player p,boolean isPlaying)
 	{
 		if(isPlaying)
@@ -66,8 +66,10 @@ public class GamesManager {
 			inGame.remove(p);
 		}
 	}
+	
 	public static void delArena(Arena a)
 	{
 		arenas.remove(a);
 	}
+	
 }

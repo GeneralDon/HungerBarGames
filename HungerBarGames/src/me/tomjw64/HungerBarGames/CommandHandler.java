@@ -14,9 +14,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public class CommandHandler {
-	/*
-	 * CommandHandler will handle all commands sent to the plugin.
-	 */
 	//Colors
 	private static final ChatColor RED=ChatColor.RED;
 	//Commands
@@ -31,7 +28,7 @@ public class CommandHandler {
 		cmds.add(new Join());
 		cmds.add(new Spec());
 		cmds.add(new AssignChest());
-		cmds.add(new Create(pl));
+		cmds.add(new Create());
 		cmds.add(new Delete());
 		cmds.add(new Reload(pl));
 		cmds.add(new Select());

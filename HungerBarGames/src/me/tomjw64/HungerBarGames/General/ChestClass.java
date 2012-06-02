@@ -16,10 +16,12 @@ public class ChestClass {
 	{
 		name=className;
 	}
+	
 	public String getName()
 	{
 		return name;
 	}
+	
 	public void fillChest(Chest c)
 	{
 		Inventory i=c.getInventory();
@@ -53,8 +55,10 @@ public class ChestClass {
 			}
 		}
 	}
+	
 	public void addItem(ChestItem item)
 	{
 		items.add(item);
 	}
+	
 }

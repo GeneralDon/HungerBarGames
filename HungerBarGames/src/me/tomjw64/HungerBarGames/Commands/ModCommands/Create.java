@@ -3,18 +3,11 @@ package me.tomjw64.HungerBarGames.Commands.ModCommands;
 import org.bukkit.command.CommandSender;
 
 import me.tomjw64.HungerBarGames.Arena;
-import me.tomjw64.HungerBarGames.HungerBarGames;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 public class Create extends ChatVariableHolder implements HBGCommand{
-	public static HungerBarGames pl;
-	
-	public Create(HungerBarGames instance)
-	{
-		pl=instance;
-	}
 	
 	@Override
 	public void execute(CommandSender sender, String[] args)
@@ -22,7 +15,7 @@ public class Create extends ChatVariableHolder implements HBGCommand{
 		if(GamesManager.getArena(args[0])==null)
 		{
 			sender.sendMessage(prefix+YELLOW+"Arena "+BLUE+args[0]+YELLOW+" has been created!");
-			Arena a=new Arena(pl,args[0]);
+			Arena a=new Arena(args[0]);
 			GamesManager.addArena(a);
 		}
 		else

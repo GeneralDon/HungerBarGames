@@ -12,16 +12,20 @@ public class CuboidPoint {
 		x=xPos;
 		z=zPos;
 	}
+	
 	public World getWorld()
 	{
 		return world;
 	}
+	
 	public int getX()
 	{
 		return x;
 	}
+	
 	public int getZ()
 	{
 		return z;
 	}
+	
 }

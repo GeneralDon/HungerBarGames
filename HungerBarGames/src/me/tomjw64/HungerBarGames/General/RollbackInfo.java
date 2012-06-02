@@ -9,12 +9,15 @@ public class RollbackInfo {
 		ID=id;
 		data=metadata;
 	}
+	
 	public int getID()
 	{
 		return ID;
 	}
+	
 	public byte getData()
 	{
 		return data;
 	}
+	
 }

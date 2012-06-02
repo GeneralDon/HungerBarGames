@@ -19,11 +19,6 @@ import org.bukkit.block.Chest;
 import org.bukkit.entity.Entity;
 
 public class Arena {
-	/*
-	 * Arena handles all arena specific data
-	 * such as spawn points and chests.
-	 */
-	private HungerBarGames pl;
 	//Name of arena
 	private String name;
 	//Whether or not to load the arena to database
@@ -48,13 +43,13 @@ public class Arena {
 	//Game being played in this arena
 	private Game game;
 	
-	public Arena(HungerBarGames instance,String arenaName)
+	public Arena(String arenaName)
 	{
-		this(instance,arenaName,null,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
+		this(arenaName,null,null,ConfigManager.getMaxPlayers(),ConfigManager.getMinPlayers(),null,null,new ArrayList<Location>(),new HashMap<ChestClass,Set<Chest>>());
 	}
-	public Arena(HungerBarGames instance,String arenaName,CuboidPoint cp1,CuboidPoint cp2,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
+	
+	public Arena(String arenaName,CuboidPoint cp1,CuboidPoint cp2,int maxP,int minP,Location lobby,Location spec,List<Location> spwns,Map<ChestClass,Set<Chest>> chsts)
 	{
-		pl=instance;
 		name=arenaName;
 		changes=false;
 		cuboid1=cp1;
@@ -76,10 +71,12 @@ public class Arena {
 		spawns=spwns;
 		chests=chsts;
 	}
+	
 	public void startGame(boolean repeat)
 	{
 		game=new Game(this,repeat);
 	}
+	
 	public void endGame(boolean repeat)
 	{
 		rollback();
@@ -92,27 +89,33 @@ public class Arena {
 			game=null;
 		}
 	}
+	
 	public String getName()
 	{
 		return name;
 	}
+	
 	public Game getGame()
 	{
 		return game;
 	}
+	
 	public int getMaxPlayers()
 	{
 		return maxPlayers;
 	}
+	
 	public void setMaxPlayers(int max)
 	{
 		maxPlayers=max;
 		changes=true;
 	}
+	
 	public int getMinPlayers()
 	{
 		return minPlayers;
 	}
+	
 	public void setMinPlayers(int min)
 	{
 		if(min>=2)
@@ -121,45 +124,55 @@ public class Arena {
 		}
 		changes=true;
 	}
+	
 	public Location getLobby()
 	{
 		return lobbyPoint;
 	}
+	
 	public void setLobby(Location lobby)
 	{
 		lobbyPoint=lobby;
 		changes=true;
 	}
+	
 	public int getNumSpawns()
 	{
 		return spawns.size();
 	}
+	
 	public Location spawnAt(int index)
 	{
 		return spawns.get(index);
 	}
+	
 	public void addSpawn(Location spawn)
 	{
 		spawns.add(spawn);
 		changes=true;
 	}
+	
 	public List<Location> getSpawns()
 	{
 		return spawns;
 	}
+	
 	public Location getSpec()
 	{
 		return specPoint;
 	}
+	
 	public void setSpec(Location spec)
 	{
 		specPoint=spec;
 		changes=true;
 	}
+	
 	public boolean getChanged()
 	{
 		return changes;
 	}
+	
 	public World getWorld()
 	{
 		if(cuboid1!=null)
@@ -175,6 +188,7 @@ public class Arena {
 			return null;
 		}
 	}
+	
 	public void fillChests()
 	{
 		for(Map.Entry<ChestClass,Set<Chest>> entry:chests.entrySet())
@@ -187,10 +201,12 @@ public class Arena {
 			}
 		}
 	}
+	
 	public Map<ChestClass,Set<Chest>> getChests()
 	{
 		return chests;
 	}
+	
 	public void addChest(ChestClass cc, Chest c)
 	{
 		if(chests.keySet().contains(cc))
@@ -205,6 +221,7 @@ public class Arena {
 		}
 		changes=true;
 	}
+	
 	public boolean isAssigned(ChestClass cc, Chest c)
 	{
 		if(chests.keySet().contains(cc))
@@ -213,15 +230,18 @@ public class Arena {
 		}
 		return false;
 	}
+	
 	public void setCuboid1(World w,int x, int z)
 	{
 		cuboid1=new CuboidPoint(w,x,z);
 		changes=true;
 	}
+	
 	public CuboidPoint getCuboid1()
 	{
 		return cuboid1;
 	}
+	
 	public void setCuboid2(World w,int x, int z)
 	{
 		cuboid2=new CuboidPoint(w,x,z);
@@ -231,6 +251,7 @@ public class Arena {
 	{
 		return cuboid2;
 	}
+	
 	public boolean isInArena(Block b)
 	{
 		int x=b.getX();
@@ -240,18 +261,22 @@ public class Arena {
 				&&(z>=cuboid1.getZ()||z>=cuboid2.getZ())
 				&&(z<=cuboid1.getZ()||z<=cuboid2.getZ());
 	}
+	
 	public boolean isInArena(Entity e)
 	{
 		return isInArena(e.getWorld().getBlockAt(e.getLocation()));
 	}
+	
 	public boolean isInArena(Location l)
 	{
 		return isInArena(l.getWorld().getBlockAt(l));
 	}
+	
 	public boolean isCuboidSet()
 	{
 		return (cuboid1!=null&&cuboid2!=null);
 	}
+	
 	public void addRollback(Block b,RollbackInfo ri)
 	{
 		if(!rollbacks.containsKey(b))
@@ -259,6 +284,7 @@ public class Arena {
 			rollbacks.put(b,ri);
 		}
 	}
+	
 	public void rollback()
 	{
 		for(Map.Entry<Block,RollbackInfo> entry:rollbacks.entrySet())
@@ -270,4 +296,5 @@ public class Arena {
 		}
 		HungerBarGames.logger.info("Arena "+name+" rolled back!");
 	}
+	
 }
