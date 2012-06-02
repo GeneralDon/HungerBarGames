@@ -8,6 +8,8 @@ import me.tomjw64.HungerBarGames.General.Status;
 import me.tomjw64.HungerBarGames.Listeners.Lobby.*;
 import me.tomjw64.HungerBarGames.Listeners.Countdown.*;
 import me.tomjw64.HungerBarGames.Listeners.Game.*;
+import me.tomjw64.HungerBarGames.Listeners.Global.AntiPvPListener;
+import me.tomjw64.HungerBarGames.Managers.ConfigManager;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 import me.tomjw64.HungerBarGames.Threads.*;
 
@@ -207,6 +209,10 @@ public class Game extends ChatVariableHolder{
 			new GameBlockListener(this);
 			new BlockLogger(this);
 			break;
+		}
+		if(ConfigManager.getPvP())
+		{
+			new AntiPvPListener(HungerBarGames.plugin);
 		}
 	}
 	
