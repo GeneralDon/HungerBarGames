@@ -34,7 +34,7 @@ public class Game extends ChatVariableHolder{
 		repeat=rpt;
 		
 		Bukkit.getServer().broadcastMessage(prefix+YELLOW+"A lobby has been started for arena "+BLUE+arena.getName()+"!");
-		Bukkit.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
+		Bukkit.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/join "+YELLOW+" to join the game");
 		
 		new Lobby(this);
 	}
