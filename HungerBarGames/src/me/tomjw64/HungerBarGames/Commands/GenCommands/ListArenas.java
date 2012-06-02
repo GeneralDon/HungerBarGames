@@ -6,6 +6,7 @@ import me.tomjw64.HungerBarGames.Arena;
 import me.tomjw64.HungerBarGames.Game;
 import me.tomjw64.HungerBarGames.Commands.HBGCommand;
 import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
+import me.tomjw64.HungerBarGames.General.Status;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
 
 import org.bukkit.ChatColor;
@@ -33,13 +34,13 @@ public class ListArenas extends ChatVariableHolder implements HBGCommand{
 				{
 					color=RED;
 				}
-				else if(!g.inLobby())
+				else if(g.getStatus()==Status.LOBBY)
 				{
-					color=GREEN;
+					color=BLUE;
 				}
 				else
 				{
-					color=BLUE;
+					color=GREEN;
 				}
 				list+=color+a.getName()+WHITE+", ";
 			}

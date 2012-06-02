@@ -9,19 +9,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class BlockEditListener extends GameListener{
-	/*
-	 * BlockEditListener will listen for block breaking
-	 * and block placing. It will perform necessary actions
-	 * and then proceed to log the change.
-	 */
+public class GameBlockListener extends GameListener{
 	
-	public BlockEditListener(Game gm)
-	{
+	public GameBlockListener(Game gm) {
 		super(gm);
 	}
-	//On a block break
-	@EventHandler(priority=EventPriority.NORMAL)
+	
+	@EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
 	public void blockBreak(BlockBreakEvent broken)
 	{
 		if(getGame().isTribute(broken.getPlayer()))
@@ -39,8 +33,8 @@ public class BlockEditListener extends GameListener{
 			}
 		}
 	}
-	//On a block place
-	@EventHandler(priority=EventPriority.NORMAL)
+	
+	@EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
 	public void blockPlace(BlockPlaceEvent placed)
 	{
 		if(getGame().isTribute(placed.getPlayer()))
@@ -58,4 +52,5 @@ public class BlockEditListener extends GameListener{
 			}
 		}
 	}
+	
 }

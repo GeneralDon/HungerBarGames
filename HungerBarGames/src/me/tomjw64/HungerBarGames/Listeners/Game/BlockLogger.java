@@ -13,10 +13,10 @@ import me.tomjw64.HungerBarGames.Listeners.GameListener;
 
 public class BlockLogger extends GameListener{
 
-	public BlockLogger(Game gm)
-	{
+	public BlockLogger(Game gm) {
 		super(gm);
 	}
+
 	@EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
 	public void blockBreak(BlockBreakEvent broken)
 	{
@@ -26,7 +26,7 @@ public class BlockLogger extends GameListener{
 			getGame().getArena().addRollback(b,new RollbackInfo(b.getTypeId(),b.getData()));
 		}
 	}
-	//On a block place
+
 	@EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
 	public void blockPlace(BlockPlaceEvent placed)
 	{

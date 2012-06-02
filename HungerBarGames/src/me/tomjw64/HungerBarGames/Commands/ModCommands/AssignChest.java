@@ -44,6 +44,10 @@ public class AssignChest extends ChatVariableHolder implements HBGCommand{
 									p.sendMessage(prefix+RED+"That chest is already assigned to that class for this arena!");
 								}
 							}
+							else
+							{
+								p.sendMessage(prefix+RED+"The block you are looking at is not a chest!");
+							}
 						}
 						else
 						{

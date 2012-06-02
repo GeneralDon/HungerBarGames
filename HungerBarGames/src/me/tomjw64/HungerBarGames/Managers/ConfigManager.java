@@ -36,7 +36,7 @@ public class ConfigManager {
 	//Countdown time for games
 	private static int countdown;
 	//Lobby delay between rounds
-	private static long delay;
+	private static int delay;
 	//Arena defaults
 	private static int defaultMax;
 	private static int defaultMin;
@@ -155,7 +155,7 @@ public class ConfigManager {
 		chatRadius=config.getInt("ChatRadius");
 		onPlayerMove=config.getBoolean("ExplodeOnPlayerMove");
 		countdown=config.getInt("Countdown");
-		delay=config.getLong("Delay");
+		delay=config.getInt("Delay");
 		defaultMax=config.getInt("DefaultMax");
 		defaultMin=config.getInt("DefaultMin");
 		pvp=config.getBoolean("HandlePvP");
@@ -247,7 +247,7 @@ public class ConfigManager {
 		return countdown;
 	}
 	//Gets the delay between rounds
-	public static long getDelay()
+	public static int getDelay()
 	{
 		return delay;
 	}

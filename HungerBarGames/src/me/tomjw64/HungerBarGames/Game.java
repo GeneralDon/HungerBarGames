@@ -4,8 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
-import me.tomjw64.HungerBarGames.General.GameStatus;
+import me.tomjw64.HungerBarGames.General.Status;
+import me.tomjw64.HungerBarGames.Listeners.GameListener;
+import me.tomjw64.HungerBarGames.Listeners.Lobby.*;
+import me.tomjw64.HungerBarGames.Listeners.Countdown.*;
+import me.tomjw64.HungerBarGames.Listeners.Game.*;
 import me.tomjw64.HungerBarGames.Managers.GamesManager;
+import me.tomjw64.HungerBarGames.Threads.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -14,17 +19,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Game extends ChatVariableHolder{
-	//Arena that the game is in
 	private Arena arena;
-	//Players in the game
 	private Set<Player> tributes=new HashSet<Player>();
-	//Deaths for the day
 	private Set<String> deaths=new HashSet<String>();
-	//Whether to repeat the game after it ends
+	private Set<GameListener> listeners=new HashSet<GameListener>();
 	private boolean repeat;
-	//Status of the game
-	private GameStatus status;
-	//If there are not enough players to start
+	private Status status;
 	private boolean notEnoughPlayers=false;
 		
 	public Game(Arena ar, boolean rpt)
@@ -32,17 +32,20 @@ public class Game extends ChatVariableHolder{
 		arena=ar;
 		repeat=rpt;
 		
-		startLobby();
-	}
-	public void startLobby()
-	{
 		Bukkit.getServer().broadcastMessage(prefix+YELLOW+"A lobby has been started for arena "+BLUE+arena.getName()+"!");
 		Bukkit.getServer().broadcastMessage(prefix+YELLOW+"Type "+BLUE+"/hbg join "+arena.getName()+YELLOW+" to join the game");
 		
-		//Start Lobby Timer
-		
-		//Register Lobby Listeners
+		new Lobby(this);
 	}
+	
+	public void startGame()
+	{
+		status=Status.IN_GAME;
+		updateListeners();
+		
+		new NightCheck(this);
+	}
+	
 	public void startCountdown()
 	{
 		int point=0;
@@ -51,29 +54,30 @@ public class Game extends ChatVariableHolder{
 		{
 			list+=p.getName()+", ";
 			p.teleport(arena.spawnAt(point));
-			point++;
 			p.setGameMode(GameMode.SURVIVAL);
 			clearInv(p);
 			fullHeal(p);
+			point++;
 		}
-		arena.fillChests();
 		list=list.substring(0,list.length()-2);
 		for(Player p:tributes)
 		{
-			p.sendMessage(list);
 			p.sendMessage(prefix+GREEN+"The countdown has begun!");
+			p.sendMessage(list);
 		}
 		
-		//Start Countdown
+		arena.fillChests();
+		new Countdown(this);
 		
-		//Register Countdown Listeners
 	}
+	
 	public void endGame()
 	{
-		//Unregister Listeners
-		
+		status=null;
+		clearListeners();
 		arena.endGame(repeat);
 	}
+	
 	public void declareWinner()
 	{
 		Player p=(Player)tributes.toArray()[0];
@@ -83,9 +87,10 @@ public class Game extends ChatVariableHolder{
 		//TODO: Give rewards
 		endGame();
 	}
+	
 	public void addTribute(Player p)
 	{
-		if(getNumTributes()<arena.getMaxPlayers()&&status==GameStatus.LOBBY&&getNumTributes()<arena.getNumSpawns())
+		if(getNumTributes()<arena.getMaxPlayers()&&status==Status.LOBBY&&getNumTributes()<arena.getNumSpawns())
 		{
 			p.sendMessage(prefix+YELLOW+"You have joined the game in arena "+BLUE+arena.getName()+"!");
 			p.sendMessage(prefix+YELLOW+"This game has "+BLUE+getNumTributes()+"/"+arena.getMaxPlayers()+YELLOW+" players!");
@@ -110,27 +115,65 @@ public class Game extends ChatVariableHolder{
 			p.sendMessage(prefix+RED+"The game has already been started!");
 		}
 	}
+	
+	public void eliminateTribute(Player p)
+	{
+		p.getWorld().strikeLightning(p.getLocation().add(0, 100, 0));
+		deaths.add(p.getName());
+		removeTribute(p);
+		if(getNumTributes()==1)
+		{
+			declareWinner();
+		}
+	}
+	
 	public void removeTribute(Player p)
 	{
 		tributes.remove(p);
 		GamesManager.setInGame(p,false);
 	}
+	
+	public Set<Player> getTributes()
+	{
+		return tributes;
+	}
+	
 	public boolean isTribute(Player p)
 	{
 		return tributes.contains(p);
 	}
+	
 	public int getNumTributes()
 	{
 		return tributes.size();
 	}
-	public void addDeath(String playerName)
+	
+	public Set<String> getDeaths()
 	{
-		deaths.add(playerName);
+		return deaths;
 	}
-	public GameStatus getStatus()
+	
+	public void clearDeaths()
+	{
+		deaths.clear();
+	}
+	
+	public void setStatus(Status stat)
+	{
+		status=stat;
+		clearListeners();
+	}
+	
+	public Status getStatus()
 	{
 		return status;
 	}
+	
+	public void setNotEnoughPlayers()
+	{
+		notEnoughPlayers=true;
+	}
+	
 	public void clearInv(Player p)
 	{
 		p.getInventory().clear();
@@ -139,14 +182,53 @@ public class Game extends ChatVariableHolder{
 		p.getInventory().setLeggings(new ItemStack(Material.AIR));
 		p.getInventory().setBoots(new ItemStack(Material.AIR));
 	}
+	
 	public void fullHeal(Player p)
 	{
 		p.setHealth(20);
 		p.setFoodLevel(20);
 		p.setFireTicks(0);
 	}
+	
+	public void addListener(GameListener gl)
+	{
+		listeners.add(gl);
+	}
+	
+	public void updateListeners()
+	{
+		listeners.clear();
+		switch(status)
+		{
+		case LOBBY:
+			new LobbyLevelListener(this);
+			new LobbyBlockListener(this);
+			break;
+		case COUNTDOWN:
+			new CountdownMotionListener(this);
+			new CountdownInteractListener(this);
+			break;
+		case IN_GAME:
+			new EliminationListener(this);
+			new GameDamageListener(this);
+			new GameBlockListener(this);
+			new BlockLogger(this);
+			break;
+		}
+	}
+	
+	public void clearListeners()
+	{
+		for(GameListener gl:listeners)
+		{
+			gl.unregister();
+			gl=null;
+		}
+	}
+	
 	public Arena getArena()
 	{
 		return arena;
 	}
+	
 }

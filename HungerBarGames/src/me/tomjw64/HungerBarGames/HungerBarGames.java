@@ -20,6 +20,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class HungerBarGames extends JavaPlugin{
+	public static HungerBarGames plugin;
 	public static final Logger logger=Logger.getLogger("Minecraft");
 	
 	@Override
@@ -31,9 +32,9 @@ public class HungerBarGames extends JavaPlugin{
 	}
 	@Override
 	public void onEnable()
-	{	
-		PluginDescriptionFile pdf = getDescription();
-		
+	{
+		plugin=this;
+				
 		//Load all YML files
 		ConfigManager.loadConfig(this);
 		DataManager.loadDatabase(this);
@@ -48,6 +49,7 @@ public class HungerBarGames extends JavaPlugin{
 		//Load commands
 		CommandHandler.loadCommands(this);
 		
+		PluginDescriptionFile pdf = getDescription();
 		logger.info("["+pdf.getName()+"] version "+pdf.getVersion()+" is enabled!");
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
