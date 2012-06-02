@@ -5,7 +5,6 @@ import java.util.Set;
 
 import me.tomjw64.HungerBarGames.General.ChatVariableHolder;
 import me.tomjw64.HungerBarGames.General.Status;
-import me.tomjw64.HungerBarGames.Listeners.GameListener;
 import me.tomjw64.HungerBarGames.Listeners.Lobby.*;
 import me.tomjw64.HungerBarGames.Listeners.Countdown.*;
 import me.tomjw64.HungerBarGames.Listeners.Game.*;
@@ -16,13 +15,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
 public class Game extends ChatVariableHolder{
 	private Arena arena;
 	private Set<Player> tributes=new HashSet<Player>();
 	private Set<String> deaths=new HashSet<String>();
-	private Set<GameListener> listeners=new HashSet<GameListener>();
 	private boolean repeat;
 	private Status status;
 	private boolean notEnoughPlayers=false;
@@ -74,7 +73,7 @@ public class Game extends ChatVariableHolder{
 	public void endGame()
 	{
 		status=null;
-		clearListeners();
+		HandlerList.unregisterAll(HungerBarGames.plugin);
 		arena.endGame(repeat);
 	}
 	
@@ -92,10 +91,10 @@ public class Game extends ChatVariableHolder{
 	{
 		if(getNumTributes()<arena.getMaxPlayers()&&status==Status.LOBBY&&getNumTributes()<arena.getNumSpawns())
 		{
-			p.sendMessage(prefix+YELLOW+"You have joined the game in arena "+BLUE+arena.getName()+"!");
-			p.sendMessage(prefix+YELLOW+"This game has "+BLUE+getNumTributes()+"/"+arena.getMaxPlayers()+YELLOW+" players!");
 			tributes.add(p);
 			GamesManager.setInGame(p,true);
+			p.sendMessage(prefix+YELLOW+"You have joined the game in arena "+BLUE+arena.getName()+"!");
+			p.sendMessage(prefix+YELLOW+"This game has "+BLUE+getNumTributes()+"/"+arena.getMaxPlayers()+YELLOW+" players!");
 			p.setGameMode(GameMode.SURVIVAL);
 			clearInv(p);
 			fullHeal(p);
@@ -161,7 +160,6 @@ public class Game extends ChatVariableHolder{
 	public void setStatus(Status stat)
 	{
 		status=stat;
-		clearListeners();
 	}
 	
 	public Status getStatus()
@@ -190,14 +188,9 @@ public class Game extends ChatVariableHolder{
 		p.setFireTicks(0);
 	}
 	
-	public void addListener(GameListener gl)
-	{
-		listeners.add(gl);
-	}
-	
 	public void updateListeners()
 	{
-		listeners.clear();
+		HandlerList.unregisterAll(HungerBarGames.plugin);
 		switch(status)
 		{
 		case LOBBY:
@@ -214,15 +207,6 @@ public class Game extends ChatVariableHolder{
 			new GameBlockListener(this);
 			new BlockLogger(this);
 			break;
-		}
-	}
-	
-	public void clearListeners()
-	{
-		for(GameListener gl:listeners)
-		{
-			gl.unregister();
-			gl=null;
 		}
 	}
 	

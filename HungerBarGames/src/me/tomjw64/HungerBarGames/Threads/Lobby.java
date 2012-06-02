@@ -24,7 +24,7 @@ public class Lobby extends ChatVariableHolder implements Runnable{
 	{
 		while(time>0)
 		{
-			if(time<5||time%30==0)
+			if(time<6||time%30==0)
 			{
 				for(Player p:game.getTributes())
 				{

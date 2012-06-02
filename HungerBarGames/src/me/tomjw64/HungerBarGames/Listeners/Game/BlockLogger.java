@@ -7,7 +7,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import me.tomjw64.HungerBarGames.Game;
-import me.tomjw64.HungerBarGames.HungerBarGames;
 import me.tomjw64.HungerBarGames.General.RollbackInfo;
 import me.tomjw64.HungerBarGames.Listeners.GameListener;
 
@@ -34,7 +33,6 @@ public class BlockLogger extends GameListener{
 		{
 			Block b=placed.getBlock();
 			getGame().getArena().addRollback(b,new RollbackInfo(0,(byte)0));
-			HungerBarGames.logger.info("Block Placed!");
 		}
 	}
 }

@@ -292,7 +292,6 @@ public class Arena {
 			Block b=entry.getKey();
 			b.setTypeId(entry.getValue().getID());
 			b.setData(entry.getValue().getData());
-			HungerBarGames.logger.info("Rolled back to a "+b.getTypeId());
 		}
 		HungerBarGames.logger.info("Arena "+name+" rolled back!");
 	}
